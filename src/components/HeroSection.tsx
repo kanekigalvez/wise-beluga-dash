@@ -4,9 +4,9 @@ import { Search } from "lucide-react";
 
 export const HeroSection = () => {
   return (
-    <section id="inicio" className="relative min-h-[700px] flex items-center overflow-hidden bg-black">
-      <div className="absolute inset-0 z-0 opacity-40" style={{ backgroundImage: `url(/hero-background.jpg)`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
-      <div className="absolute inset-0 z-0 bg-black/40"></div>
+    <section id="inicio" className="relative min-h-[700px] flex items-center overflow-hidden">
+      <div className="absolute inset-0 z-0" style={{ backgroundImage: `url(/hero-background.jpg)`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
+      <div className="absolute inset-0 z-0 bg-black/60"></div>
       <div className="container relative z-10 py-20">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-white">
