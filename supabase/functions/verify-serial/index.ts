@@ -11,7 +11,7 @@ function parseDiagzoneHtml(html: string, serialNumber: string): string {
     return `<p>El número de serie <strong>${serialNumber}</strong> no existe en la base de datos de DiagZone. Por favor, verifíquelo e intente de nuevo.</p>`;
   }
 
-  const tableMatch = html.match(/<table[^>]*>([\s\S]*?)<\/table>/i);
+  const tableMatch = html.match(/<table[^>]*>([\sS]*?)<\/table>/i);
   if (tableMatch && tableMatch[0]) {
     // Añadimos estilos básicos para mejorar la presentación de la tabla
     let styledTable = tableMatch[0].replace('<table', '<table style="width: 100%; border-collapse: collapse;"');
@@ -46,11 +46,10 @@ serve(async (req) => {
     }
 
     const targetUrl = "https://www.diagzone.com/en/search/";
-    const scrapingBeeUrl = `https://app.scrapingbee.com/api/v1/`;
+    const scrapingBeeUrl = `https://app.scrapingbee.com/api/v1/?api_key=${apiKey}`;
 
     // Estrategia directa: Simular el envío del formulario con una petición POST.
     const payload = {
-      api_key: apiKey,
       url: targetUrl,
       method: "POST",
       // Estos son los datos que el formulario envía. 'sn' es el nombre del campo de entrada.
