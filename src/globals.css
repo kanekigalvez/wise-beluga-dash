@@ -99,3 +99,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .bg-gradient-hero {
+    background-image: linear-gradient(to bottom right, hsl(var(--background)), hsl(var(--muted)));
+  }
+  .bg-gradient-primary {
+    background-image: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary) / 0.8));
+  }
+  .bg-gradient-secondary {
+     background-image: linear-gradient(to right, hsl(var(--secondary)), hsl(var(--secondary) / 0.8));
+  }
+}
