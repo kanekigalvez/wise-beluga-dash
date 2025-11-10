@@ -7,25 +7,21 @@ const corsHeaders = {
 };
 
 function parseDiagzoneHtml(html: string, serialNumber: string): string {
-  const searchResultsMatch = html.match(/<div class="search-results">([\s\S]*?)<\/div>/i);
-  
-  if (!searchResultsMatch || !searchResultsMatch[1]) {
-    console.error("DEBUG: No se encontró el div 'search-results'. HTML recibido (primeros 500 caracteres):", html.substring(0, 500));
-    return "No se pudo obtener una respuesta válida del servidor de DiagZone. Es posible que la página esté temporalmente inaccesible o haya bloqueado la solicitud. Por favor, intente de nuevo más tarde.";
-  }
-
-  const resultsHtml = searchResultsMatch[1];
-
-  const errorMatch = resultsHtml.match(/<p>([\s\S]*?)<\/p>/i);
+  // Búsqueda más flexible: primero buscamos mensajes de error conocidos
+  const errorMatch = html.match(/<p>([\s\S]*?)<\/p>/i);
   if (errorMatch && errorMatch[1]) {
     const errorMessage = errorMatch[1].trim();
     if (errorMessage.toLowerCase().includes("does not exist")) {
       return `El número de serie "${serialNumber}" no existe. Por favor, verifíquelo e intente de nuevo.`;
     }
-    return errorMessage;
+    // Si hay otro mensaje en un párrafo, podría ser un error relevante
+    if (errorMessage.length > 10) { // Evitar párrafos vacíos o cortos
+        return errorMessage;
+    }
   }
 
-  const tableMatch = resultsHtml.match(/<table[^>]*><tbody>([\s\S]*?)<\/tbody><\/table>/i);
+  // Si no hay errores, buscamos la tabla de resultados directamente
+  const tableMatch = html.match(/<table[^>]*><tbody>([\s\S]*?)<\/tbody><\/table>/i);
   if (tableMatch && tableMatch[1]) {
     const tableRowsHtml = tableMatch[1];
     const rows = tableRowsHtml.matchAll(/<tr>\s*<th>([\s\S]*?)<\/th>\s*<td>([\s\S]*?)<\/td>\s*<\/tr>/gi);
@@ -44,7 +40,9 @@ function parseDiagzoneHtml(html: string, serialNumber: string): string {
     }
   }
 
-  return "No se pudo extraer la información específica del servidor de DiagZone. La estructura de la página puede haber cambiado. Por favor, intente verificar directamente en el sitio de DiagZone o contacte a soporte.";
+  // Si no encontramos ni un error conocido ni una tabla de resultados, la estructura ha cambiado
+  console.error("DEBUG: No se encontró ni tabla de resultados ni error conocido. HTML recibido (primeros 500 caracteres):", html.substring(0, 500));
+  return "No se pudo extraer la información. Es muy probable que DiagZone haya actualizado la estructura de su sitio web. Por favor, contacte a soporte.";
 }
 
 serve(async (req) => {
@@ -109,7 +107,7 @@ serve(async (req) => {
     });
   } catch (error) {
     console.error("Error en la función verify-serial:", error);
-    const errorMessage = `Error interno en la función de verificación: ${error.message}. Esto puede ocurrir si el sitio de DiagZone ha cambiado o está bloqueando solicitudes.`;
+    const errorMessage = `Error interno en la función de verificación: ${error.message}.`;
     return new Response(JSON.stringify({ error: errorMessage }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 500,
