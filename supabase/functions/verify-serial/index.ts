@@ -1,4 +1,4 @@
-/// <reference types="https://deno.land/x/deno/cli/types/deno.d.ts" />
+/// <reference lib="deno.ns" />
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -67,12 +67,18 @@ Deno.serve(async (req) => {
       });
     }
 
-    const targetUrl = `https://www.diagzone.com/en/search/${serialNumber}`;
+    const targetUrl = `https://www.diagzone.com/en/search/`;
+    const formData = new URLSearchParams();
+    formData.append('sn', serialNumber); // Usamos 'sn' como el nombre del campo del formulario
 
     const response = await fetch(targetUrl, {
+      method: "POST",
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Referer": "https://www.diagzone.com/en/search/",
       },
+      body: formData.toString(),
     });
 
     if (!response.ok) {
