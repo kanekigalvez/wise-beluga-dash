@@ -26,7 +26,7 @@ export const HeroSection = () => {
   };
 
   const handleRedirect = () => {
-    window.open('https://www.diagzone.com/', '_blank', 'noopener,noreferrer');
+    window.open('https://diagzone.com/', '_blank', 'noopener,noreferrer');
   };
 
   return (
