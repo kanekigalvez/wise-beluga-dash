@@ -1,9 +1,44 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Search, Loader2 } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { supabase } from "@/integrations/supabase/client";
+import { showError } from "@/utils/toast";
 
 export const HeroSection = () => {
+  const [serialNumber, setSerialNumber] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [result, setResult] = useState<string | null>(null);
+
+  const handleVerification = async () => {
+    if (serialNumber.length !== 12) {
+      showError("Por favor, ingrese un número de serie válido de 12 dígitos.");
+      return;
+    }
+
+    setIsLoading(true);
+    setResult(null);
+
+    try {
+      const { data, error } = await supabase.functions.invoke("verify-serial", {
+        body: { serialNumber },
+      });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      setResult(data.result);
+    } catch (error) {
+      console.error(error);
+      showError("Ocurrió un error al verificar el número de serie.");
+      setResult("No se pudo completar la verificación en este momento.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <section
       id="inicio"
@@ -26,14 +61,36 @@ export const HeroSection = () => {
                   className="flex-1 h-12 text-lg bg-white"
                   placeholder="Ingrese el número de serie (12 dígitos)"
                   maxLength={12}
+                  value={serialNumber}
+                  onChange={(e) => setSerialNumber(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleVerification()}
                 />
-                <Button className="h-12 px-8 shadow-soft hover:shadow-hover transition-shadow rounded-md">
-                  <Search className="mr-2 h-5 w-5" />
+                <Button 
+                  className="h-12 px-8 shadow-soft hover:shadow-hover transition-shadow rounded-md"
+                  onClick={handleVerification}
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  ) : (
+                    <Search className="mr-2 h-5 w-5" />
+                  )}
                   VERIFICAR
                 </Button>
               </div>
             </CardContent>
           </Card>
+
+          {result && (
+            <Card className="mt-8 text-left shadow-soft bg-background/95">
+              <CardHeader>
+                <CardTitle>Resultado de la Verificación</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">{result}</p>
+              </CardContent>
+            </Card>
+          )}
         </div>
       </div>
     </section>
