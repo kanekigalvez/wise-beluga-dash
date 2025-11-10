@@ -1,7 +1,7 @@
 export const VideoHeader = () => {
   return (
     <section className="w-full">
-      <div style={{ padding: '45% 0 0 0', position: 'relative' }}>
+      <div style={{ padding: '30% 0 0 0', position: 'relative' }}>
         <iframe
           src="https://player.vimeo.com/video/1135508272?background=1&autoplay=1&loop=1&muted=1"
           frameBorder="0"
