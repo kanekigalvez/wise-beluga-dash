@@ -8,7 +8,7 @@ export const HeroSection = () => {
     <section
       id="inicio"
       className="relative overflow-hidden bg-cover bg-center"
-      style={{ backgroundImage: "url('/hero-background.jpg')" }}
+      style={{ backgroundImage: "url('https://i.ibb.co/DPXHHFmK/descarga.jpg')" }}
     >
       <div className="absolute inset-0 bg-black/60"></div>
       <div className="container relative z-10 py-20 md:py-32">
