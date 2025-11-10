@@ -21,7 +21,6 @@ function parseDiagzoneHtml(html: string, serialNumber: string): string {
   return "No se pudo obtener una respuesta válida del servidor de DiagZone. Es posible que la página esté temporalmente inaccesible o haya bloqueado la solicitud. Por favor, intente de nuevo más tarde.";
 }
 
-// Forzar redespliegue para cargar secretos actualizados.
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -44,21 +43,17 @@ serve(async (req) => {
       throw new Error("La API Key de ScrapingBee no está configurada en los secretos de Supabase.");
     }
 
-    // Paso 2: Configurar la petición a ScrapingBee para que actúe como un usuario.
-    const scrapingBeeUrl = "https://app.scrapingbee.com/api/v1/";
+    // Paso 2: Configurar la petición a ScrapingBee.
+    // La API key se envía como un parámetro en la URL, como lo requiere ScrapingBee.
+    const scrapingBeeUrl = `https://app.scrapingbee.com/api/v1/?api_key=${apiKey}`;
     const payload = {
-      api_key: apiKey,
       url: "https://www.diagzone.com/en/search/",
       block_resources: false,
       js_scenario: {
         instructions: [
-          // Espera a que el campo de texto esté listo
           { wait_for: "input[name=sn]" },
-          // Escribe el número de serie en el campo
           { type: ["input[name=sn]", serialNumber] },
-          // Haz clic en el botón de enviar del formulario
           { click: "form button[type=submit]" },
-          // Espera a que la página de resultados cargue
           { wait_for_navigation: true },
         ],
       },
@@ -76,10 +71,10 @@ serve(async (req) => {
       throw new Error(`Error de ScrapingBee: ${beeResponse.statusText} - ${errorBody}`);
     }
 
-    // Paso 4: ScrapingBee nos devuelve el HTML de la página de resultados.
+    // Paso 4: ScrapingBee devuelve el HTML de la página de resultados.
     const htmlResult = await beeResponse.text();
     
-    // Paso 5: Usamos nuestra función de siempre para extraer la información útil.
+    // Paso 5: Extraer la información útil del HTML.
     const result = parseDiagzoneHtml(htmlResult, serialNumber);
 
     return new Response(JSON.stringify({ result }), {
