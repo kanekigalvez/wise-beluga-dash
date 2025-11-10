@@ -64,36 +64,35 @@ serve(async (req) => {
 
     const targetUrl = `https://www.diagzone.com/en/search/`;
     
-    // Paso 1: Hacer una solicitud GET para obtener las cookies de sesión
     const initialResponse = await fetch(targetUrl, {
       headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
         "Accept-Language": "en-US,en;q=0.9",
       }
     });
 
-    // Paso 2: Extraer las cookies
     const cookies = initialResponse.headers.get("set-cookie");
-    if (!cookies) {
-        throw new Error("No se pudieron obtener las cookies de sesión de DiagZone.");
-    }
     
-    // Paso 3: Hacer la solicitud POST con las cookies
     const formData = new URLSearchParams();
     formData.append('sn', serialNumber);
 
+    const postHeaders: HeadersInit = {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Referer": "https://www.diagzone.com/en/search/",
+      "Origin": "https://www.diagzone.com",
+      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+      "Accept-Language": "en-US,en;q=0.9",
+    };
+
+    if (cookies) {
+      postHeaders["Cookie"] = cookies;
+    }
+
     const searchResponse = await fetch(targetUrl, {
       method: "POST",
-      headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Referer": "https://www.diagzone.com/en/search/",
-        "Origin": "https://www.diagzone.com",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-        "Accept-Language": "en-US,en;q=0.9",
-        "Cookie": cookies,
-      },
+      headers: postHeaders,
       body: formData.toString(),
     });
 
@@ -110,7 +109,8 @@ serve(async (req) => {
     });
   } catch (error) {
     console.error("Error en la función verify-serial:", error);
-    return new Response(JSON.stringify({ error: error.message }), {
+    const errorMessage = `Error interno en la función de verificación: ${error.message}. Esto puede ocurrir si el sitio de DiagZone ha cambiado o está bloqueando solicitudes.`;
+    return new Response(JSON.stringify({ error: errorMessage }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 500,
     });

@@ -26,16 +26,25 @@ export const HeroSection = () => {
       });
 
       if (error) {
-        throw new Error(error.message);
+        let errorMessage = "Error al invocar la función del servidor.";
+        try {
+          const errorBody = await error.context.json();
+          if (errorBody.error) {
+            errorMessage = errorBody.error;
+          }
+        } catch (e) {
+          errorMessage = error.message;
+        }
+        throw new Error(errorMessage);
       }
 
       navigate("/verification-result", { 
         state: { result: data.result, serialNumber: serialNumber } 
       });
 
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      showError("Ocurrió un error al verificar el número de serie.");
+      showError(error.message || "Ocurrió un error al verificar el número de serie.");
     } finally {
       setIsLoading(false);
     }
