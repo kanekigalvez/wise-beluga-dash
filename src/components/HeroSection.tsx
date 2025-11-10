@@ -98,8 +98,8 @@ export const HeroSection = () => {
           </div>
           <DialogFooter>
             <Button asChild className="w-full">
-              <a href="https://www.diagzone.com/en/search/" target="_blank" rel="noopener noreferrer">
-                Ir a DiagZone.com
+              <a href="https://www.diagzone.com/" target="_blank" rel="noopener noreferrer">
+                Ir a diagzone.com
                 <ArrowRight className="ml-2 h-4 w-4" />
               </a>
             </Button>
