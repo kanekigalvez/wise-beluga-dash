@@ -6,9 +6,23 @@ export const HeroSection = () => {
   return (
     <section
       id="inicio"
-      className="relative min-h-[700px] flex items-center overflow-hidden bg-cover bg-center"
-      style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://i.ibb.co/DPXHHFmK/descarga.jpg)` }}
+      className="relative min-h-[700px] flex items-center overflow-hidden"
     >
+      {/* Video Background */}
+      <div className="absolute top-0 left-0 w-full h-full z-[-1] overflow-hidden">
+        <iframe
+          src="https://player.vimeo.com/video/1135502125?background=1&autoplay=1&loop=1&muted=1"
+          frameBorder="0"
+          allow="autoplay; fullscreen"
+          className="absolute top-1/2 left-1/2 w-auto min-w-full min-h-full max-w-none -translate-x-1/2 -translate-y-1/2"
+          title="Background Video"
+        ></iframe>
+      </div>
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/60"></div>
+
+      {/* Content */}
       <div className="container relative z-10 py-20">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-white">
