@@ -6,7 +6,7 @@ export const HeroSection = () => {
   return (
     <section
       id="inicio"
-      className="relative min-h-[700px] flex items-center overflow-hidden"
+      className="relative overflow-hidden"
     >
       {/* Video Background */}
       <div className="absolute top-0 left-0 w-full h-full z-[-1] overflow-hidden">
@@ -23,7 +23,7 @@ export const HeroSection = () => {
       <div className="absolute inset-0 bg-black/60"></div>
 
       {/* Content */}
-      <div className="container relative z-10 py-20">
+      <div className="container relative z-10 py-32">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-white">
             DIAGZONE PRO

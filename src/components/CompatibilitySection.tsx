@@ -15,7 +15,7 @@ const StatCard = ({ icon, value, label }: { icon: React.ReactNode, value: string
 
 export const CompatibilitySection = () => {
   return (
-    <section id="compatibilidad" className="py-20">
+    <section id="compatibilidad" className="pt-20 pb-20">
       <div className="container">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">ALTA COMPATIBILIDAD</h2>
