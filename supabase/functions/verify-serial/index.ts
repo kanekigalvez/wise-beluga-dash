@@ -6,18 +6,21 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-// La lógica para analizar el HTML de DiagZone sigue siendo la misma y es robusta.
 function parseDiagzoneHtml(html: string, serialNumber: string): string {
   if (html.toLowerCase().includes("does not exist")) {
-    return `El número de serie "${serialNumber}" no existe. Por favor, verifíquelo e intente de nuevo.`;
+    return `<p>El número de serie <strong>${serialNumber}</strong> no existe en la base de datos de DiagZone. Por favor, verifíquelo e intente de nuevo.</p>`;
   }
 
   const tableMatch = html.match(/<table[^>]*>([\s\S]*?)<\/table>/i);
   if (tableMatch && tableMatch[0]) {
-    return tableMatch[0];
+    // Añadimos estilos básicos para mejorar la presentación de la tabla
+    let styledTable = tableMatch[0].replace('<table', '<table style="width: 100%; border-collapse: collapse;"');
+    styledTable = styledTable.replace(/<th/g, '<th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;"');
+    styledTable = styledTable.replace(/<td/g, '<td style="border: 1px solid #ddd; padding: 8px;"');
+    return styledTable;
   }
 
-  console.error("DEBUG: No se encontró ni tabla de resultados ni el texto 'does not exist'.");
+  console.error("DEBUG: No se encontró tabla de resultados ni el texto 'does not exist'. HTML recibido:", html.substring(0, 500));
   return "No se pudo obtener una respuesta válida del servidor de DiagZone. Es posible que la página esté temporalmente inaccesible o haya bloqueado la solicitud. Por favor, intente de nuevo más tarde.";
 }
 
@@ -36,32 +39,30 @@ serve(async (req) => {
       });
     }
 
-    // Paso 1: Obtener la API Key de los secretos de Supabase.
     // @ts-ignore - Deno is available in the Supabase Edge Function environment
     const apiKey = Deno.env.get("SCRAPINGBEE_API_KEY");
     if (!apiKey) {
       throw new Error("La API Key de ScrapingBee no está configurada en los secretos de Supabase.");
     }
 
-    // Paso 2: Configurar la petición a ScrapingBee.
-    // La API key y la URL a visitar se envían como parámetros en la URL.
     const targetUrl = "https://www.diagzone.com/en/search/";
-    const scrapingBeeUrl = `https://app.scrapingbee.com/api/v1/?api_key=${apiKey}&url=${encodeURIComponent(targetUrl)}`;
-    
-    // El resto de las instrucciones se envían en el cuerpo de la petición.
+    const scrapingBeeUrl = `https://app.scrapingbee.com/api/v1/`;
+
+    // Estrategia directa: Simular el envío del formulario con una petición POST.
     const payload = {
-      block_resources: false,
-      js_scenario: {
-        instructions: [
-          { wait_for: "input[name=sn]" },
-          { type: ["input[name=sn]", serialNumber] },
-          { click: "form button[type=submit]" },
-          { wait_for_navigation: true },
-        ],
+      api_key: apiKey,
+      url: targetUrl,
+      method: "POST",
+      // Estos son los datos que el formulario envía. 'sn' es el nombre del campo de entrada.
+      data: `sn=${serialNumber}`, 
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Referer": "https://www.diagzone.com/en/search/", // Simular que venimos de la página de búsqueda
       },
+      // Mantenemos un renderizado de JS por si la página lo necesita para procesar el resultado
+      render_js: true, 
     };
 
-    // Paso 3: Enviar la tarea a ScrapingBee.
     const beeResponse = await fetch(scrapingBeeUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -73,10 +74,7 @@ serve(async (req) => {
       throw new Error(`Error de ScrapingBee: ${beeResponse.statusText} - ${errorBody}`);
     }
 
-    // Paso 4: ScrapingBee devuelve el HTML de la página de resultados.
     const htmlResult = await beeResponse.text();
-    
-    // Paso 5: Extraer la información útil del HTML.
     const result = parseDiagzoneHtml(htmlResult, serialNumber);
 
     return new Response(JSON.stringify({ result }), {
