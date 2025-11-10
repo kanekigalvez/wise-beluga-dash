@@ -7,26 +7,24 @@ const corsHeaders = {
 };
 
 function parseDiagzoneHtml(html: string, serialNumber: string): string {
-  // 1. Buscar el contenedor principal de resultados
   const searchResultsMatch = html.match(/<div class="search-results">([\s\S]*?)<\/div>/i);
   
   if (!searchResultsMatch || !searchResultsMatch[1]) {
-    return "No se pudo obtener una respuesta válida del servidor de DiagZone. Es posible que la página esté temporalmente inaccesible o haya bloqueado la solicitud.";
+    console.error("DEBUG: No se encontró el div 'search-results'. HTML recibido (primeros 500 caracteres):", html.substring(0, 500));
+    return "No se pudo obtener una respuesta válida del servidor de DiagZone. Es posible que la página esté temporalmente inaccesible o haya bloqueado la solicitud. Por favor, intente de nuevo más tarde.";
   }
 
   const resultsHtml = searchResultsMatch[1];
 
-  // 2. Buscar un mensaje de error explícito
   const errorMatch = resultsHtml.match(/<p>([\s\S]*?)<\/p>/i);
   if (errorMatch && errorMatch[1]) {
     const errorMessage = errorMatch[1].trim();
     if (errorMessage.toLowerCase().includes("does not exist")) {
       return `El número de serie "${serialNumber}" no existe. Por favor, verifíquelo e intente de nuevo.`;
     }
-    return errorMessage; // Devolver el mensaje de error del sitio
+    return errorMessage;
   }
 
-  // 3. Buscar y procesar la tabla de resultados
   const tableMatch = resultsHtml.match(/<table[^>]*><tbody>([\s\S]*?)<\/tbody><\/table>/i);
   if (tableMatch && tableMatch[1]) {
     const tableRowsHtml = tableMatch[1];
@@ -46,7 +44,6 @@ function parseDiagzoneHtml(html: string, serialNumber: string): string {
     }
   }
 
-  // 4. Fallback si la estructura es inesperada
   return "No se pudo extraer la información específica del servidor de DiagZone. La estructura de la página puede haber cambiado. Por favor, intente verificar directamente en el sitio de DiagZone o contacte a soporte.";
 }
 
@@ -66,24 +63,45 @@ serve(async (req) => {
     }
 
     const targetUrl = `https://www.diagzone.com/en/search/`;
+    
+    // Paso 1: Hacer una solicitud GET para obtener las cookies de sesión
+    const initialResponse = await fetch(targetUrl, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "Accept-Language": "en-US,en;q=0.9",
+      }
+    });
+
+    // Paso 2: Extraer las cookies
+    const cookies = initialResponse.headers.get("set-cookie");
+    if (!cookies) {
+        throw new Error("No se pudieron obtener las cookies de sesión de DiagZone.");
+    }
+    
+    // Paso 3: Hacer la solicitud POST con las cookies
     const formData = new URLSearchParams();
     formData.append('sn', serialNumber);
 
-    const response = await fetch(targetUrl, {
+    const searchResponse = await fetch(targetUrl, {
       method: "POST",
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
         "Content-Type": "application/x-www-form-urlencoded",
         "Referer": "https://www.diagzone.com/en/search/",
+        "Origin": "https://www.diagzone.com",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Cookie": cookies,
       },
       body: formData.toString(),
     });
 
-    if (!response.ok) {
-      throw new Error(`Error al contactar DiagZone: ${response.statusText}`);
+    if (!searchResponse.ok) {
+      throw new Error(`Error al contactar DiagZone: ${searchResponse.statusText}`);
     }
 
-    const html = await response.text();
+    const html = await searchResponse.text();
     const result = parseDiagzoneHtml(html, serialNumber);
 
     return new Response(JSON.stringify({ result }), {
@@ -91,6 +109,7 @@ serve(async (req) => {
       status: 200,
     });
   } catch (error) {
+    console.error("Error en la función verify-serial:", error);
     return new Response(JSON.stringify({ error: error.message }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 500,
