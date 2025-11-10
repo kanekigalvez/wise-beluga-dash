@@ -7,7 +7,7 @@ export const HeroSection = () => {
     <section
       id="inicio"
       className="relative min-h-[700px] flex items-center overflow-hidden bg-cover bg-center"
-      style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/hero-background.jpg)` }}
+      style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://i.ibb.co/DPXHHFmK/descarga.jpg)` }}
     >
       <div className="container relative z-10 py-20">
         <div className="max-w-3xl mx-auto text-center">
