@@ -44,10 +44,12 @@ serve(async (req) => {
     }
 
     // Paso 2: Configurar la petición a ScrapingBee.
-    // La API key se envía como un parámetro en la URL, como lo requiere ScrapingBee.
-    const scrapingBeeUrl = `https://app.scrapingbee.com/api/v1/?api_key=${apiKey}`;
+    // La API key y la URL a visitar se envían como parámetros en la URL.
+    const targetUrl = "https://www.diagzone.com/en/search/";
+    const scrapingBeeUrl = `https://app.scrapingbee.com/api/v1/?api_key=${apiKey}&url=${encodeURIComponent(targetUrl)}`;
+    
+    // El resto de las instrucciones se envían en el cuerpo de la petición.
     const payload = {
-      url: "https://www.diagzone.com/en/search/",
       block_resources: false,
       js_scenario: {
         instructions: [
