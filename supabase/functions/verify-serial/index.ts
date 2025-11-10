@@ -7,41 +7,25 @@ const corsHeaders = {
 };
 
 function parseDiagzoneHtml(html: string, serialNumber: string): string {
-  // Búsqueda más flexible: primero buscamos mensajes de error conocidos
-  const errorMatch = html.match(/<p>([\s\S]*?)<\/p>/i);
-  if (errorMatch && errorMatch[1]) {
-    const errorMessage = errorMatch[1].trim();
-    if (errorMessage.toLowerCase().includes("does not exist")) {
+  // Intenta encontrar el contenedor principal de los resultados de búsqueda.
+  const searchResultsMatch = html.match(/<div class="search-results">([\s\S]*?)<\/div>/i);
+  
+  if (searchResultsMatch && searchResultsMatch[1]) {
+    const resultsHtml = searchResultsMatch[1];
+
+    // Dentro de los resultados, busca un mensaje de error específico.
+    const errorMatch = resultsHtml.match(/<p>([\s\S]*?)<\/p>/i);
+    if (errorMatch && errorMatch[1] && errorMatch[1].toLowerCase().includes("does not exist")) {
       return `El número de serie "${serialNumber}" no existe. Por favor, verifíquelo e intente de nuevo.`;
     }
-    // Si hay otro mensaje en un párrafo, podría ser un error relevante
-    if (errorMessage.length > 10) { // Evitar párrafos vacíos o cortos
-        return errorMessage;
-    }
+
+    // Si no hay un error conocido, devuelve todo el contenido del contenedor de resultados.
+    // Esto es más robusto que buscar una tabla específica.
+    return resultsHtml.trim();
   }
 
-  // Si no hay errores, buscamos la tabla de resultados directamente
-  const tableMatch = html.match(/<table[^>]*><tbody>([\s\S]*?)<\/tbody><\/table>/i);
-  if (tableMatch && tableMatch[1]) {
-    const tableRowsHtml = tableMatch[1];
-    const rows = tableRowsHtml.matchAll(/<tr>\s*<th>([\s\S]*?)<\/th>\s*<td>([\s\S]*?)<\/td>\s*<\/tr>/gi);
-    
-    const details = [];
-    for (const row of rows) {
-      const key = row[1].trim().replace(':', '');
-      const value = row[2].trim();
-      if (key && value) {
-        details.push(`<strong>${key}:</strong> ${value}`);
-      }
-    }
-
-    if (details.length > 0) {
-      return `Información del dispositivo encontrada: <br/><br/> ${details.join('<br/>')}`;
-    }
-  }
-
-  // Si no encontramos ni un error conocido ni una tabla de resultados, la estructura ha cambiado
-  console.error("DEBUG: No se encontró ni tabla de resultados ni error conocido. HTML recibido (primeros 500 caracteres):", html.substring(0, 500));
+  // Si no se encuentra el contenedor 'search-results', es probable que la estructura haya cambiado.
+  console.error("DEBUG: No se encontró el div 'search-results'. HTML recibido (primeros 500 caracteres):", html.substring(0, 500));
   return "No se pudo extraer la información. Es muy probable que DiagZone haya actualizado la estructura de su sitio web. Por favor, contacte a soporte.";
 }
 
