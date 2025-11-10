@@ -25,9 +25,10 @@ const VerificationResultPage = () => {
             </CardHeader>
             <CardContent>
               {result ? (
-                <div className="prose max-w-none text-muted-foreground">
-                  <p>{result}</p>
-                </div>
+                <div 
+                  className="prose max-w-none text-muted-foreground"
+                  dangerouslySetInnerHTML={{ __html: result }}
+                />
               ) : (
                 <p className="text-muted-foreground">
                   No se encontraron resultados. Por favor, regrese e intente con otro número de serie.
