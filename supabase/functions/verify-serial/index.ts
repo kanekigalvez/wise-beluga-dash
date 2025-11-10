@@ -1,36 +1,58 @@
-import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+/// <reference types="https://deno.land/x/deno/cli/types/deno.d.ts" />
 
-// Headers CORS para permitir que tu web se comunique con esta función
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-// Función para extraer la información relevante del HTML de la página de DiagZone
-function parseDiagzoneHtml(html: string): string {
-  // Esta es una función de ejemplo. La lógica real para extraer los datos
-  // dependerá de la estructura HTML de la página de resultados de diagzone.com.
-  // Por ahora, buscaremos un patrón simple.
-  // Esto necesitará ser ajustado una vez que veamos un resultado real.
-  
-  // Intenta encontrar un div de resultados. Esto es una suposición.
-  const resultMatch = html.match(/<div class="search-result-info">([\s\S]*?)<\/div>/);
-  if (resultMatch && resultMatch[1]) {
-    // Limpia el HTML para devolver solo el texto
-    return resultMatch[1].replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+function parseDiagzoneHtml(html: string, serialNumber: string): string {
+  // Se intentan varios patrones para encontrar los datos del resultado,
+  // ya que la estructura de la web de DiagZone puede variar.
+
+  // Patrón 1: Buscar contenedores de resultados comunes
+  const resultPatterns = [
+    /<div class="result-info">([\s\S]*?)<\/div>/i,
+    /<div class="device-details">([\s\S]*?)<\/div>/i,
+    /<div class="search-results">([\s\S]*?)<\/div>/i,
+    /<div class="product-data">([\s\S]*?)<\/div>/i,
+  ];
+
+  for (const pattern of resultPatterns) {
+    const match = html.match(pattern);
+    if (match && match[1]) {
+      const cleanedResult = match[1].replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+      if (cleanedResult.length > 10) { // Comprobación básica de que hay contenido
+        return cleanedResult;
+      }
+    }
   }
 
-  // Si no encuentra un resultado específico, busca un mensaje de "no encontrado"
-  const notFoundMatch = html.match(/(serial number not found|no results)/i);
-  if (notFoundMatch) {
-    return "El número de serie no fue encontrado o no es válido.";
+  // Patrón 2: Buscar una tabla que contenga el número de serie
+  const tableMatch = html.match(/<table[^>]*>([\s\S]*?)<\/table>/i);
+  if (tableMatch && tableMatch[1] && tableMatch[1].includes(serialNumber)) {
+    const cleanedResult = tableMatch[1].replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    return `Información encontrada: ${cleanedResult}`;
   }
 
-  return "No se pudo obtener una respuesta clara del servidor de DiagZone. Inténtelo de nuevo más tarde.";
+  // Patrón 3: Buscar mensajes de error conocidos
+  const errorPatterns = [
+    /serial number not found/i,
+    /no results/i,
+    /invalid serial/i,
+    /not valid/i,
+  ];
+
+  for (const pattern of errorPatterns) {
+    if (html.match(pattern)) {
+      return `El número de serie "${serialNumber}" no fue encontrado o no es válido.`;
+    }
+  }
+
+  // Fallback: Si nada de lo anterior funciona
+  return "No se pudo extraer la información específica del servidor de DiagZone. La estructura de la página puede haber cambiado. Por favor, intente verificar directamente en el sitio de DiagZone o contacte a soporte.";
 }
 
-serve(async (req) => {
-  // Manejo de la solicitud pre-vuelo CORS
+Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
@@ -45,12 +67,10 @@ serve(async (req) => {
       });
     }
 
-    // URL de búsqueda de DiagZone (esto es una suposición y puede necesitar ajuste)
     const targetUrl = `https://www.diagzone.com/en/search/${serialNumber}`;
 
     const response = await fetch(targetUrl, {
       headers: {
-        // Simula una solicitud de navegador para evitar bloqueos
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
       },
     });
@@ -60,7 +80,7 @@ serve(async (req) => {
     }
 
     const html = await response.text();
-    const result = parseDiagzoneHtml(html);
+    const result = parseDiagzoneHtml(html, serialNumber);
 
     return new Response(JSON.stringify({ result }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
