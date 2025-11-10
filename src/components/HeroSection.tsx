@@ -11,7 +11,7 @@ export const HeroSection = () => {
       {/* Video Background */}
       <div className="absolute top-0 left-0 w-full h-full z-[-1] overflow-hidden">
         <iframe
-          src="https://player.vimeo.com/video/1135502125?background=1&autoplay=1&loop=1&muted=1"
+          src="https://player.vimeo.com/video/1135508272?background=1&autoplay=1&loop=1&muted=1"
           frameBorder="0"
           allow="autoplay; fullscreen"
           className="absolute top-1/2 left-1/2 w-auto min-w-full min-h-full max-w-none -translate-x-1/2 -translate-y-1/2"
