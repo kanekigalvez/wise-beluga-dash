@@ -1,15 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Loader2 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { showError } from "@/utils/toast";
 
 export const HeroSection = () => {
   const [serialNumber, setSerialNumber] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [result, setResult] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleVerification = async () => {
     if (serialNumber.length !== 12) {
@@ -18,7 +19,6 @@ export const HeroSection = () => {
     }
 
     setIsLoading(true);
-    setResult(null);
 
     try {
       const { data, error } = await supabase.functions.invoke("verify-serial", {
@@ -29,11 +29,13 @@ export const HeroSection = () => {
         throw new Error(error.message);
       }
 
-      setResult(data.result);
+      navigate("/verification-result", { 
+        state: { result: data.result, serialNumber: serialNumber } 
+      });
+
     } catch (error) {
       console.error(error);
       showError("Ocurrió un error al verificar el número de serie.");
-      setResult("No se pudo completar la verificación en este momento.");
     } finally {
       setIsLoading(false);
     }
@@ -48,11 +50,14 @@ export const HeroSection = () => {
       <div className="absolute inset-0 bg-black/60"></div>
       <div className="container relative z-10 py-20 md:py-32">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-white">
-            DIAGZONE PRO
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-4 text-white">
+            Diagzone - Tienda Online
           </h1>
-          <p className="text-xl text-white/80 mb-8">
-            Verifique el modelo y versión, ingrese el número de serie (SN) de 12 dígitos impreso en la toma OBD2 de su conector o escáner.
+          <p className="text-lg text-white/80 mb-2">
+            Vendemos software para equipos de diagnóstico.
+          </p>
+          <p className="text-lg text-white/80 mb-8">
+            Para verificar la compatibilidad, ingrese el número de serie de 12 dígitos del dispositivo a continuación.
           </p>
           <Card className="shadow-soft bg-background/90 backdrop-blur-sm border-white/20">
             <CardContent className="p-6 sm:p-8">
@@ -80,17 +85,6 @@ export const HeroSection = () => {
               </div>
             </CardContent>
           </Card>
-
-          {result && (
-            <Card className="mt-8 text-left shadow-soft bg-background/95">
-              <CardHeader>
-                <CardTitle>Resultado de la Verificación</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">{result}</p>
-              </CardContent>
-            </Card>
-          )}
         </div>
       </div>
     </section>
