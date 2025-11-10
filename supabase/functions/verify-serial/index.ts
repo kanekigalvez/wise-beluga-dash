@@ -13,7 +13,6 @@ function parseDiagzoneHtml(html: string, serialNumber: string): string {
 
   const tableMatch = html.match(/<table[^>]*>([\s\S]*?)<\/table>/i);
   if (tableMatch && tableMatch[0]) {
-    // Añadimos estilos básicos para mejorar la presentación de la tabla
     let styledTable = tableMatch[0].replace('<table', '<table style="width: 100%; border-collapse: collapse;"');
     styledTable = styledTable.replace(/<th/g, '<th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;"');
     styledTable = styledTable.replace(/<td/g, '<td style="border: 1px solid #ddd; padding: 8px;"');
@@ -46,20 +45,16 @@ serve(async (req) => {
     }
 
     const targetUrl = "https://www.diagzone.com/en/search/";
-    const scrapingBeeUrl = `https://app.scrapingbee.com/api/v1/`;
+    const scrapingBeeUrl = `https://app.scrapingbee.com/api/v1/?api_key=${apiKey}`;
 
-    // Estrategia directa: Simular el envío del formulario con una petición POST.
     const payload = {
-      api_key: apiKey,
       url: targetUrl,
       method: "POST",
-      // Estos son los datos que el formulario envía. 'sn' es el nombre del campo de entrada.
       data: `sn=${serialNumber}`, 
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        "Referer": "https://www.diagzone.com/en/search/", // Simular que venimos de la página de búsqueda
+        "Referer": "https://www.diagzone.com/en/search/",
       },
-      // Mantenemos un renderizado de JS por si la página lo necesita para procesar el resultado
       render_js: true, 
     };
 
@@ -71,6 +66,7 @@ serve(async (req) => {
 
     if (!beeResponse.ok) {
       const errorBody = await beeResponse.text();
+      console.error("ScrapingBee API error response:", errorBody);
       throw new Error(`Error de ScrapingBee: ${beeResponse.statusText} - ${errorBody}`);
     }
 
