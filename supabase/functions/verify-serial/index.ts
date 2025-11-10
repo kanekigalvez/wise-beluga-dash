@@ -7,26 +7,22 @@ const corsHeaders = {
 };
 
 function parseDiagzoneHtml(html: string, serialNumber: string): string {
-  // Intenta encontrar el contenedor principal de los resultados de búsqueda.
-  const searchResultsMatch = html.match(/<div class="search-results">([\s\S]*?)<\/div>/i);
-  
-  if (searchResultsMatch && searchResultsMatch[1]) {
-    const resultsHtml = searchResultsMatch[1];
-
-    // Dentro de los resultados, busca un mensaje de error específico.
-    const errorMatch = resultsHtml.match(/<p>([\s\S]*?)<\/p>/i);
-    if (errorMatch && errorMatch[1] && errorMatch[1].toLowerCase().includes("does not exist")) {
-      return `El número de serie "${serialNumber}" no existe. Por favor, verifíquelo e intente de nuevo.`;
-    }
-
-    // Si no hay un error conocido, devuelve todo el contenido del contenedor de resultados.
-    // Esto es más robusto que buscar una tabla específica.
-    return resultsHtml.trim();
+  // Prioridad 1: Buscar la tabla de resultados directamente. Es el objetivo principal.
+  const tableMatch = html.match(/<table[^>]*>([\s\S]*?)<\/table>/i);
+  if (tableMatch && tableMatch[0] && tableMatch[0].includes(serialNumber)) {
+    // Devolvemos la tabla completa. El frontend la mostrará tal cual.
+    return tableMatch[0];
   }
 
-  // Si no se encuentra el contenedor 'search-results', es probable que la estructura haya cambiado.
-  console.error("DEBUG: No se encontró el div 'search-results'. HTML recibido (primeros 500 caracteres):", html.substring(0, 500));
-  return "No se pudo extraer la información. Es muy probable que DiagZone haya actualizado la estructura de su sitio web. Por favor, contacte a soporte.";
+  // Prioridad 2: Si no hay tabla, buscar el mensaje de error específico de "no existe".
+  const errorMatch = html.match(/<p>([\s\S]*?does not exist[\s\S]*?)<\/p>/i);
+  if (errorMatch && errorMatch[1]) {
+    return `El número de serie "${serialNumber}" no existe. Por favor, verifíquelo e intente de nuevo.`;
+  }
+
+  // Fallback: Si no encontramos ni tabla ni error conocido, la estructura ha cambiado.
+  console.error("DEBUG: No se encontró ni tabla de resultados ni error conocido. HTML recibido (primeros 500 caracteres):", html.substring(0, 500));
+  return "No se pudo extraer la información. La estructura de la página de DiagZone ha cambiado y no se pudo encontrar la tabla de resultados. Por favor, contacte a soporte.";
 }
 
 serve(async (req) => {
