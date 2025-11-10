@@ -7,18 +7,10 @@ export const HeroSection = () => {
   return (
     <section
       id="inicio"
-      className="relative overflow-hidden"
+      className="relative overflow-hidden bg-cover bg-center"
+      style={{ backgroundImage: "url('/hero-background.jpg')" }}
     >
-      <div className="absolute top-0 left-0 w-full h-full z-[-1]">
-        <iframe
-          src="https://player.vimeo.com/video/1135513085?background=1&autoplay=1&loop=1&muted=1"
-          frameBorder="0"
-          allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
-          style={{ position: 'absolute', top: '50%', left: '50%', width: '100vw', height: '56.25vw', minHeight: '100%', minWidth: '177.77vh', transform: 'translate(-50%, -50%)' }}
-          title="Background Video"
-        ></iframe>
-      </div>
-      <div className="absolute top-0 left-0 w-full h-full bg-black/50"></div>
+      <div className="absolute inset-0 bg-black/60"></div>
       <div className="container relative z-10 py-20 md:py-32">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-white">
