@@ -21,6 +21,7 @@ function parseDiagzoneHtml(html: string, serialNumber: string): string {
   return "No se pudo obtener una respuesta válida del servidor de DiagZone. Es posible que la página esté temporalmente inaccesible o haya bloqueado la solicitud. Por favor, intente de nuevo más tarde.";
 }
 
+// Forzar redespliegue para cargar secretos actualizados.
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
