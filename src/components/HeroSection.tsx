@@ -25,6 +25,10 @@ export const HeroSection = () => {
     setIsModalOpen(true);
   };
 
+  const handleRedirect = () => {
+    window.open('https://www.diagzone.com/', '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <>
       <section
@@ -97,11 +101,9 @@ export const HeroSection = () => {
             </p>
           </div>
           <DialogFooter>
-            <Button asChild className="w-full">
-              <a href="https://www.diagzone.com/" target="_blank" rel="noopener noreferrer">
-                Ir a diagzone.com
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </a>
+            <Button className="w-full" onClick={handleRedirect}>
+              Ir a diagzone.com
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </DialogFooter>
         </DialogContent>
