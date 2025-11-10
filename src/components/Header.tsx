@@ -18,7 +18,6 @@ export const Header = () => {
             <a href="/#inicio" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors">Inicio</a>
             <a href="/#productos" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors">Conectores</a>
             <a href="/#buscar" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors">Buscar DTC</a>
-            <Link to="/iframe-search" className="text-sm font-medium text-primary hover:text-primary/80 transition-colors">Búsqueda Directa</Link>
             <a href="/#compatibilidad" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors">Compatibilidad</a>
           </nav>
         </div>

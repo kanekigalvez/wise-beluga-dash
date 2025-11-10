@@ -7,7 +7,6 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ConnectorsPage from "./pages/Connectors";
 import VerificationResultPage from "./pages/VerificationResult";
-import IframeSearchPage from "./pages/IframeSearch";
 
 const queryClient = new QueryClient();
 
@@ -21,7 +20,6 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/connectors" element={<ConnectorsPage />} />
           <Route path="/verification-result" element={<VerificationResultPage />} />
-          <Route path="/iframe-search" element={<IframeSearchPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
