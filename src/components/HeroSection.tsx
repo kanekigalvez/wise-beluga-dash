@@ -5,7 +5,7 @@ import { Search } from "lucide-react";
 export const HeroSection = () => {
   return (
     <section id="inicio" className="relative min-h-[700px] flex items-center overflow-hidden bg-black">
-      <div className="absolute inset-0 z-0 opacity-30" style={{ backgroundImage: `url(/hero-background.jpg)`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
+      <div className="absolute inset-0 z-0 opacity-40" style={{ backgroundImage: `url(/hero-background.jpg)`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
       <div className="absolute inset-0 z-0 bg-black/40"></div>
       <div className="container relative z-10 py-20">
         <div className="max-w-3xl mx-auto text-center">
