@@ -18,6 +18,7 @@ export const Header = () => {
             <a href="/#inicio" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors">Inicio</a>
             <a href="/#productos" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors">Conectores</a>
             <a href="/#compatibilidad" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors">Compatibilidad</a>
+            <Link to="/downloads" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors">Descargas</Link>
           </nav>
         </div>
         <div className="flex items-center gap-2">
