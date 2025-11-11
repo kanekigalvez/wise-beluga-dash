@@ -5,6 +5,7 @@ import { DtcSearchSection } from "@/components/DtcSearchSection";
 import { FeaturesSection } from "@/components/FeaturesSection";
 import { Footer } from "@/components/Footer";
 import { VideoHeader } from "@/components/VideoHeader";
+import { ProductsSection } from "@/components/ProductsSection";
 
 const Index = () => {
   return (
@@ -13,6 +14,7 @@ const Index = () => {
       <VideoHeader />
       <main>
         <HeroSection />
+        <ProductsSection />
         <CompatibilitySection />
         <DtcSearchSection />
         <FeaturesSection />

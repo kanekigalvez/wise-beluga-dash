@@ -28,4 +28,18 @@ export const products: Product[] = [
     imageUrl: "/placeholder.svg",
     serial_numbers: ["979860XXXXXX"],
   },
+  {
+    id: "launch-x431",
+    name: "Launch X431",
+    description: "Herramienta de diagnóstico profesional con cobertura de más de 100 marcas.",
+    imageUrl: "/placeholder.svg",
+    serial_numbers: ["985190XXXXXX"],
+  },
+  {
+    id: "mucar-bt200",
+    name: "MUCAR BT200",
+    description: "Dispositivo de diagnóstico OBD2 Bluetooth para iOS y Android.",
+    imageUrl: "/placeholder.svg",
+    serial_numbers: ["989260XXXXXX"],
+  },
 ];
