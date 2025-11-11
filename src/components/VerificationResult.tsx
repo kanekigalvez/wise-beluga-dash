@@ -19,7 +19,7 @@ export const VerificationResult = ({ result }: VerificationResultProps) => {
 
   if (result === "not_found") {
     return (
-      <Alert variant="destructive" className="mt-6 text-left">
+      <Alert variant="destructive" className="text-left">
         <XCircle className="h-4 w-4" />
         <AlertTitle>No Compatible</AlertTitle>
         <AlertDescription>
@@ -30,7 +30,7 @@ export const VerificationResult = ({ result }: VerificationResultProps) => {
   }
 
   return (
-    <div className="mt-6">
+    <div>
       <Alert className="mb-4 border-green-500 text-green-700 text-left">
         <CheckCircle className="h-4 w-4 text-green-500" />
         <AlertTitle className="text-green-700">¡Compatible!</AlertTitle>

@@ -8,13 +8,11 @@ export interface SerialInfo {
 const diagzoneDetailsTemplate = [
   { label: "Software Compatible", value: "Diagzone PRO" },
   { label: "Actualización", value: "2 años" },
-  { label: "Precio", value: "$120 USD" },
 ];
 
 // Plantilla genérica para otros
 const genericDetailsTemplate = [
   { label: "Actualización", value: "Consultar" },
-  { label: "Precio", value: "Consultar" },
 ];
 
 export const serialDatabase: SerialInfo[] = [
@@ -26,7 +24,6 @@ export const serialDatabase: SerialInfo[] = [
       { label: "Marcas", value: "240+" },
       { label: "Funciones Especiales", value: "42" },
       { label: "Actualización", value: "2 años" },
-      { label: "Precio", value: "$120 USD" },
     ],
   },
   {
@@ -36,7 +33,6 @@ export const serialDatabase: SerialInfo[] = [
       { label: "Marcas", value: "240+" },
       { label: "Funciones Especiales", value: "42" },
       { label: "Actualización", value: "2 años" },
-      { label: "Precio", value: "$120 USD" },
     ],
   },
   {
@@ -46,7 +42,6 @@ export const serialDatabase: SerialInfo[] = [
       { label: "Marcas", value: "200+" },
       { label: "Funciones Especiales", value: "30" },
       { label: "Actualización", value: "1 año" },
-      { label: "Precio", value: "$100 USD" },
     ],
   },
   {
@@ -56,7 +51,6 @@ export const serialDatabase: SerialInfo[] = [
       { label: "Marcas", value: "180+" },
       { label: "Funciones Especiales", value: "25" },
       { label: "Actualización", value: "2 años" },
-      { label: "Precio", value: "$110 USD" },
     ],
   },
   {
@@ -66,7 +60,6 @@ export const serialDatabase: SerialInfo[] = [
       { label: "Marcas", value: "190+" },
       { label: "Funciones Especiales", value: "28" },
       { label: "Actualización", value: "1 año" },
-      { label: "Precio", value: "$95 USD" },
     ],
   },
   {
@@ -76,7 +69,6 @@ export const serialDatabase: SerialInfo[] = [
       { label: "Marcas", value: "250+" },
       { label: "Funciones Especiales", value: "50" },
       { label: "Actualización", value: "3 años" },
-      { label: "Precio", value: "$150 USD" },
     ],
   },
   {
@@ -86,7 +78,6 @@ export const serialDatabase: SerialInfo[] = [
       { label: "Marcas", value: "210+" },
       { label: "Funciones Especiales", value: "35" },
       { label: "Actualización", value: "2 años" },
-      { label: "Precio", value: "$130 USD" },
     ],
   },
   {
@@ -96,7 +87,6 @@ export const serialDatabase: SerialInfo[] = [
       { label: "Marcas", value: "220+" },
       { label: "Funciones Especiales", value: "40" },
       { label: "Actualización", value: "2 años" },
-      { label: "Precio", value: "$125 USD" },
     ],
   },
 
