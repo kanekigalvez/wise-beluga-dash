@@ -2,13 +2,43 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { useState } from "react";
+import { showSuccess, showError } from "@/utils/toast";
+
+const compatibleSerials: Record<string, string> = {
+  "96919": "Golo ED+",
+  "96579": "iDiag for Android",
+  "97986": "TD1",
+  "96859": "ED V2.0",
+  "98914": "BT200",
+  "98374": "V+",
+  "97329": "TOPDON",
+  "98619": "MaxGo",
+  "98689": "HD IV",
+  "98649": "HD III",
+  "97619": "M-Diag",
+  "98609": "PRO4 D3",
+  "98579": "PAD2 D3",
+};
 
 export const HeroSection = () => {
   const [serialNumber, setSerialNumber] = useState("");
 
   const handleSearch = () => {
-    // Por ahora, esto es un marcador de posición.
-    alert(`La funcionalidad de búsqueda para "${serialNumber}" se implementará próximamente.`);
+    const trimmedSerial = serialNumber.trim();
+
+    if (trimmedSerial.length < 5) {
+      showError("Por favor, ingrese un número de serie válido.");
+      return;
+    }
+
+    const prefix = trimmedSerial.substring(0, 5);
+    const productName = compatibleSerials[prefix];
+
+    if (productName) {
+      showSuccess(`¡Compatible! Su número de serie corresponde al modelo: ${productName}.`);
+    } else {
+      showError("El número de serie no es compatible o no se encuentra.");
+    }
   };
 
   return (
