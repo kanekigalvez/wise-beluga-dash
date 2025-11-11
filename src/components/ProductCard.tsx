@@ -6,7 +6,7 @@ import {
   DialogContent,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { SoftwareDetails } from "./SoftwareDetails";
+import { ProductEditor } from "./ProductEditor";
 import { slugify } from "@/lib/utils";
 
 interface ProductCardProps {
@@ -31,14 +31,14 @@ export const ProductCard = ({ image, name, description }: ProductCardProps) => {
             <DialogTrigger asChild>
               <Button className="w-full shadow-soft hover:shadow-hover transition-shadow">
                 <Info className="mr-2 h-4 w-4" />
-                Ver compatibilidad
+                Ver detalles
               </Button>
             </DialogTrigger>
           </div>
         </CardContent>
       </Card>
       <DialogContent className="max-w-4xl w-full">
-        <SoftwareDetails softwareId={softwareId} />
+        <ProductEditor productSlug={softwareId} productName={name} />
       </DialogContent>
     </Dialog>
   );
