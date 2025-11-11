@@ -147,7 +147,7 @@ export const SoftwareDetails = ({ softwareId }: SoftwareDetailsProps) => {
       <div className="pt-6 border-t">
         <h3 className="text-xl font-semibold mb-4">Contacto</h3>
         <p className="text-muted-foreground mb-4">Si tienes alguna pregunta o necesitas más información, déjanos un mensaje.</p>
-        <Textarea placeholder="Escribe tu mensaje aquí..." className="mb-4" rows={4} />
+        <Textarea placeholder="Escribe tu mensaje aquí..." className="mb-4 min-h-[200px] resize-y" />
         <Button>Enviar Mensaje</Button>
       </div>
     </div>
