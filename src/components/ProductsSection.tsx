@@ -4,11 +4,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { Link } from "react-router-dom";
 
 export const ProductsSection = () => {
-  const products = [
-    { name: "GOLO", description: "Escáner OBD2 bluetooth de alta precisión con cobertura multimarca", image: "https://placehold.co/400x400/007bff/white?text=GOLO" },
-    { name: "THINKDIAG", description: "Módulo profesional con funciones avanzadas de diagnóstico", image: "https://placehold.co/400x400/28a745/white?text=THINKDIAG" },
-    { name: "EASYDIAG 2.0", description: "Conector de fácil uso con interfaz intuitiva y potente", image: "https://placehold.co/400x400/dc3545/white?text=EASYDIAG" },
-  ];
+  const products: { name: string; description: string; image: string }[] = [];
 
   return (
     <section id="productos" className="py-20 bg-muted/30">
