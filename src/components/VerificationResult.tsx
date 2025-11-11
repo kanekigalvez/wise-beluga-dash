@@ -1,8 +1,7 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, XCircle, ArrowRight } from "lucide-react";
-import type { SerialInfo } from "../data/serialDatabase.ts";
-import { slugify } from "@/lib/utils";
+import type { VerificationInfo } from "./HeroSection";
 import {
   Dialog,
   DialogContent,
@@ -11,7 +10,7 @@ import {
 import { SoftwareDetails } from "./SoftwareDetails";
 
 interface VerificationResultProps {
-  result: SerialInfo | "not_found" | null;
+  result: VerificationInfo | "not_found" | null;
 }
 
 export const VerificationResult = ({ result }: VerificationResultProps) => {
@@ -31,7 +30,7 @@ export const VerificationResult = ({ result }: VerificationResultProps) => {
     );
   }
 
-  const softwareId = slugify(result.software);
+  const softwareId = result.slug;
 
   return (
     <Dialog>

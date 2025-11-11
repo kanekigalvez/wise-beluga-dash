@@ -3,8 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { showError } from "@/utils/toast";
-import { serialDatabase, type SerialInfo } from "../data/serialDatabase.ts";
+import { showError, showLoading, dismissToast } from "@/utils/toast";
 import { VerificationResult } from "./VerificationResult";
 import {
   Dialog,
@@ -13,22 +12,40 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { supabase } from "@/integrations/supabase/client";
+
+export type VerificationInfo = {
+  software: string;
+  slug: string;
+};
 
 export const HeroSection = () => {
   const [serialNumber, setSerialNumber] = useState("");
-  const [result, setResult] = useState<SerialInfo | "not_found" | null>(null);
+  const [result, setResult] = useState<VerificationInfo | "not_found" | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const handleVerificationClick = () => {
+  const handleVerificationClick = async () => {
     if (serialNumber.length < 5) {
       showError("Por favor, ingrese al menos 5 dígitos del número de serie.");
       return;
     }
+    const toastId = showLoading("Verificando...");
 
     const prefix = serialNumber.substring(0, 5);
-    const found = serialDatabase.find((item) => item.prefix === prefix);
 
-    setResult(found || "not_found");
+    const { data, error } = await supabase
+      .from('product_compatibility')
+      .select('name, slug')
+      .eq('prefix', prefix)
+      .single();
+
+    dismissToast(toastId);
+
+    if (error || !data) {
+      setResult("not_found");
+    } else {
+      setResult({ software: data.name, slug: data.slug });
+    }
     setIsDialogOpen(true);
   };
 
