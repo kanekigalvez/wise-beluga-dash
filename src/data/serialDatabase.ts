@@ -14,7 +14,7 @@ export const serialDatabase: SerialInfo[] = [
   {
     prefix: "96919",
     software: "Golo ED+",
-    url: "https://diagzone.com/producto/golo-ed-plus",
+    url: "https://diagzone.com/en/software/Golo-ED-Plus",
     details: diagzoneDetailsTemplate,
   },
   {
