@@ -2,7 +2,7 @@ import { Mail, Phone, MapPin } from "lucide-react";
 
 export const Footer = () => {
   return (
-    <footer className="bg-background border-t border-border/40 py-12">
+    <footer className="bg-card border-t border-border/40 py-12">
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
@@ -16,7 +16,7 @@ export const Footer = () => {
             </p>
           </div>
           <div>
-            <h4 className="font-semibold mb-4">Enlaces Rápidos</h4>
+            <h4 className="font-semibold mb-4 text-secondary">Enlaces Rápidos</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li><a href="#" className="hover:text-primary transition-colors">Verificar Conector</a></li>
               <li><a href="#" className="hover:text-primary transition-colors">Buscar código DTC</a></li>
@@ -25,7 +25,7 @@ export const Footer = () => {
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold mb-4">Contacto</h4>
+            <h4 className="font-semibold mb-4 text-secondary">Contacto</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-primary" />

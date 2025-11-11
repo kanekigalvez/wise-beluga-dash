@@ -4,65 +4,58 @@
 
 @layer base {
   :root {
-    --background: 224 71% 4%;
-    --foreground: 210 40% 98%;
+    --background: 10 10% 5%; /* Deep black */
+    --foreground: 210 40% 98%; /* Off-white */
 
-    --card: 224 71% 4%;
+    --card: 20 10% 8%; /* Slightly lighter black for cards */
     --card-foreground: 210 40% 98%;
 
-    --popover: 224 71% 4%;
+    --popover: 10 10% 5%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 180 98% 49%;
-    --primary-foreground: 224 71% 4%;
+    --primary: 45 100% 51%; /* Rich Gold */
+    --primary-foreground: 30 80% 5%; /* Dark brown/black for text on gold */
 
-    --secondary: 300 100% 50%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 35 100% 85%; /* Light Gold/Cream for accents */
+    --secondary-foreground: 45 100% 20%;
 
-    --muted: 217 33% 17%;
+    --muted: 20 10% 15%;
     --muted-foreground: 215 20% 65%;
 
-    --accent: 217 33% 17%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 20 10% 15%;
+    --accent-foreground: 45 100% 51%;
 
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 180 98% 49%;
+    --border: 45 100% 51% / 0.2; /* Gold with transparency */
+    --input: 20 10% 15%;
+    --ring: 45 100% 51%;
 
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 224 71% 4%;
+    /* Same as root for a forced dark theme */
+    --background: 10 10% 5%;
     --foreground: 210 40% 98%;
-
-    --card: 224 71% 4%;
+    --card: 20 10% 8%;
     --card-foreground: 210 40% 98%;
-
-    --popover: 224 71% 4%;
+    --popover: 10 10% 5%;
     --popover-foreground: 210 40% 98%;
-
-    --primary: 180 98% 49%;
-    --primary-foreground: 224 71% 4%;
-
-    --secondary: 300 100% 50%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217 33% 17%;
+    --primary: 45 100% 51%;
+    --primary-foreground: 30 80% 5%;
+    --secondary: 35 100% 85%;
+    --secondary-foreground: 45 100% 20%;
+    --muted: 20 10% 15%;
     --muted-foreground: 215 20% 65%;
-
-    --accent: 217 33% 17%;
-    --accent-foreground: 210 40% 98%;
-
+    --accent: 20 10% 15%;
+    --accent-foreground: 45 100% 51%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
-
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 180 98% 49%;
+    --border: 45 100% 51% / 0.2;
+    --input: 20 10% 15%;
+    --ring: 45 100% 51%;
   }
 }
 
@@ -73,22 +66,11 @@
 
   body {
     @apply bg-background text-foreground;
-    background-color: hsl(var(--background));
-    background-image: 
-      linear-gradient(hsl(var(--border)) 1px, transparent 1px),
-      linear-gradient(to right, hsl(var(--border)) 1px, hsl(var(--background)) 1px);
-    background-size: 40px 40px;
   }
 }
 
 @layer utilities {
   .text-gradient-primary {
-    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
-  }
-  .angled-section-top {
-    clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 95%);
-  }
-  .angled-section-bottom {
-    clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
+    @apply text-primary; /* Changed from gradient to solid gold for elegance */
   }
 }
