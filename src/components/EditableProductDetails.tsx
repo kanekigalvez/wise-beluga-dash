@@ -5,6 +5,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Skeleton } from "@/components/ui/skeleton";
 import { showError, showSuccess, showLoading, dismissToast } from "@/utils/toast";
 import { Pencil, Save } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface EditableProductDetailsProps {
   softwareId: string;
@@ -91,6 +97,47 @@ export const EditableProductDetails = ({ softwareId, productName }: EditableProd
     );
   };
 
+  const renderDescription = () => {
+    if (productName === "iDiag for Android" && description) {
+      const sections = description.split('\n\n').map((section, index) => {
+        const lines = section.trim().split('\n');
+        const title = lines[0];
+        const content = lines.slice(1).join('\n');
+        if (!title) return null;
+        return { id: `item-${index}`, title, content };
+      }).filter(Boolean);
+
+      if (sections.length > 0) {
+        return (
+          <div className="flex-grow rounded-md border bg-muted/50 overflow-y-auto">
+            <Accordion type="multiple" className="w-full p-4">
+              {sections.map(section => (
+                section && (
+                  <AccordionItem value={section.id} key={section.id}>
+                    <AccordionTrigger>{section.title}</AccordionTrigger>
+                    <AccordionContent>
+                      <p className="prose prose-sm max-w-none" style={{ whiteSpace: 'pre-wrap' }}>{section.content}</p>
+                    </AccordionContent>
+                  </AccordionItem>
+                )
+              ))}
+            </Accordion>
+          </div>
+        );
+      }
+    }
+
+    return (
+      <div className="prose prose-sm max-w-none flex-grow rounded-md border p-4 bg-muted/50 overflow-y-auto">
+        {description ? (
+          <p style={{ whiteSpace: 'pre-wrap' }}>{description}</p>
+        ) : (
+          <p className="text-muted-foreground">Aún no se han agregado características para este producto. Haz clic en "Editar" para comenzar.</p>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="p-6 w-full h-[70vh] flex flex-col">
       <div className="flex justify-between items-center mb-4">
@@ -100,18 +147,16 @@ export const EditableProductDetails = ({ softwareId, productName }: EditableProd
       {isEditing ? (
         <Textarea
           className="flex-grow text-base"
-          placeholder="Agrega aquí las características, compatibilidad y otros detalles del producto..."
+          placeholder={
+            productName === "iDiag for Android"
+              ? "Escribe un título, deja una línea en blanco y luego el contenido. Repite para cada sección para crear el menú plegable."
+              : "Agrega aquí las características, compatibilidad y otros detalles del producto..."
+          }
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
       ) : (
-        <div className="prose prose-sm max-w-none flex-grow rounded-md border p-4 bg-muted/50 overflow-y-auto">
-          {description ? (
-            <p style={{ whiteSpace: 'pre-wrap' }}>{description}</p>
-          ) : (
-            <p className="text-muted-foreground">Aún no se han agregado características para este producto. Haz clic en "Editar" para comenzar.</p>
-          )}
-        </div>
+        renderDescription()
       )}
     </div>
   );
