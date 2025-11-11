@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/integrations/supabase/client";
 import { Loader2, Search } from "lucide-react";
 import { VerificationResult } from "./VerificationResult";
 import { showError } from "@/utils/toast";
+import { fetchAndParseCompatibilityData } from "@/lib/compatibility-parser";
 
 type VerificationData = {
   product_name: string;
@@ -25,14 +25,10 @@ export const HeroSection = () => {
     setResult(undefined);
     const prefix = serial.substring(0, 5);
 
-    const { data, error } = await supabase
-      .from("product_compatibility")
-      .select("product_name, data")
-      .eq("prefix", prefix)
-      .single();
+    const data = await fetchAndParseCompatibilityData(prefix);
 
-    if (error || !data) {
-      console.error("Verification error:", error);
+    if (!data) {
+      console.error("Verification error: Prefix not found");
       setResult(null);
     } else {
       setResult(data);

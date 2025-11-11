@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
 import { CompatibilityAccordion } from "./CompatibilityAccordion";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Terminal } from "lucide-react";
+import { fetchAndParseCompatibilityData } from "@/lib/compatibility-parser";
 
 interface SoftwareDetailsProps {
   prefix: string;
@@ -19,16 +19,10 @@ export const SoftwareDetails = ({ prefix, productName }: SoftwareDetailsProps) =
     const fetchDetails = async () => {
       setLoading(true);
       setError(null);
-      const { data: result, error: dbError } = await supabase
-        .from("product_compatibility")
-        .select("data")
-        .eq("prefix", prefix)
-        .single();
+      
+      const result = await fetchAndParseCompatibilityData(prefix);
 
-      if (dbError) {
-        console.error("Error fetching details:", dbError);
-        setError("No se pudieron cargar los detalles para este producto.");
-      } else if (result) {
+      if (result) {
         setData(result.data);
       } else {
         setError("No se encontraron detalles para este producto.");
