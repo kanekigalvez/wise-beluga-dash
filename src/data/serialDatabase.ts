@@ -4,93 +4,13 @@ export interface SerialInfo {
   details: { label: string; value: string }[];
 }
 
-// Plantilla estándar para detalles cuando se menciona "Diagzone"
+// Plantilla estándar para detalles
 const diagzoneDetailsTemplate = [
   { label: "Software Compatible", value: "Diagzone PRO" },
-  { label: "Actualización", value: "2 años" },
-];
-
-// Plantilla genérica para otros
-const genericDetailsTemplate = [
   { label: "Actualización", value: "Consultar" },
 ];
 
 export const serialDatabase: SerialInfo[] = [
-  // --- Entradas originales que no se reemplazan ---
-  {
-    prefix: "98539",
-    software: "X-DIAG PRO3",
-    details: [
-      { label: "Marcas", value: "240+" },
-      { label: "Funciones Especiales", value: "42" },
-      { label: "Actualización", value: "2 años" },
-    ],
-  },
-  {
-    prefix: "98639",
-    software: "DIAGZONE PRO",
-    details: [
-      { label: "Marcas", value: "240+" },
-      { label: "Funciones Especiales", value: "42" },
-      { label: "Actualización", value: "2 años" },
-    ],
-  },
-  {
-    prefix: "98986",
-    software: "THINKDIAG 2",
-    details: [
-      { label: "Marcas", value: "200+" },
-      { label: "Funciones Especiales", value: "30" },
-      { label: "Actualización", value: "1 año" },
-    ],
-  },
-  {
-    prefix: "98729",
-    software: "KINGBOLEN S500",
-    details: [
-      { label: "Marcas", value: "180+" },
-      { label: "Funciones Especiales", value: "25" },
-      { label: "Actualización", value: "2 años" },
-    ],
-  },
-  {
-    prefix: "98888",
-    software: "AUTEL AP200",
-    details: [
-      { label: "Marcas", value: "190+" },
-      { label: "Funciones Especiales", value: "28" },
-      { label: "Actualización", value: "1 año" },
-    ],
-  },
-  {
-    prefix: "98999",
-    software: "LAUNCH X431",
-    details: [
-      { label: "Marcas", value: "250+" },
-      { label: "Funciones Especiales", value: "50" },
-      { label: "Actualización", value: "3 años" },
-    ],
-  },
-  {
-    prefix: "96789",
-    software: "TOPDON ArtiDiag",
-    details: [
-      { label: "Marcas", value: "210+" },
-      { label: "Funciones Especiales", value: "35" },
-      { label: "Actualización", value: "2 años" },
-    ],
-  },
-  {
-    prefix: "98123",
-    software: "iCarsoft CR Pro",
-    details: [
-      { label: "Marcas", value: "220+" },
-      { label: "Funciones Especiales", value: "40" },
-      { label: "Actualización", value: "2 años" },
-    ],
-  },
-
-  // --- Entradas nuevas y actualizadas ---
   {
     prefix: "96919",
     software: "Golo ED+",
@@ -102,7 +22,7 @@ export const serialDatabase: SerialInfo[] = [
     details: diagzoneDetailsTemplate,
   },
   {
-    prefix: "97986", // Actualizado de X-PRO5
+    prefix: "97986",
     software: "TD1",
     details: diagzoneDetailsTemplate,
   },
@@ -117,9 +37,14 @@ export const serialDatabase: SerialInfo[] = [
     details: diagzoneDetailsTemplate,
   },
   {
-    prefix: "96859", // Actualizado de MUCAR BT200
+    prefix: "96859",
     software: "ED V2.0",
-    details: genericDetailsTemplate,
+    details: diagzoneDetailsTemplate,
+  },
+  {
+    prefix: "70001", // Prefijo temporal asignado
+    software: "V",
+    details: diagzoneDetailsTemplate,
   },
   {
     prefix: "98374",
@@ -159,11 +84,6 @@ export const serialDatabase: SerialInfo[] = [
   {
     prefix: "98579",
     software: "PAD2 D3",
-    details: genericDetailsTemplate,
-  },
-  {
-    prefix: "98843",
-    software: "TD 2",
-    details: genericDetailsTemplate,
+    details: diagzoneDetailsTemplate,
   },
 ];
