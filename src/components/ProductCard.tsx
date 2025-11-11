@@ -20,16 +20,16 @@ export const ProductCard = ({ image, name, description }: ProductCardProps) => {
 
   return (
     <Dialog>
-      <Card className="group overflow-hidden bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-primary">
+      <Card className="group overflow-hidden bg-background/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-primary">
         <CardContent className="p-0">
-          <div className="aspect-video overflow-hidden bg-black">
-            <img src={image} alt={name} className="w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-110" />
+          <div className="aspect-square overflow-hidden bg-transparent">
+            <img src={image} alt={name} className="w-full h-full object-contain p-8 transition-transform duration-300 group-hover:scale-110" />
           </div>
-          <div className="p-4 text-center">
-            <h3 className="text-lg font-semibold mb-1 text-primary">{name}</h3>
-            <p className="text-muted-foreground text-sm mb-4">{description}</p>
+          <div className="p-6 text-center">
+            <h3 className="text-xl font-semibold mb-2 text-gradient-primary">- {name}</h3>
+            <p className="text-muted-foreground text-sm mb-4 min-h-[3rem]">{description}</p>
             <DialogTrigger asChild>
-              <Button variant="outline" className="w-full border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground">
+              <Button className="w-full bg-primary/90 hover:bg-primary text-primary-foreground transition-all hover:shadow-glow-primary">
                 <Info className="mr-2 h-4 w-4" />
                 Ver / Editar Detalles
               </Button>

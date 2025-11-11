@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import { useState, type KeyboardEvent } from "react";
+import { useState } from "react";
 import { showError } from "@/utils/toast";
 
 const compatibleSerials: Record<string, string> = {
@@ -47,12 +47,6 @@ export const HeroSection = ({ setIsModalOpen, setCompatibleProduct }: HeroSectio
     }
   };
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      handleSearch();
-    }
-  };
-
   return (
     <section
       id="inicio"
@@ -61,25 +55,25 @@ export const HeroSection = ({ setIsModalOpen, setCompatibleProduct }: HeroSectio
       <div className="absolute inset-0 bg-background/50"></div>
       <div className="container relative z-10 py-20 md:py-32">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-4 text-primary">
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-4 text-gradient-primary">
             Diagzone - Tienda Online
           </h1>
-          <p className="text-lg text-muted-foreground mb-8">
+          <p className="text-lg text-white/80 mb-8">
             Vendemos software para equipos de diagnóstico. Explore nuestros conectores y verifique la compatibilidad.
           </p>
           
           <div className="max-w-xl mx-auto mb-8">
-            <div className="flex gap-2 p-1 bg-black/30 backdrop-blur-sm rounded-lg border border-border">
+            <div className="flex gap-2 p-1 bg-black/30 backdrop-blur-sm rounded-lg border border-primary/20">
               <Input
                 type="text"
                 placeholder="Ingrese su número de serie..."
-                className="flex-1 h-12 text-lg bg-transparent text-foreground placeholder:text-muted-foreground border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                className="flex-1 h-12 text-lg bg-transparent text-white placeholder:text-gray-500 border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
                 value={serialNumber}
                 onChange={(e) => setSerialNumber(e.target.value)}
-                onKeyDown={handleKeyDown}
+                onKeyDown={(e) => { if (e.key === 'Enter') handleSearch(); }}
               />
               <Button 
-                className="px-6 h-12 bg-primary text-primary-foreground transition-all hover:shadow-glow-primary hover:bg-primary/90"
+                className="px-6 h-12 bg-primary/90 hover:bg-primary text-primary-foreground transition-all hover:shadow-glow-primary"
                 onClick={handleSearch}
               >
                 <Search className="mr-2 h-5 w-5" />
@@ -88,7 +82,7 @@ export const HeroSection = ({ setIsModalOpen, setCompatibleProduct }: HeroSectio
             </div>
           </div>
 
-          <Button asChild className="h-12 px-8 bg-primary/10 border border-primary/50 text-primary transition-all hover:bg-primary hover:text-primary-foreground hover:shadow-glow-primary rounded-md">
+          <Button asChild className="h-12 px-8 bg-secondary/90 hover:bg-secondary text-secondary-foreground transition-all hover:shadow-glow-secondary rounded-md">
             <a href="/#productos">Ver Productos</a>
           </Button>
         </div>
