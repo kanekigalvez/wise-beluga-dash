@@ -1,20 +1,16 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Loader2, Search } from "lucide-react";
-import { VerificationResult } from "./VerificationResult";
+import { Loader2, Search, CheckCircle, XCircle } from "lucide-react";
 import { showError } from "@/utils/toast";
-import { fetchAndParseCompatibilityData } from "@/lib/compatibility-parser";
-
-type VerificationData = {
-  product_name: string;
-  data: string;
-} | null;
+import { findProductByPrefix, Product } from "@/lib/products";
+import { ProductHtmlViewer } from "./ProductHtmlViewer";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export const HeroSection = () => {
   const [serial, setSerial] = useState("");
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<VerificationData | undefined>(undefined);
+  const [result, setResult] = useState<Product | null | undefined>(undefined);
 
   const handleVerify = async () => {
     if (serial.length < 5) {
@@ -25,14 +21,11 @@ export const HeroSection = () => {
     setResult(undefined);
     const prefix = serial.substring(0, 5);
 
-    const data = await fetchAndParseCompatibilityData(prefix);
+    // Simulate a small delay for better UX
+    await new Promise(resolve => setTimeout(resolve, 300));
 
-    if (!data) {
-      console.error("Verification error: Prefix not found");
-      setResult(null);
-    } else {
-      setResult(data);
-    }
+    const product = findProductByPrefix(prefix);
+    setResult(product || null);
     setLoading(false);
   };
 
@@ -76,8 +69,27 @@ export const HeroSection = () => {
           </div>
         </div>
         {result !== undefined && (
-          <div className="max-w-4xl mx-auto mt-8 bg-background p-6 rounded-lg shadow-lg">
-            <VerificationResult result={result} />
+          <div className="max-w-5xl mx-auto mt-8 bg-background p-6 rounded-lg shadow-lg">
+            {result ? (
+              <>
+                <Alert variant="default" className="bg-green-50 border-green-200 text-green-800 dark:bg-green-950 dark:border-green-800 dark:text-green-200 mb-6">
+                  <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
+                  <AlertTitle className="font-semibold">¡Verificación Exitosa!</AlertTitle>
+                  <AlertDescription>
+                    Software encontrado para: <span className="font-bold">{result.name}</span>
+                  </AlertDescription>
+                </Alert>
+                <ProductHtmlViewer productName={result.name} htmlFile={result.htmlFile} />
+              </>
+            ) : (
+              <Alert variant="destructive">
+                <XCircle className="h-4 w-4" />
+                <AlertTitle>Verificación Fallida</AlertTitle>
+                <AlertDescription>
+                  El número de serie no es válido o no se encontró en nuestra base de datos. Por favor, inténtalo de nuevo.
+                </AlertDescription>
+              </Alert>
+            )}
           </div>
         )}
       </div>
