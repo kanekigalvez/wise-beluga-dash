@@ -1,8 +1,18 @@
 import { Button } from "@/components/ui/button";
-import { Menu, Search } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Menu, Search, LogIn, LogOut } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Header = () => {
+  const { session } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/");
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
@@ -21,10 +31,25 @@ export const Header = () => {
             <a href="/#compatibilidad" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors">Compatibilidad</a>
           </nav>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon">
             <Search className="h-5 w-5" />
           </Button>
+          
+          {session ? (
+            <Button variant="outline" onClick={handleLogout}>
+              <LogOut className="mr-2 h-4 w-4" />
+              Cerrar Sesión
+            </Button>
+          ) : (
+            <Button asChild>
+              <Link to="/login">
+                <LogIn className="mr-2 h-4 w-4" />
+                Iniciar Sesión
+              </Link>
+            </Button>
+          )}
+
           <Button variant="ghost" size="icon" className="md:hidden">
             <Menu className="h-5 w-5" />
           </Button>

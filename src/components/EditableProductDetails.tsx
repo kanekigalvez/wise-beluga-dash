@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Skeleton } from "@/components/ui/skeleton";
 import { showError, showSuccess, showLoading, dismissToast } from "@/utils/toast";
-import { Pencil, Save } from "lucide-react";
+import { Pencil, Save, LogIn } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { Link } from "react-router-dom";
 
 interface EditableProductDetailsProps {
   softwareId: string;
@@ -12,6 +14,7 @@ interface EditableProductDetailsProps {
 }
 
 export const EditableProductDetails = ({ softwareId, productName }: EditableProductDetailsProps) => {
+  const { session } = useAuth();
   const [description, setDescription] = useState("");
   const [initialDescription, setInitialDescription] = useState("");
   const [loading, setLoading] = useState(true);
@@ -40,6 +43,10 @@ export const EditableProductDetails = ({ softwareId, productName }: EditableProd
   }, [softwareId]);
 
   const handleSave = async () => {
+    if (!session) {
+      showError("Debes iniciar sesión para guardar los cambios.");
+      return;
+    }
     const toastId = showLoading("Guardando...");
     const { error } = await supabase
       .from("product_details")
@@ -48,7 +55,7 @@ export const EditableProductDetails = ({ softwareId, productName }: EditableProd
     dismissToast(toastId);
 
     if (error) {
-      showError("Error: Para guardar cambios, necesitas iniciar sesión.");
+      showError("Error al guardar: " + error.message);
     } else {
       showSuccess("¡Guardado con éxito!");
       setInitialDescription(description);
@@ -65,31 +72,50 @@ export const EditableProductDetails = ({ softwareId, productName }: EditableProd
     );
   }
 
+  const renderEditControls = () => {
+    if (!session) {
+      return (
+        <Button asChild>
+          <Link to="/login">
+            <LogIn className="mr-2 h-4 w-4" />
+            Iniciar sesión para editar
+          </Link>
+        </Button>
+      );
+    }
+
+    if (!isEditing) {
+      return (
+        <Button variant="outline" onClick={() => setIsEditing(true)}>
+          <Pencil className="mr-2 h-4 w-4" />
+          Editar
+        </Button>
+      );
+    }
+
+    return (
+      <div className="flex gap-2">
+        <Button variant="outline" onClick={() => {
+          setDescription(initialDescription);
+          setIsEditing(false);
+        }}>
+          Cancelar
+        </Button>
+        <Button onClick={handleSave}>
+          <Save className="mr-2 h-4 w-4" />
+          Guardar
+        </Button>
+      </div>
+    );
+  };
+
   return (
     <div className="p-6 w-full h-[70vh] flex flex-col">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">{productName} - Características</h2>
-        {!isEditing ? (
-          <Button variant="outline" onClick={() => setIsEditing(true)}>
-            <Pencil className="mr-2 h-4 w-4" />
-            Editar
-          </Button>
-        ) : (
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={() => {
-              setDescription(initialDescription);
-              setIsEditing(false);
-            }}>
-              Cancelar
-            </Button>
-            <Button onClick={handleSave}>
-              <Save className="mr-2 h-4 w-4" />
-              Guardar
-            </Button>
-          </div>
-        )}
+        {renderEditControls()}
       </div>
-      {isEditing ? (
+      {isEditing && session ? (
         <Textarea
           className="flex-grow text-base"
           placeholder="Agrega aquí las características, compatibilidad y otros detalles del producto..."
@@ -101,13 +127,15 @@ export const EditableProductDetails = ({ softwareId, productName }: EditableProd
           {description ? (
             <p style={{ whiteSpace: 'pre-wrap' }}>{description}</p>
           ) : (
-            <p className="text-muted-foreground">Aún no se han agregado características para este producto. Haz clic en "Editar" para comenzar.</p>
+            <p className="text-muted-foreground">Aún no se han agregado características para este producto. {session ? 'Haz clic en "Editar" para comenzar.' : 'Inicia sesión para agregar contenido.'}</p>
           )}
         </div>
       )}
-       <p className="text-xs text-muted-foreground mt-4">
-        Nota: Para guardar los cambios es necesario iniciar sesión.
-      </p>
+       {!session && (
+        <p className="text-xs text-muted-foreground mt-4">
+          Nota: Para guardar los cambios es necesario iniciar sesión.
+        </p>
+      )}
     </div>
   );
 };
