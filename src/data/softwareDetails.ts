@@ -1,5 +1,5 @@
 export const softwareDetailsData: Record<string, string> = {
-  "golo-ed+": `
+  "golo-ed": `
 Passenger cars (1 year)
 System
 DiagBaseService	1.00.012	issue 17.03.2023		12 months
@@ -342,7 +342,7 @@ Vespa Motor	10.02	issue 16.01.2025		12 months
 Victory Motor	10.02	issue 26.04.2024		12 months
 Yamaha Motor	10.20	issue 26.04.2024		12 months
 `,
-  "ed-3-0": `
+  "ed-30": `
 Automóviles de pasajeros (1 año)
 Sistema
 ARRANQUE (Versión Pro)	1.23.006	Edición del 11/07/2018		12 meses
