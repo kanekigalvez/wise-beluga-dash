@@ -19,8 +19,8 @@ export default {
     },
     extend: {
       boxShadow: {
-        'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
-        'hover': '0 10px 15px -3px rgba(var(--primary) / 0.1), 0 4px 6px -2px rgba(var(--primary) / 0.05)',
+        'glow-primary': '0 0 15px 0px hsl(var(--primary) / 0.5)',
+        'glow-secondary': '0 0 15px 0px hsl(var(--secondary) / 0.5)',
       },
       colors: {
         border: "hsl(var(--border))",
@@ -55,16 +55,6 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
-        },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
         },
       },
       borderRadius: {
