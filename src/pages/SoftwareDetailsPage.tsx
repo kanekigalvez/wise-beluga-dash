@@ -32,11 +32,11 @@ interface Section {
 }
 
 const parseSoftwareData = (data: string): Section[] => {
-  const sections = data.split(/(?=Passenger cars|Electric cars|Heavy Duty Truck|IMMO)/g).filter(s => s.trim());
+  const sections = data.split(/(?=Passenger cars|Electric cars|Heavy Duty Truck|IMMO|Automóviles de pasajeros|Turismos \+ Vehículos eléctricos|coches eléctricos|Camión de servicio pesado|Suscripción)/g).filter(s => s.trim());
   
   return sections.map(sectionText => {
     const lines = sectionText.trim().split('\n');
-    const sectionTitle = lines.shift() || "Detalles";
+    const sectionTitle = lines.shift()?.replace(/\d+\s*\$?(\s*dólares)?/g, '').trim() || "Detalles";
     
     const categories: Category[] = [];
     let currentCategory: Category | null = null;
@@ -45,29 +45,37 @@ const parseSoftwareData = (data: string): Section[] => {
       const trimmedLine = line.trim();
       if (!trimmedLine) continue;
 
-      const parts = trimmedLine.split(/\s+/);
-      
       // Check if it's a category title (e.g., "System", "Popular", "Other")
-      if (parts.length === 1 && isNaN(parseFloat(parts[0]))) {
+      if (!trimmedLine.match(/(\d+\.\d+)|(\d+\s+(months|meses|semanas|weeks))/)) {
         if (currentCategory) {
           categories.push(currentCategory);
         }
         currentCategory = { title: trimmedLine, items: [] };
-      } else if (currentCategory) {
+        continue;
+      }
+      
+      if (currentCategory) {
         // It's a software item line
-        const durationIndex = parts.findIndex(p => p.toLowerCase() === 'months');
-        if (durationIndex > -1) {
-          const name = parts.slice(0, durationIndex - 2).join(' ');
-          const version = parts[durationIndex - 2];
-          const issueDate = parts[durationIndex - 1];
-          const duration = `${parts[durationIndex-3]} ${parts[durationIndex]}`;
+        const parts = trimmedLine.split(/\s+/);
+        const dateKeywordIndex = parts.findIndex(p => /^(issue|edición|número)$/i.test(p));
 
-          currentCategory.items.push({
-            name,
-            version,
-            issueDate: issueDate.replace('issue',''),
-            duration,
-          });
+        if (dateKeywordIndex > -1 && dateKeywordIndex > 0) {
+            const version = parts[dateKeywordIndex - 1];
+            const name = parts.slice(0, dateKeywordIndex - 1).join(' ');
+            
+            const durationUnitIndex = parts.findIndex(p => ['months', 'meses', 'semanas', 'weeks'].includes(p.toLowerCase()));
+            
+            if (durationUnitIndex > -1) {
+                const date = parts.slice(dateKeywordIndex, durationUnitIndex - 1).join(' ').replace(/issue|Edición del|Edición|Número/ig, '').trim();
+                const duration = `${parts[durationUnitIndex - 1]} ${parts[durationUnitIndex]}`;
+
+                currentCategory.items.push({
+                    name,
+                    version,
+                    issueDate: date,
+                    duration,
+                });
+            }
         }
       }
     }
