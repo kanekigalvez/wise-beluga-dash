@@ -7,14 +7,12 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ConnectorsPage from "./pages/Connectors";
 import DownloadsPage from "./pages/Downloads";
-import { StarfieldBackground } from "@/components/StarfieldBackground";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <StarfieldBackground />
       <Toaster />
       <Sonner />
       <BrowserRouter>
