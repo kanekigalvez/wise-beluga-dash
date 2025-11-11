@@ -16,6 +16,7 @@ export const Header = () => {
           </h1>
           <nav className="hidden md:flex gap-6">
             <a href="/#inicio" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors">Inicio</a>
+            <Link to="/connectors" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors">Conectores</Link>
             <a href="/#buscar" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors">Buscar DTC</a>
             <a href="/#compatibilidad" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors">Compatibilidad</a>
           </nav>
