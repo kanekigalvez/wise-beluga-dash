@@ -12,8 +12,8 @@ export const HeroSection = () => {
   const [result, setResult] = useState<SerialInfo | "not_found" | null>(null);
 
   const handleVerificationClick = () => {
-    if (serialNumber.length !== 12) {
-      showError("Por favor, ingrese un número de serie válido de 12 dígitos.");
+    if (serialNumber.length < 5) {
+      showError("Por favor, ingrese al menos 5 dígitos del número de serie.");
       return;
     }
     
@@ -39,15 +39,14 @@ export const HeroSection = () => {
             Vendemos software para equipos de diagnóstico.
           </p>
           <p className="text-lg text-white/80 mb-8">
-            Para verificar la compatibilidad, ingrese el número de serie de 12 dígitos del dispositivo a continuación.
+            Para verificar la compatibilidad, ingrese el número de serie del dispositivo a continuación.
           </p>
           <Card className="shadow-soft bg-background/90 backdrop-blur-sm border-white/20">
             <CardContent className="p-6 sm:p-8">
               <div className="flex flex-col sm:flex-row gap-4">
                 <Input
                   className="flex-1 h-12 text-lg bg-white"
-                  placeholder="Ingrese el número de serie (12 dígitos)"
-                  maxLength={12}
+                  placeholder="Ingrese el número de serie"
                   value={serialNumber}
                   onChange={(e) => {
                     setSerialNumber(e.target.value);
