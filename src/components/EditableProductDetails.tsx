@@ -4,9 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Skeleton } from "@/components/ui/skeleton";
 import { showError, showSuccess, showLoading, dismissToast } from "@/utils/toast";
-import { Pencil, Save, LogIn } from "lucide-react";
-import { useAuth } from "@/contexts/AuthContext";
-import { Link } from "react-router-dom";
+import { Pencil, Save } from "lucide-react";
 
 interface EditableProductDetailsProps {
   softwareId: string;
@@ -14,7 +12,6 @@ interface EditableProductDetailsProps {
 }
 
 export const EditableProductDetails = ({ softwareId, productName }: EditableProductDetailsProps) => {
-  const { session } = useAuth();
   const [description, setDescription] = useState("");
   const [initialDescription, setInitialDescription] = useState("");
   const [loading, setLoading] = useState(true);
@@ -43,10 +40,6 @@ export const EditableProductDetails = ({ softwareId, productName }: EditableProd
   }, [softwareId]);
 
   const handleSave = async () => {
-    if (!session) {
-      showError("Debes iniciar sesión para guardar los cambios.");
-      return;
-    }
     const toastId = showLoading("Guardando...");
     const { error } = await supabase
       .from("product_details")
@@ -73,17 +66,6 @@ export const EditableProductDetails = ({ softwareId, productName }: EditableProd
   }
 
   const renderEditControls = () => {
-    if (!session) {
-      return (
-        <Button asChild>
-          <Link to="/login">
-            <LogIn className="mr-2 h-4 w-4" />
-            Iniciar sesión para editar
-          </Link>
-        </Button>
-      );
-    }
-
     if (!isEditing) {
       return (
         <Button variant="outline" onClick={() => setIsEditing(true)}>
@@ -115,7 +97,7 @@ export const EditableProductDetails = ({ softwareId, productName }: EditableProd
         <h2 className="text-2xl font-bold">{productName} - Características</h2>
         {renderEditControls()}
       </div>
-      {isEditing && session ? (
+      {isEditing ? (
         <Textarea
           className="flex-grow text-base"
           placeholder="Agrega aquí las características, compatibilidad y otros detalles del producto..."
@@ -127,14 +109,9 @@ export const EditableProductDetails = ({ softwareId, productName }: EditableProd
           {description ? (
             <p style={{ whiteSpace: 'pre-wrap' }}>{description}</p>
           ) : (
-            <p className="text-muted-foreground">Aún no se han agregado características para este producto. {session ? 'Haz clic en "Editar" para comenzar.' : 'Inicia sesión para agregar contenido.'}</p>
+            <p className="text-muted-foreground">Aún no se han agregado características para este producto. Haz clic en "Editar" para comenzar.</p>
           )}
         </div>
-      )}
-       {!session && (
-        <p className="text-xs text-muted-foreground mt-4">
-          Nota: Para guardar los cambios es necesario iniciar sesión.
-        </p>
       )}
     </div>
   );
