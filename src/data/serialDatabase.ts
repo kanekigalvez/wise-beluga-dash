@@ -48,7 +48,7 @@ export const serialDatabase: SerialInfo[] = [
   },
   {
     prefix: "98374",
-    software: "V+",
+    software: "V Plus",
     details: diagzoneDetailsTemplate,
   },
   {

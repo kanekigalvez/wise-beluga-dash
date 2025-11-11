@@ -14,7 +14,7 @@ const ConnectorsPage = () => {
     { name: "BT200", description: "Herramienta de diagnóstico Bluetooth compacta", image: "https://placehold.co/400x400/17a2b8/white?text=BT200" },
     { name: "ED V2.0", description: "Interfaz de diagnóstico de segunda generación", image: "https://placehold.co/400x400/6f42c1/white?text=ED+V2.0" },
     { name: "V", description: "Conector de diagnóstico estándar", image: "https://placehold.co/400x400/fd7e14/black?text=V" },
-    { name: "V+", description: "Conector de diagnóstico con funciones mejoradas", image: "https://placehold.co/400x400/20c997/white?text=V%2B" },
+    { name: "V Plus", description: "Conector de diagnóstico con funciones mejoradas", image: "https://placehold.co/400x400/20c997/white?text=V%2B" },
     { name: "TOPDON", description: "Escáner de diagnóstico multimarca", image: "https://placehold.co/400x400/6610f2/white?text=TOPDON" },
     { name: "MaxGo", description: "Herramienta de diagnóstico portátil", image: "https://placehold.co/400x400/e83e8c/white?text=MaxGo" },
     { name: "HD IV", description: "Interfaz de diagnóstico para vehículos pesados", image: "https://placehold.co/400x400/6c757d/white?text=HD+IV" },
