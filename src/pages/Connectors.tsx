@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 const ConnectorsPage = () => {
   const allProducts = [
-    { name: "Golo ED+", description: "Escáner OBD2 bluetooth de alta precisión", image: "https://placehold.co/400x400/007bff/white?text=Golo+ED%2B" },
+    { name: "Golo ED+", prefix: "96919", description: "Escáner OBD2 bluetooth de alta precisión", image: "https://placehold.co/400x400/007bff/white?text=Golo+ED%2B" },
     { name: "iDiag for Android", description: "Módulo de diagnóstico para dispositivos Android", image: "https://placehold.co/400x400/28a745/white?text=iDiag" },
     { name: "TD1", description: "Conector de diagnóstico avanzado", image: "https://placehold.co/400x400/dc3545/white?text=TD1" },
     { name: "ED 3.0", description: "Interfaz de diagnóstico de tercera generación", image: "https://placehold.co/400x400/ffc107/black?text=ED+3.0" },
