@@ -39,7 +39,7 @@ export const Header = () => {
     { href: "/#compatibilidad", text: t('header.compatibility'), icon: <Wrench className="mr-2 h-4 w-4" /> },
     { href: "/downloads", text: t('header.downloads'), isLink: true, icon: <Download className="mr-2 h-4 w-4" /> },
     { href: "/blogs", text: t('header.blogs'), isLink: true, icon: <Newspaper className="mr-2 h-4 w-4" /> },
-    { href: "/ai-chat", text: "Chat IA", isLink: true, icon: <MessageSquareText className="mr-2 h-4 w-4" /> }, // New Chat Link
+    { href: "/ai-chat", text: "Asistente Diagzone", isLink: true, icon: <MessageSquareText className="mr-2 h-4 w-4" /> }, // Updated Link Text
   ];
 
   useEffect(() => {

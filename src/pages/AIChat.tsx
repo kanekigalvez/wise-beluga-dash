@@ -4,11 +4,13 @@ import { Footer } from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button"; // Import Button
+import { Button } from "@/components/ui/button";
+import { MessageSquare } from "lucide-react";
 
 // Supabase Project ID: uvghvyrvrsmyydpnobkl
 const SUPABASE_PROJECT_ID = "uvghvyrvrsmyydpnobkl";
 const API_URL = `https://${SUPABASE_PROJECT_ID}.supabase.co/functions/v1/diagzone-chat`;
+const WHATSAPP_LINK = "https://wa.me/17168156081?text=Hola,%20necesito%20ayuda%20con%20mi%20diagnóstico%20Diagzone.";
 
 interface Message {
   role: "user" | "assistant";
@@ -21,7 +23,7 @@ const AIChatPage = () => {
     {
       role: "assistant",
       content:
-        "Hola, soy el asistente IA de Diagzone. Dime qué conector usas (EasyDiag, Golo, Mucar BT200, etc.), la marca y año del vehículo, y qué problema tienes, y te orientaré paso a paso.",
+        "Hola, soy el asistente Diagzone. Dime qué conector usas (EasyDiag, Golo, Mucar BT200, etc.), la marca y año del vehículo, y qué problema tienes, y te orientaré paso a paso.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -130,7 +132,7 @@ const AIChatPage = () => {
                 DZ
               </div>
               <div>
-                <h1 className="text-lg font-bold text-primary m-0">Asistente IA Diagzone</h1>
+                <h1 className="text-lg font-bold text-primary m-0">Asistente Diagzone</h1>
                 <p className="text-xs text-muted-foreground m-0">Pregúntale sobre compatibilidad, conectores y diagnóstico.</p>
               </div>
             </div>
@@ -158,13 +160,25 @@ const AIChatPage = () => {
                 onChange={(e) => setInput(e.target.value)}
                 disabled={isLoading}
               />
-              <Button
-                type="submit"
-                disabled={isLoading || input.trim() === ""}
-                className="h-10 px-6 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-lg shadow-primary/30"
-              >
-                {isLoading ? "Pensando..." : "Enviar"}
-              </Button>
+              <div className="flex flex-col gap-2">
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    className="h-10 px-4 rounded-full bg-green-600 hover:bg-green-700 text-white transition-all shadow-lg shadow-green-600/30 w-full"
+                  >
+                    <MessageSquare className="h-4 w-4 mr-2" />
+                    WhatsApp
+                  </Button>
+                </a>
+                <Button
+                  type="submit"
+                  disabled={isLoading || input.trim() === ""}
+                  className="h-10 px-6 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-lg shadow-primary/30"
+                >
+                  {isLoading ? "Pensando..." : "Enviar"}
+                </Button>
+              </div>
             </form>
             <p className="text-xs text-muted-foreground mt-2 ml-1">
               Consejo: menciona <strong>conector</strong>, <strong>marca</strong>, <strong>año</strong> y <strong>problema</strong> para una mejor respuesta.

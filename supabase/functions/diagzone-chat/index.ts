@@ -1,4 +1,6 @@
+// @ts-ignore
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+// @ts-ignore
 import { GoogleGenAI } from "https://esm.sh/@google/genai@0.15.0";
 
 const corsHeaders = {
@@ -7,6 +9,7 @@ const corsHeaders = {
 };
 
 // Initialize GoogleGenAI client using the secret environment variable
+// @ts-ignore
 const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
 if (!GEMINI_API_KEY) {
   console.error("GEMINI_API_KEY not set.");
@@ -20,14 +23,14 @@ const systemInstruction = `Eres un asistente de diagnóstico automotriz experto 
 3. Solución de errores comunes al usar la aplicación Diagzone.
 4. Información sobre licencias (Básica vs Pro).
 
-Tu respuesta debe ser concisa, profesional y enfocada en la información que Diagzone.io ofrece. NO debes dar consejos de reparación mecánica directa, sino guiar al usuario sobre cómo usar la herramienta de diagnóstico.
+Tu respuesta debe ser concisa, profesional y enfocada en la información que Diagzone.io ofrece. Después de proporcionar la información técnica, DEBES incluir una frase que motive al usuario a contactar a un agente humano por WhatsApp para finalizar la compra, obtener una cotización o recibir soporte personalizado.
 
-Ejemplo de respuesta: "Sí, el Mucar BT200 es compatible con Diagzone. Para tu Toyota Hilux 2018, Diagzone Pro te permitirá acceder a módulos de motor, ABS y transmisión, además de funciones de reseteo de servicio."`;
+Ejemplo de respuesta: "Sí, el Mucar BT200 es compatible con Diagzone. Para tu Toyota Hilux 2018, Diagzone Pro te permitirá acceder a módulos de motor, ABS y transmisión, además de funciones de reseteo de servicio. Si estás listo para comprar tu licencia o necesitas una cotización, haz clic en el botón 'Chatea por WhatsApp' para hablar con un agente."`;
 
 serve(async (req) => {
   // Handle CORS OPTIONS request
   if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
+    return new Response(null, { headers: corsHeaders })
   }
 
   try {
