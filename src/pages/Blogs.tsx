@@ -24,7 +24,7 @@ const BlogsPage = () => {
                 <CardHeader>
                   <CardTitle className="text-primary">{post.title}</CardTitle>
                   <CardDescription>
-                    {post.slug.startsWith('proximamente') ? 'Este artículo estará disponible pronto.' : 'Una guía detallada sobre el software Diagzone.'}
+                    {post.description}
                   </CardDescription>
                 </CardHeader>
                 <div className="p-6 pt-0">
