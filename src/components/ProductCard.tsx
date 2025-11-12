@@ -20,7 +20,7 @@ export const ProductCard = ({ image, name, description }: ProductCardProps) => {
 
   return (
     <Dialog>
-      <Card className="group overflow-hidden bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-primary">
+      <Card id={softwareId} className="group overflow-hidden bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-primary scroll-mt-20">
         <CardContent className="p-0">
           <div className="aspect-video overflow-hidden bg-black">
             <img src={image} alt={name} className="w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-110" />
