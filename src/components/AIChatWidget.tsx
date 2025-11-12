@@ -26,13 +26,11 @@ export const AIChatWidget = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const messagesContainerRef = useRef<HTMLDivElement>(null); // Ref for the scrollable container
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const scrollToBottom = () => {
-    // Use requestAnimationFrame for smooth scrolling
-    requestAnimationFrame(() => {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -42,10 +40,8 @@ export const AIChatWidget = () => {
       const isNearBottom = container.scrollHeight - container.clientHeight <= container.scrollTop + 150;
 
       if (isNearBottom || messages.length <= 2) {
-        // Use setTimeout(0) to ensure scrolling happens after the DOM has fully rendered the new message
-        setTimeout(() => {
-          scrollToBottom();
-        }, 0);
+        // Scroll immediately if near the bottom or initial load
+        scrollToBottom();
       }
     }
   }, [messages]);
@@ -60,6 +56,9 @@ export const AIChatWidget = () => {
     setMessages(newHistory);
     setInput("");
     setIsLoading(true);
+
+    // Re-focus the input immediately after sending the message to prevent the browser from losing focus and potentially scrolling the page.
+    inputRef.current?.focus();
 
     try {
       const res = await fetch(API_URL, {
@@ -162,6 +161,7 @@ export const AIChatWidget = () => {
       <footer className="p-4 border-t border-border bg-card">
         <form onSubmit={handleSubmit} className="flex gap-3 items-end">
           <textarea
+            ref={inputRef}
             id="user-input"
             rows={2}
             className="flex-1 resize-none rounded-lg border border-input bg-muted/50 p-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary transition-colors outline-none"
