@@ -81,13 +81,9 @@ export const Header = () => {
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-sm">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-6">
-            <h1 className="text-2xl font-bold">
-              <Link to="/">
-                <span className="text-primary">DIAG</span>
-                <span className="text-foreground">ZONE</span>
-                <span className="text-xs font-normal text-secondary ml-1">PRO</span>
-              </Link>
-            </h1>
+            <Link to="/">
+              <img src="/logo.jpg" alt="DiagZone Pro Logo" className="h-10" />
+            </Link>
             <nav className="hidden md:flex gap-6">
               {navLinks.map(link => renderNavLink(link))}
             </nav>
@@ -113,12 +109,9 @@ export const Header = () => {
               </SheetTrigger>
               <SheetContent side="left" className="w-full max-w-xs">
                 <div className="flex items-center justify-between">
-                  <h1 className="text-2xl font-bold">
-                    <Link to="/" onClick={() => setIsMenuOpen(false)}>
-                      <span className="text-primary">DIAG</span>
-                      <span className="text-foreground">ZONE</span>
-                    </Link>
-                  </h1>
+                  <Link to="/" onClick={() => setIsMenuOpen(false)}>
+                    <img src="/logo.jpg" alt="DiagZone Pro Logo" className="h-10" />
+                  </Link>
                   <SheetClose asChild>
                     <Button variant="ghost" size="icon">
                       <X className="h-5 w-5" />

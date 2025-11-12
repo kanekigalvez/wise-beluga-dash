@@ -10,11 +10,7 @@ export const Footer = () => {
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           <div>
-            <h3 className="text-lg font-bold mb-4">
-              <span className="text-primary">DIAG</span>
-              <span className="text-foreground">ZONE</span>
-              <span className="text-xs font-normal text-secondary ml-1">PRO</span>
-            </h3>
+            <img src="/logo.jpg" alt="DiagZone Pro Logo" className="h-10 mb-4" />
             <p className="text-sm text-muted-foreground">
               {t('footer.description')}
             </p>
