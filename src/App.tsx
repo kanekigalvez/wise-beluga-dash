@@ -7,6 +7,8 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ConnectorsPage from "./pages/Connectors";
 import DownloadsPage from "./pages/Downloads";
+import BlogsPage from "./pages/Blogs";
+import BlogPostPage from "./pages/BlogPost";
 import ScrollToTop from "./components/ScrollToTop";
 import { AdminProvider } from "./contexts/AdminContext";
 
@@ -24,6 +26,8 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/connectors" element={<ConnectorsPage />} />
             <Route path="/downloads" element={<DownloadsPage />} />
+            <Route path="/blogs" element={<BlogsPage />} />
+            <Route path="/blogs/:slug" element={<BlogPostPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
