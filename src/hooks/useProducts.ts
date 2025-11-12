@@ -5,10 +5,11 @@ import { slugify } from "@/lib/utils";
 interface Product {
   name: string;
   description: string;
+  db_description?: string | null;
   image: string;
 }
 
-const defaultProducts: Omit<Product, 'image'>[] = [
+const defaultProducts: Omit<Product, 'image' | 'db_description'>[] = [
     { name: "Golo ED+", description: "Escáner OBD2 bluetooth de alta precisión" },
     { name: "iDiag for Android", description: "Módulo de diagnóstico para dispositivos Android" },
     { name: "TD1", description: "Conector de diagnóstico avanzado" },
@@ -37,20 +38,21 @@ export const useProducts = () => {
       setLoading(true);
       const { data: details, error } = await supabase
         .from("product_details")
-        .select("slug, image_url");
+        .select("slug, image_url, description");
 
       if (error) {
         console.error("Error fetching product details:", error);
       }
 
-      const detailsMap = new Map(details?.map(d => [d.slug, d.image_url]));
+      const detailsMap = new Map(details?.map(d => [d.slug, { imageUrl: d.image_url, description: d.description }]));
 
       const mergedProducts = defaultProducts.map(p => {
         const slug = slugify(p.name);
-        const imageUrl = detailsMap.get(slug);
+        const detailData = detailsMap.get(slug);
         return {
           ...p,
-          image: imageUrl || generateDefaultImage(p.name),
+          image: detailData?.imageUrl || generateDefaultImage(p.name),
+          db_description: detailData?.description,
         };
       });
 
