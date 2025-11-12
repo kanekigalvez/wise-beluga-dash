@@ -4,6 +4,7 @@ import { Search } from "lucide-react";
 import { useState, type KeyboardEvent } from "react";
 import { showError, showSuccess } from "@/utils/toast";
 import { useAdmin } from "@/contexts/AdminContext";
+import { useTranslation } from "react-i18next";
 
 const compatibleSerials: Record<string, string> = {
   "96919": "Golo ED+",
@@ -31,6 +32,7 @@ interface HeroSectionProps {
 export const HeroSection = ({ setIsModalOpen, setCompatibleProduct }: HeroSectionProps) => {
   const [serialNumber, setSerialNumber] = useState("");
   const { setIsAdmin } = useAdmin();
+  const { t } = useTranslation();
 
   const handleSearch = () => {
     const trimmedSerial = serialNumber.trim();
@@ -74,17 +76,17 @@ export const HeroSection = ({ setIsModalOpen, setCompatibleProduct }: HeroSectio
       <div className="container relative z-10 py-20 md:py-32">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-4 text-primary">
-            DiagZone Pro: Software para Equipos de Diagnóstico
+            {t('hero.title')}
           </h1>
           <p className="text-lg text-white mb-8">
-            Vendemos software para equipos de diagnóstico. Explore nuestros conectores y verifique la compatibilidad.
+            {t('hero.subtitle')}
           </p>
           
           <div className="max-w-xl mx-auto mb-8">
             <div className="flex gap-2 p-1 bg-black/30 backdrop-blur-sm rounded-lg border border-border">
               <Input
                 type="text"
-                placeholder="Ingrese su número de serie..."
+                placeholder={t('hero.serial_placeholder')}
                 className="flex-1 h-12 text-lg bg-transparent text-foreground placeholder:text-muted-foreground border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
                 value={serialNumber}
                 onChange={(e) => setSerialNumber(e.target.value)}
@@ -95,13 +97,13 @@ export const HeroSection = ({ setIsModalOpen, setCompatibleProduct }: HeroSectio
                 onClick={handleSearch}
               >
                 <Search className="mr-2 h-5 w-5" />
-                Verificar
+                {t('hero.check_button')}
               </Button>
             </div>
           </div>
 
           <Button asChild className="h-12 px-8 bg-primary/10 border border-primary/50 text-primary transition-all hover:bg-primary hover:text-primary-foreground hover:shadow-glow-primary rounded-md">
-            <a href="/#productos">Ver Productos</a>
+            <a href="/#productos">{t('hero.products_button')}</a>
           </Button>
         </div>
       </div>

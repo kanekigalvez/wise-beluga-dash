@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Settings, Shield, Smartphone, Gauge } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) => (
   <Card className="border-border bg-card hover:border-primary/50 transition-colors">
@@ -14,6 +15,7 @@ const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode, titl
 );
 
 export const FeaturesSection = () => {
+  const { t } = useTranslation();
   const features = [
     { icon: <Settings className="h-6 w-6" />, title: "42+ Funciones Especiales", description: "Calibración ADAS, IMMO, TPMS PROG y más." },
     { icon: <Shield className="h-6 w-6" />, title: "Diagnóstico Profesional", description: "Lectura y borrado de códigos en todos los sistemas." },
@@ -25,8 +27,8 @@ export const FeaturesSection = () => {
     <section className="py-20 bg-muted/20">
       <div className="container">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">Funcionalidades Profesionales</h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Herramientas avanzadas para diagnóstico y reparación automotriz.</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">{t('features.title')}</h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t('features.subtitle')}</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map(f => <FeatureCard key={f.title} {...f} />)}

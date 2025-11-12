@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Car, Truck, Zap } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const StatCard = ({ icon, value, label }: { icon: React.ReactNode, value: string, label: string }) => (
   <Card className="border-border bg-card hover:border-primary/50 transition-colors">
@@ -14,11 +15,12 @@ const StatCard = ({ icon, value, label }: { icon: React.ReactNode, value: string
 );
 
 export const CompatibilitySection = () => {
+  const { t } = useTranslation();
   return (
     <section id="compatibilidad" className="py-20">
       <div className="container">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">ALTA COMPATIBILIDAD</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">{t('compatibility.title')}</h2>
           <div className="w-24 h-px bg-primary/50 mx-auto"></div>
         </div>
         <div className="max-w-4xl mx-auto mb-12">

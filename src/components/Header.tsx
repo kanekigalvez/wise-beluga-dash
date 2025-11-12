@@ -17,13 +17,8 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { slugify } from "@/lib/utils";
-
-const navLinks = [
-  { href: "/#inicio", text: "Inicio", icon: <Home className="mr-2 h-4 w-4" /> },
-  { href: "/#productos", text: "Conectores", icon: <Package className="mr-2 h-4 w-4" /> },
-  { href: "/#compatibilidad", text: "Compatibilidad", icon: <Wrench className="mr-2 h-4 w-4" /> },
-  { href: "/downloads", text: "Descargas", isLink: true, icon: <Download className="mr-2 h-4 w-4" /> },
-];
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 const allProducts = [
     { name: "Golo ED+" }, { name: "iDiag for Android" }, { name: "TD1" },
@@ -36,6 +31,14 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  const navLinks = [
+    { href: "/#inicio", text: t('header.home'), icon: <Home className="mr-2 h-4 w-4" /> },
+    { href: "/#productos", text: t('header.connectors'), icon: <Package className="mr-2 h-4 w-4" /> },
+    { href: "/#compatibilidad", text: t('header.compatibility'), icon: <Wrench className="mr-2 h-4 w-4" /> },
+    { href: "/downloads", text: t('header.downloads'), isLink: true, icon: <Download className="mr-2 h-4 w-4" /> },
+  ];
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -96,11 +99,12 @@ export const Header = () => {
               onClick={() => setIsSearchOpen(true)}
             >
               <Search className="h-4 w-4 mr-2" />
-              <span className="hidden lg:inline-block">Buscar...</span>
+              <span className="hidden lg:inline-block">{t('header.search')}</span>
               <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
                 <span className="text-xs">⌘</span>K
               </kbd>
             </Button>
+            <LanguageSwitcher />
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="md:hidden text-muted-foreground hover:text-primary">

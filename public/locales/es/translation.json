@@ -1,0 +1,23 @@
+{
+  "header": {
+    "home": "Inicio",
+    "connectors": "Conectores",
+    "compatibility": "Compatibilidad",
+    "downloads": "Descargas",
+    "search": "Buscar..."
+  },
+  "hero": {
+    "title": "DiagZone Pro: Software para Equipos de Diagnóstico",
+    "subtitle": "Vendemos software para equipos de diagnóstico. Explore nuestros conectores y verifique la compatibilidad.",
+    "serial_placeholder": "Ingrese su número de serie...",
+    "check_button": "Verificar",
+    "products_button": "Ver Productos"
+  },
+  "features": {
+    "title": "Funcionalidades Profesionales",
+    "subtitle": "Herramientas avanzadas para diagnóstico y reparación automotriz."
+  },
+  "compatibility": {
+    "title": "ALTA COMPATIBILIDAD"
+  }
+}
