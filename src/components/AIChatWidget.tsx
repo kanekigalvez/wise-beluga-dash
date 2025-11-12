@@ -29,7 +29,7 @@ export const AIChatWidget = () => {
   const messagesContainerRef = useRef<HTMLDivElement>(null); // Ref for the scrollable container
 
   const scrollToBottom = () => {
-    // Use requestAnimationFrame to ensure scrolling happens after DOM update
+    // Use requestAnimationFrame for smooth scrolling
     requestAnimationFrame(() => {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     });
@@ -42,8 +42,10 @@ export const AIChatWidget = () => {
       const isNearBottom = container.scrollHeight - container.clientHeight <= container.scrollTop + 150;
 
       if (isNearBottom || messages.length <= 2) {
-        // Only scroll if near the bottom or if it's the initial load/first user message
-        scrollToBottom();
+        // Use setTimeout(0) to ensure scrolling happens after the DOM has fully rendered the new message
+        setTimeout(() => {
+          scrollToBottom();
+        }, 0);
       }
     }
   }, [messages]);
