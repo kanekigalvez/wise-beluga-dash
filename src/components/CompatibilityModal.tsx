@@ -18,7 +18,7 @@ export const CompatibilityModal = ({ isOpen, onClose, productName }: Compatibili
     return null;
   }
 
-  const whatsappLink = `https://wa.me/51933353382?text=Hola,%20mi%20equipo%20es%20compatible%20con%20el%20modelo%20${encodeURIComponent(productName)}.%20Quisiera%20más%20información.`;
+  const whatsappLink = `https://wa.me/17168156081?text=Hola,%20mi%20equipo%20es%20compatible%20con%20el%20modelo%20${encodeURIComponent(productName)}.%20Quisiera%20más%20información.`;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>

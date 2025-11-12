@@ -19,7 +19,7 @@ export const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4 text-secondary">Contacto</h4>
             <div className="space-y-4">
-              <a href="https://wa.me/51933353382" target="_blank" rel="noopener noreferrer" className="inline-block">
+              <a href="https://wa.me/17168156081" target="_blank" rel="noopener noreferrer" className="inline-block">
                 <Button className="bg-green-500 hover:bg-green-600 text-white shadow-md hover:shadow-lg transition-shadow">
                   <MessageSquare className="mr-2 h-4 w-4" />
                   Chatea con nosotros

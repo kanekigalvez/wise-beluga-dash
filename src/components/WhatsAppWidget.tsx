@@ -7,7 +7,7 @@ import {
 import { MessageSquare } from "lucide-react";
 
 export const WhatsAppWidget = () => {
-  const whatsappLink = "https://wa.me/51933353382";
+  const whatsappLink = "https://wa.me/17168156081";
 
   return (
     <Tooltip>
