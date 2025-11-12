@@ -4,13 +4,13 @@
 
 @layer base {
   :root {
-    --background: 10 10% 5%; /* Deep black */
+    --background: 210 10% 3%; /* Deep Matte Black */
     --foreground: 210 40% 98%; /* Off-white */
 
-    --card: 20 10% 8%; /* Slightly lighter black for cards */
+    --card: 210 10% 6%; /* Slightly lighter black for cards */
     --card-foreground: 210 40% 98%;
 
-    --popover: 10 10% 5%;
+    --popover: 210 10% 3%;
     --popover-foreground: 210 40% 98%;
 
     --primary: 217 91% 60%; /* Vibrant Blue */
@@ -19,17 +19,17 @@
     --secondary: 217 33% 50%; /* Muted Blue for accents */
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 20 10% 15%;
+    --muted: 210 10% 10%; /* Dark gray for muted elements */
     --muted-foreground: 215 20% 65%;
 
-    --accent: 20 10% 15%;
+    --accent: 210 10% 10%;
     --accent-foreground: 217 91% 60%;
 
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 217 91% 60% / 0.2; /* Blue with transparency */
-    --input: 20 10% 15%;
+    --input: 210 10% 10%;
     --ring: 217 91% 60%;
 
     --radius: 0.5rem;
@@ -37,24 +37,24 @@
 
   .dark {
     /* Same as root for a forced dark theme */
-    --background: 10 10% 5%;
+    --background: 210 10% 3%;
     --foreground: 210 40% 98%;
-    --card: 20 10% 8%;
+    --card: 210 10% 6%;
     --card-foreground: 210 40% 98%;
-    --popover: 10 10% 5%;
+    --popover: 210 10% 3%;
     --popover-foreground: 210 40% 98%;
     --primary: 217 91% 60%;
     --primary-foreground: 210 40% 98%;
     --secondary: 217 33% 50%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 20 10% 15%;
+    --muted: 210 10% 10%;
     --muted-foreground: 215 20% 65%;
-    --accent: 20 10% 15%;
+    --accent: 210 10% 10%;
     --accent-foreground: 217 91% 60%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
     --border: 217 91% 60% / 0.2;
-    --input: 20 10% 15%;
+    --input: 210 10% 10%;
     --ring: 217 91% 60%;
   }
 }
