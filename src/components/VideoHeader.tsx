@@ -4,7 +4,7 @@ export const VideoHeader = () => {
       <div className="container">
         <div className="max-w-5xl mx-auto">
           <div
-            className="overflow-hidden bg-black"
+            className="overflow-hidden bg-black rounded-lg"
             style={{ padding: "56.25% 0 0 0", position: "relative" }}
           >
             <iframe
