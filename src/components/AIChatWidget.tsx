@@ -29,14 +29,17 @@ export const AIChatWidget = () => {
   const messagesContainerRef = useRef<HTMLDivElement>(null); // Ref for the scrollable container
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    // Use requestAnimationFrame to ensure scrolling happens after DOM update
+    requestAnimationFrame(() => {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    });
   };
 
   useEffect(() => {
     const container = messagesContainerRef.current;
     if (container) {
-      // Check if the user was near the bottom before the update
-      const isNearBottom = container.scrollHeight - container.clientHeight <= container.scrollTop + 100;
+      // Check if the user was near the bottom (within 150px tolerance) before the update
+      const isNearBottom = container.scrollHeight - container.clientHeight <= container.scrollTop + 150;
 
       if (isNearBottom || messages.length <= 2) {
         // Only scroll if near the bottom or if it's the initial load/first user message
