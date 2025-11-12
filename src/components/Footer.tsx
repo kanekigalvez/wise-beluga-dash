@@ -4,7 +4,7 @@ export const Footer = () => {
   return (
     <footer className="bg-card border-t border-border/40 py-12">
       <div className="container">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           <div>
             <h3 className="text-lg font-bold mb-4">
               <span className="text-primary">DIAG</span>
@@ -14,15 +14,6 @@ export const Footer = () => {
             <p className="text-sm text-muted-foreground">
               Plataforma profesional de diagnóstico automotriz con soporte para más de 240 marcas de vehículos.
             </p>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4 text-secondary">Enlaces Rápidos</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-primary transition-colors">Verificar Conector</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Buscar código DTC</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Conectores compatibles</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Soporte Técnico</a></li>
-            </ul>
           </div>
           <div>
             <h4 className="font-semibold mb-4 text-secondary">Contacto</h4>
