@@ -25,7 +25,7 @@ const xproDownloads = [
     fileName: "X-pro5_213_auth.apk",
   },
   {
-    title: "X431 PRO3S+",
+    title: "PRODIAG",
     version: "X431PRO3SPLUS_APP_V8_00_236_EN",
     fileUrl: "https://download937.mediafire.com/10wnl43ccywgwAPCuSWsG4xRPgMEaDowY98Stdnb-0QvgivknCLQ6fbeP41H3t8wskZl_nOtkx0RGQO4cmVBolkM_ui-4ZOzYAugiLvXokH4z_TF8AaDJMY-NThLiyALj2KdrnBZb6UXajUgXr8ePJgEuJJ_HA9ibp0vyzEVaxo/tu4wlhb6uvj23ma/X431PRO3SPLUS_APP_V8_00_236_EN.apk",
     fileName: "X431PRO3SPLUS_APP_V8_00_236_EN.apk",
