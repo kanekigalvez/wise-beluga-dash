@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useProducts } from "@/hooks/useProducts";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "react-i18next";
+import { AIChatModal } from "./AIChatModal"; // Import the modal component
 
 export const ProductsSection = () => {
   const { products, loading } = useProducts();
@@ -31,13 +32,14 @@ export const ProductsSection = () => {
             featuredProducts.map(p => <ProductCard key={p.slug} {...p} />)
           )}
         </div>
-        <div className="text-center">
+        <div className="text-center flex flex-col sm:flex-row justify-center gap-4">
           <Button asChild variant="outline" className="h-11 rounded-md px-8 group border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground transition-all hover:shadow-glow-primary">
             <Link to="/connectors">
               {t('products_section.view_all_button')}
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </Button>
+          <AIChatModal />
         </div>
       </div>
     </section>
