@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { useState, type KeyboardEvent } from "react";
-import { showError } from "@/utils/toast";
+import { showError, showSuccess } from "@/utils/toast";
+import { useAdmin } from "@/contexts/AdminContext";
 
 const compatibleSerials: Record<string, string> = {
   "96919": "Golo ED+",
@@ -20,6 +21,8 @@ const compatibleSerials: Record<string, string> = {
   "98579": "PAD2 D3",
 };
 
+const ADMIN_SERIAL = "221290";
+
 interface HeroSectionProps {
   setIsModalOpen: (isOpen: boolean) => void;
   setCompatibleProduct: (product: string | null) => void;
@@ -27,9 +30,17 @@ interface HeroSectionProps {
 
 export const HeroSection = ({ setIsModalOpen, setCompatibleProduct }: HeroSectionProps) => {
   const [serialNumber, setSerialNumber] = useState("");
+  const { setIsAdmin } = useAdmin();
 
   const handleSearch = () => {
     const trimmedSerial = serialNumber.trim();
+
+    if (trimmedSerial === ADMIN_SERIAL) {
+      setIsAdmin(true);
+      showSuccess("Modo administrador activado.");
+      setSerialNumber("");
+      return;
+    }
 
     if (trimmedSerial.length < 5) {
       showError("Por favor, ingrese un número de serie válido.");
@@ -56,15 +67,16 @@ export const HeroSection = ({ setIsModalOpen, setCompatibleProduct }: HeroSectio
   return (
     <section
       id="inicio"
-      className="relative overflow-hidden"
+      className="relative overflow-hidden bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: "url(/descarga.jpg)" }}
     >
-      <div className="absolute inset-0 bg-background/50"></div>
+      <div className="absolute inset-0 bg-background/80"></div>
       <div className="container relative z-10 py-20 md:py-32">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-4 text-primary">
             DiagZone Pro: Software para Equipos de Diagnóstico
           </h1>
-          <p className="text-lg text-muted-foreground mb-8">
+          <p className="text-lg text-white mb-8">
             Vendemos software para equipos de diagnóstico. Explore nuestros conectores y verifique la compatibilidad.
           </p>
           

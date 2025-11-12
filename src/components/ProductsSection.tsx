@@ -2,13 +2,12 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
 import { Link } from "react-router-dom";
+import { useProducts } from "@/hooks/useProducts";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const ProductsSection = () => {
-  const products = [
-    { name: "Golo ED+", description: "Escáner OBD2 bluetooth de alta precisión", image: "https://placehold.co/400x225/1a1a1a/d4af37?text=Golo+ED%2B" },
-    { name: "iDiag for Android", description: "Módulo profesional con funciones avanzadas", image: "https://placehold.co/400x225/1a1a1a/d4af37?text=iDiag" },
-    { name: "TD1", description: "Conector de fácil uso con interfaz intuitiva", image: "https://placehold.co/400x225/1a1a1a/d4af37?text=TD1" },
-  ];
+  const { products, loading } = useProducts();
+  const featuredProducts = products.slice(0, 3);
 
   return (
     <section id="productos" className="py-20 bg-muted/20">
@@ -18,7 +17,17 @@ export const ProductsSection = () => {
           <div className="w-24 h-px bg-primary/50 mx-auto"></div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {products.map(p => <ProductCard key={p.name} {...p} />)}
+          {loading ? (
+            Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="space-y-2">
+                <Skeleton className="h-48 w-full" />
+                <Skeleton className="h-6 w-3/4" />
+                <Skeleton className="h-4 w-1/2" />
+              </div>
+            ))
+          ) : (
+            featuredProducts.map(p => <ProductCard key={p.name} {...p} />)
+          )}
         </div>
         <div className="text-center">
           <Button asChild variant="outline" className="h-11 rounded-md px-8 group border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground transition-all hover:shadow-glow-primary">
