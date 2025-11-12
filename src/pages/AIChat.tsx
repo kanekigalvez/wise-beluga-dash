@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button"; // Import Button
 
 // Supabase Project ID: uvghvyrvrsmyydpnobkl
 const SUPABASE_PROJECT_ID = "uvghvyrvrsmyydpnobkl";
