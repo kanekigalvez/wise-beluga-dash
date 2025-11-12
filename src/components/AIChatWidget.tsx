@@ -26,12 +26,24 @@ export const AIChatWidget = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null); // Ref for the scrollable container
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(scrollToBottom, [messages]);
+  useEffect(() => {
+    const container = messagesContainerRef.current;
+    if (container) {
+      // Check if the user was near the bottom before the update
+      const isNearBottom = container.scrollHeight - container.clientHeight <= container.scrollTop + 100;
+
+      if (isNearBottom || messages.length <= 2) {
+        // Only scroll if near the bottom or if it's the initial load/first user message
+        scrollToBottom();
+      }
+    }
+  }, [messages]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -136,7 +148,7 @@ export const AIChatWidget = () => {
       </header>
 
       {/* Chat Container */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-background/50">
+      <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-background/50">
         {messages.map(renderMessage)}
         <div ref={messagesEndRef} />
       </div>
