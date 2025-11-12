@@ -10,7 +10,7 @@ export default defineConfig(() => ({
     port: 8080,
   },
   build: {
-    outDir: "docs", // Carpeta de salida para GitHub Pages
+    outDir: "dist", // Carpeta de salida para el build
     assetsDir: "assets",
   },
   plugins: [dyadComponentTagger(), react()],
