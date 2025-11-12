@@ -62,7 +62,7 @@ export const HeroSection = ({ setIsModalOpen, setCompatibleProduct }: HeroSectio
       <div className="container relative z-10 py-20 md:py-32">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-4 text-primary">
-            Diagzone - Tienda Online
+            DiagZone Pro: Software para Equipos de Diagnóstico
           </h1>
           <p className="text-lg text-muted-foreground mb-8">
             Vendemos software para equipos de diagnóstico. Explore nuestros conectores y verifique la compatibilidad.
