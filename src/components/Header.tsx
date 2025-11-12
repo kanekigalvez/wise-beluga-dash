@@ -19,6 +19,7 @@ import {
 import { slugify } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ChatBot } from "./ChatBot";
 
 const allProducts = [
     { name: "Golo ED+" }, { name: "iDiag for Android" }, { name: "TD1" },
@@ -101,6 +102,7 @@ export const Header = () => {
                 <span className="text-xs">⌘</span>K
               </kbd>
             </Button>
+            <ChatBot />
             <LanguageSwitcher />
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
