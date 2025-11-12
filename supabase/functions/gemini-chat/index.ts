@@ -22,6 +22,18 @@ serve(async (req) => {
     return new Response("ok", { headers: corsHeaders });
   }
 
+  // New check to validate the API key
+  if (!GEMINI_API_KEY) {
+    console.error("GEMINI_API_KEY secret not found in Supabase environment.");
+    return new Response(
+      JSON.stringify({ error: "Configuration error: The Gemini API key is missing on the server." }),
+      {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      }
+    );
+  }
+
   try {
     const { messages } = await req.json();
 
