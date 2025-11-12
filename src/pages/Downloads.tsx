@@ -4,28 +4,16 @@ import { DownloadCard } from "@/components/DownloadCard";
 
 const downloads = [
   {
-    title: "APK ESTABLE",
+    title: "VERSIÓN ESTABLE",
     version: "DIAGZONE_PRO_V2_200027",
-    fileUrl: "/diagzone_stable.apk",
-    fileName: "diagzone_stable.apk",
+    fileUrl: "https://download1510.mediafire.com/0021abypkgrgfGYNnDKNeXnb4mtbtlhnvI4f2JBzQTnaVd6ZAy45fxHY-Z9y_oUw8731FPU07zEDO9xHnHwj2FkoJmqoVvGt5I3hK223ZXZYQff4rG74Piy1ZHwuXc1FfUgxGqyFI3zIym5Wd09ip1mqu4S9wlV-iHSK-uAt1Vk/qoy4blfb41b13hg/DIAGZONE_PRO_V2_200027+%282%29.apk",
+    fileName: "DIAGZONE_PRO_V2_200027.apk",
   },
   {
-    title: "ÚLTIMA VERSIÓN DE APK",
-    version: "DIAGZONE VERSIÓN 2.00.0033",
-    fileUrl: "/diagzone_latest.apk",
-    fileName: "diagzone_latest.apk",
-  },
-  {
-    title: "BASE DE DIAGNÓSTICO",
-    version: "DIAGBASESERVICE_APP_V1_00_010_ES_DZPRO",
-    fileUrl: "/diagzone_diagbase.apk",
-    fileName: "diagzone_diagbase.apk",
-  },
-  {
-    title: "RECONOCIMIENTO DEL VIN",
-    version: "VERSIÓN 1.00.005",
-    fileUrl: "/diagzone_vin_recognition.apk",
-    fileName: "diagzone_vin_recognition.apk",
+    title: "ÚLTIMA VERSIÓN",
+    version: "DIAGZONE_PRO_V2_200030",
+    fileUrl: "https://download2302.mediafire.com/jnlyrpvs6dmgEJX8Be2Wb0SKjtlJxdUHViDZo4m6-pl4pRJ6Dwr97CjtUZuQvOiEJc17tbSqs5JtdQ8MiIMmV7vL5VdE2p9Fadwy4iWqORvasQ0NGhbVvTSNyGCuvx8hy-F9Lw2kqHmMAmO6lhK13ykQzbTC3IpjAo1RhvYfFQs/ku5m4i4qwug0s3i/DIAGZONE_PRO_V2_200030.apk",
+    fileName: "DIAGZONE_PRO_V2_200030.apk",
   },
 ];
 
