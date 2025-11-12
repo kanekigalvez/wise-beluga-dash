@@ -1,4 +1,5 @@
-import { Mail, Phone, MapPin } from "lucide-react";
+import { MapPin, MessageSquare } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const Footer = () => {
   return (
@@ -17,20 +18,18 @@ export const Footer = () => {
           </div>
           <div>
             <h4 className="font-semibold mb-4 text-secondary">Contacto</h4>
-            <ul className="space-y-3 text-sm text-muted-foreground">
-              <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-primary" />
-                <a href="mailto:info@diagzone.pro" className="hover:text-primary transition-colors">info@diagzone.pro</a>
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-primary" />
-                <span>+1 (555) 555-4567</span>
-              </li>
-              <li className="flex items-center gap-2">
+            <div className="space-y-4">
+              <a href="https://wa.me/51933353382" target="_blank" rel="noopener noreferrer" className="inline-block">
+                <Button className="bg-green-500 hover:bg-green-600 text-white shadow-md hover:shadow-lg transition-shadow">
+                  <MessageSquare className="mr-2 h-4 w-4" />
+                  Chatea con nosotros
+                </Button>
+              </a>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 text-primary" />
                 <span>Servicio Internacional</span>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
         </div>
         <div className="pt-8 border-t border-border/40">
