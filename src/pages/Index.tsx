@@ -8,7 +8,7 @@ import { Footer } from "@/components/Footer";
 import { VideoHeader } from "@/components/VideoHeader";
 import { WhatsAppWidget } from "@/components/WhatsAppWidget";
 import { CompatibilityModal } from "@/components/CompatibilityModal";
-import { AIChatFloatingButton } from "@/components/AIChatFloatingButton"; // Import the new floating button
+import { AIChatFixedWidget } from "@/components/AIChatFixedWidget"; // Import the new fixed widget
 
 const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,7 +34,7 @@ const Index = () => {
         onClose={() => setIsModalOpen(false)}
         productName={compatibleProduct}
       />
-      <AIChatFloatingButton />
+      <AIChatFixedWidget />
     </div>
   );
 };
