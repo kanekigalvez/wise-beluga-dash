@@ -23,7 +23,7 @@ export const CompatibilitySection = () => {
         </div>
         <div className="max-w-4xl mx-auto mb-12">
           <p className="text-muted-foreground text-lg text-center leading-relaxed">
-            En DiagZone.pro contamos con una gran gama de escáneres y módulos bluetooth del mercado, tanto para conectores de vehículos de <strong className="text-primary font-medium">12 Voltios</strong>, módulos conversores de autobuses y camiones de <strong className="text-primary font-medium">24 Voltios (HD)</strong> y para conectores de coches <strong className="text-primary font-medium">Eléctricos (EV)</strong>.
+            En DiagZone.io contamos con una gran gama de escáneres y módulos bluetooth del mercado, tanto para conectores de vehículos de <strong className="text-primary font-medium">12 Voltios</strong>, módulos conversores de autobuses y camiones de <strong className="text-primary font-medium">24 Voltios (HD)</strong> y para conectores de coches <strong className="text-primary font-medium">Eléctricos (EV)</strong>.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
