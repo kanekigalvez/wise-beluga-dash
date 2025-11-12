@@ -14,7 +14,11 @@ interface Message {
   content: string;
 }
 
-export const AIChatWidget = () => {
+interface AIChatWidgetProps {
+  isModal?: boolean;
+}
+
+export const AIChatWidget = ({ isModal = false }: AIChatWidgetProps) => {
   const { t } = useTranslation();
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -130,10 +134,62 @@ export const AIChatWidget = () => {
     );
   };
 
+  // If used as a modal, we only render the chat body and input area.
+  if (isModal) {
+    return (
+      <div className="flex flex-col h-full">
+        {/* Chat Container */}
+        <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-background/50">
+          {messages.map(renderMessage)}
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Input Area */}
+        <footer className="p-4 border-t border-border bg-card flex-shrink-0">
+          <form onSubmit={handleSubmit} className="flex gap-3 items-end">
+            <textarea
+              ref={inputRef}
+              id="user-input"
+              rows={2}
+              className="flex-1 resize-none rounded-lg border border-input bg-muted/50 p-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary transition-colors outline-none"
+              placeholder="Ejemplo: ¿Mi Mucar BT200 funciona con Diagzone para una Toyota Hilux 2018?"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              disabled={isLoading}
+            />
+            <div className="flex flex-col gap-2">
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+                <Button
+                  type="button"
+                  variant="secondary"
+                  className="h-10 px-4 rounded-full bg-green-600 hover:bg-green-700 text-white transition-all shadow-lg shadow-green-600/30 w-full"
+                >
+                  <MessageSquare className="h-4 w-4 mr-2" />
+                  WhatsApp
+                </Button>
+              </a>
+              <Button
+                type="submit"
+                disabled={isLoading || input.trim() === ""}
+                className="h-10 px-6 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-lg shadow-primary/30"
+              >
+                {isLoading ? "Pensando..." : "Enviar"}
+              </Button>
+            </div>
+          </form>
+          <p className="text-xs text-muted-foreground mt-2 ml-1">
+            Consejo: menciona <strong>conector</strong>, <strong>marca</strong>, <strong>año</strong> y <strong>problema</strong> para una mejor respuesta.
+          </p>
+        </footer>
+      </div>
+    );
+  }
+
+  // Original standalone widget rendering (kept for AIChatPage)
   return (
     <div className="w-full max-w-4xl mx-auto h-[70vh] flex flex-col bg-card border border-border rounded-xl shadow-2xl overflow-hidden">
       {/* Header Chat */}
-      <header className="p-4 border-b border-border flex justify-between items-center bg-card/90 backdrop-blur-sm">
+      <header className="p-4 border-b border-border flex justify-between items-center bg-card/90 backdrop-blur-sm flex-shrink-0">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm text-white"
             style={{ background: "radial-gradient(circle at 30% 20%, #22d3ee, #0f766e)", boxShadow: "0 0 12px rgba(45, 212, 191, 0.5)" }}
@@ -158,7 +214,7 @@ export const AIChatWidget = () => {
       </div>
 
       {/* Input Area */}
-      <footer className="p-4 border-t border-border bg-card">
+      <footer className="p-4 border-t border-border bg-card flex-shrink-0">
         <form onSubmit={handleSubmit} className="flex gap-3 items-end">
           <textarea
             ref={inputRef}
