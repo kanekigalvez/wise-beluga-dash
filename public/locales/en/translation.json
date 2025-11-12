@@ -1,41 +1,41 @@
 {
   "header": {
     "home": "Home",
-    "connectors": "Connectors",
+    "connectors": "Scanners",
     "compatibility": "Compatibility",
     "downloads": "Downloads",
     "search": "Search..."
   },
   "hero": {
-    "title": "DiagZone Pro: Software for Diagnostic Equipment",
-    "subtitle": "We sell software for diagnostic equipment. Explore our connectors and check compatibility.",
+    "title": "DiagZone Pro: Software Solutions for Vehicle Diagnostics",
+    "subtitle": "We offer software licenses for diagnostic scanners. Discover our compatible devices and check your serial number.",
     "serial_placeholder": "Enter your serial number...",
     "check_button": "Check",
     "products_button": "View Products"
   },
   "features": {
-    "title": "Professional Features",
-    "subtitle": "Advanced tools for automotive diagnostics and repair.",
-    "feature1_title": "42+ Special Functions",
-    "feature1_desc": "ADAS calibration, IMMO, TPMS PROG, and more.",
-    "feature2_title": "Professional Diagnostics",
-    "feature2_desc": "Read and clear codes on all systems.",
-    "feature3_title": "Bluetooth Connectivity",
-    "feature3_desc": "Wireless connection with your mobile device.",
-    "feature4_title": "Real-time Data",
-    "feature4_desc": "Live monitoring of engine parameters."
+    "title": "Professional-Grade Capabilities",
+    "subtitle": "Access a suite of cutting-edge tools for vehicle diagnosis and maintenance.",
+    "feature1_title": "Over 42 Service Functions",
+    "feature1_desc": "Includes ADAS system calibration, IMMO programming, TPMS, and much more.",
+    "feature2_title": "Comprehensive System Diagnostics",
+    "feature2_desc": "Ability to read and clear fault codes from all vehicle modules.",
+    "feature3_title": "Wireless Bluetooth Operation",
+    "feature3_desc": "Complete freedom of movement with a cable-free connection to your tablet or phone.",
+    "feature4_title": "Live Data Stream",
+    "feature4_desc": "Monitor vehicle sensors and parameters in real-time for accurate analysis."
   },
   "compatibility": {
-    "title": "HIGH COMPATIBILITY",
-    "main_text": "At DiagZone.io we have a wide range of scanners and bluetooth modules on the market, for <1>12 Volt</1> vehicle connectors, converter modules for <1>24 Volt (HD)</1> buses and trucks, and for <1>Electric (EV)</1> car connectors.",
+    "title": "EXTENSIVE VEHICLE COVERAGE",
+    "main_text": "Our platform supports a vast selection of scanners and VCIs on the market. We cover <1>12-Volt</1> vehicles, <1>24-Volt (HD)</1> heavy-duty trucks and machinery, and even the latest <1>Electric (EV)</1> cars.",
     "stat1_label": "12V vehicle brands",
     "stat2_label": "24V bus, truck, and machinery brands",
     "stat3_label": "Electric (EV) car brands",
-    "secondary_text": "In addition to supporting more than <1>42 special workshop functions</1>, <1>ADAS</1> systems calibration, <1>IMMO</1> Systems, and <1>TPMS PROG.</1>"
+    "secondary_text": "Additionally, the software enables over <1>42 maintenance functions</1>, <1>ADAS</1> system calibrations, <1>IMMO</1> key programming, and <1>TPMS PROG</1> service."
   },
   "downloads_page": {
-    "title": "Application Downloads",
-    "subtitle": "Download the latest versions of our software.",
+    "title": "Download Center",
+    "subtitle": "Access the links to download the most recent versions of our applications.",
     "diagzone_section": "DiagZone",
     "xpro_section": "X-PRO",
     "xdiag_section": "X-DIAG",
@@ -44,12 +44,12 @@
     "download_button": "Download"
   },
   "products_section": {
-    "title": "Compatible Connectors & Scanners",
-    "view_all_button": "View all connectors"
+    "title": "Our Compatible Scanners",
+    "view_all_button": "View all scanners"
   },
   "connectors_page": {
-    "title": "All Connectors",
-    "subtitle": "Explore our full range of compatible scanners.",
+    "title": "Full Scanner Catalog",
+    "subtitle": "Browse our entire selection of compatible diagnostic devices.",
     "back_button": "Back to Home"
   },
   "product_card": {
@@ -57,7 +57,7 @@
     "view_edit_details_button": "View / Edit Details"
   },
   "footer": {
-    "description": "Professional automotive diagnostic platform with support for over 240 vehicle brands.",
+    "description": "A comprehensive solution for vehicle diagnostics, offering coverage for over 240 brands worldwide.",
     "contact": "Contact",
     "chat_button": "Chat with us",
     "location": "International Service",
@@ -66,20 +66,20 @@
     "privacy": "Privacy policy"
   },
   "products": {
-    "golo-ed": { "name": "Golo ED+", "description": "High-precision OBD2 bluetooth scanner" },
-    "idiag-for-android": { "name": "iDiag for Android", "description": "Diagnostic module for Android devices" },
-    "td1": { "name": "TD1", "description": "Advanced diagnostic connector" },
-    "ed-30": { "name": "ED 3.0", "description": "Third-generation diagnostic interface" },
-    "bt200": { "name": "BT200", "description": "Compact Bluetooth diagnostic tool" },
-    "ed-v20": { "name": "ED V2.0", "description": "Second-generation diagnostic interface" },
-    "v": { "name": "V", "description": "Standard diagnostic connector" },
-    "v-plus": { "name": "V Plus", "description": "Diagnostic connector with enhanced features" },
-    "topdon": { "name": "TOPDON", "description": "Multi-brand diagnostic scanner" },
-    "maxgo": { "name": "MaxGo", "description": "Portable diagnostic tool" },
-    "hd-iv": { "name": "HD IV", "description": "Diagnostic interface for heavy-duty vehicles" },
-    "hd-iii": { "name": "HD III", "description": "Third-gen diagnostic interface for trucks" },
-    "m-diag": { "name": "M-Diag", "description": "Mobile diagnostic tool" },
-    "pro4-d3": { "name": "PRO4 D3", "description": "Professional-level scanner" },
-    "pad2-d3": { "name": "PAD2 D3", "description": "Advanced diagnostic tablet" }
+    "golo-ed": { "name": "Golo ED+", "description": "High-reliability Bluetooth VCI for OBD2." },
+    "idiag-for-android": { "name": "iDiag for Android", "description": "Diagnostic adapter designed for Android systems." },
+    "td1": { "name": "TD1", "description": "Diagnostic device with advanced technology." },
+    "ed-30": { "name": "ED 3.0", "description": "Diagnostic VCI, third hardware evolution." },
+    "bt200": { "name": "BT200", "description": "Small-form-factor Bluetooth diagnostic tool." },
+    "ed-v20": { "name": "ED V2.0", "description": "Diagnostic VCI, second hardware version." },
+    "v": { "name": "V", "description": "General-purpose diagnostic device." },
+    "v-plus": { "name": "V Plus", "description": "Diagnostic device with extended capabilities." },
+    "topdon": { "name": "TOPDON", "description": "Multi-brand compatible diagnostic scanner." },
+    "maxgo": { "name": "MaxGo", "description": "A go-anywhere diagnostic solution." },
+    "hd-iv": { "name": "HD IV", "description": "VCI for diagnosing trucks and heavy machinery." },
+    "hd-iii": { "name": "HD III", "description": "Third-generation VCI for heavy-duty vehicles." },
+    "m-diag": { "name": "M-Diag", "description": "A diagnostic tool designed for mobility." },
+    "pro4-d3": { "name": "PRO4 D3", "description": "A scanner built for intensive professional use." },
+    "pad2-d3": { "name": "PAD2 D3", "description": "Diagnostic tablet with latest-generation hardware." }
   }
 }
