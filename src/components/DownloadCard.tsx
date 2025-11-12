@@ -12,7 +12,7 @@ interface DownloadCardProps {
 
 export const DownloadCard = ({ title, version, fileUrl, fileName }: DownloadCardProps) => {
   return (
-    <Card className="text-center overflow-hidden bg-card border border-border hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary/50">
+    <Card className="text-center overflow-hidden bg-card border border-border hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 w-full sm:w-80">
       <CardContent className="p-8">
         <h3 className={cn("text-lg font-bold uppercase mb-2 text-primary")}>{title}</h3>
         <p className="text-sm text-muted-foreground mb-6 min-h-[2.5rem]">{version}</p>

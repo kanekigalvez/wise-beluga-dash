@@ -55,7 +55,7 @@ const DownloadsPage = () => {
           <div className="space-y-16">
             <section>
               <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-secondary">DiagZone</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              <div className="flex flex-wrap justify-center gap-8 max-w-4xl mx-auto">
                 {diagzoneDownloads.map((download) => (
                   <DownloadCard key={download.title} {...download} />
                 ))}
@@ -64,7 +64,7 @@ const DownloadsPage = () => {
 
             <section>
               <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-secondary">X-PRO</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              <div className="flex flex-wrap justify-center gap-8 max-w-4xl mx-auto">
                 {xproDownloads.map((download) => (
                   <DownloadCard key={download.title} {...download} />
                 ))}
@@ -73,7 +73,7 @@ const DownloadsPage = () => {
 
             <section>
               <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-secondary">X-DIAG</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              <div className="flex flex-wrap justify-center gap-8 max-w-4xl mx-auto">
                 {xdiagDownloads.map((download) => (
                   <DownloadCard key={download.title} {...download} />
                 ))}
