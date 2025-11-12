@@ -38,7 +38,7 @@ export const ProductCard = ({ image, name, description }: ProductCardProps) => {
         </CardContent>
       </Card>
       <DialogContent className="max-w-4xl w-full bg-background/80 backdrop-blur-md border-primary/50">
-        <EditableProductDetails softwareId={softwareId} productName={name} />
+        <EditableProductDetails softwareId={softwareId} productName={name} currentImageUrl={image} />
       </DialogContent>
     </Dialog>
   );

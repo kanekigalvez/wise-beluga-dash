@@ -1,64 +1,107 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, ChangeEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Skeleton } from "@/components/ui/skeleton";
 import { showError, showSuccess, showLoading, dismissToast } from "@/utils/toast";
-import { Pencil, Save } from "lucide-react";
+import { Pencil, Save, Upload } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useAdmin } from "@/contexts/AdminContext";
 
 interface EditableProductDetailsProps {
   softwareId: string;
   productName: string;
+  currentImageUrl: string;
 }
 
-export const EditableProductDetails = ({ softwareId, productName }: EditableProductDetailsProps) => {
+export const EditableProductDetails = ({ softwareId, productName, currentImageUrl }: EditableProductDetailsProps) => {
+  const { isAdmin } = useAdmin();
   const [description, setDescription] = useState("");
   const [initialDescription, setInitialDescription] = useState("");
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchDetails = async () => {
       setLoading(true);
       const { data } = await supabase
         .from("product_details")
-        .select("description")
+        .select("description, image_url")
         .eq("slug", softwareId)
         .single();
 
-      if (data?.description) {
-        setDescription(data.description);
-        setInitialDescription(data.description);
-      } else {
-        setDescription("");
-        setInitialDescription("");
-      }
+      const desc = data?.description || "";
+      setDescription(desc);
+      setInitialDescription(desc);
+      setImagePreview(data?.image_url || currentImageUrl);
+      
       setLoading(false);
     };
 
     fetchDetails();
-  }, [softwareId]);
+  }, [softwareId, currentImageUrl]);
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setImageFile(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
 
   const handleSave = async () => {
     const toastId = showLoading("Guardando...");
-    const { error } = await supabase
+    let newImageUrl: string | null = null;
+
+    if (imageFile) {
+      const filePath = `${softwareId}-${Date.now()}`;
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from("product_images")
+        .upload(filePath, imageFile);
+
+      if (uploadError) {
+        dismissToast(toastId);
+        showError("Error al subir la imagen: " + uploadError.message);
+        return;
+      }
+
+      const { data: urlData } = supabase.storage
+        .from("product_images")
+        .getPublicUrl(uploadData.path);
+      
+      newImageUrl = urlData.publicUrl;
+    }
+
+    const upsertData: { slug: string; description: string; image_url?: string } = {
+      slug: softwareId,
+      description: description,
+    };
+
+    if (newImageUrl) {
+      upsertData.image_url = newImageUrl;
+    }
+
+    const { error: dbError } = await supabase
       .from("product_details")
-      .upsert({ slug: softwareId, description: description });
+      .upsert(upsertData, { onConflict: 'slug' });
 
     dismissToast(toastId);
 
-    if (error) {
-      showError("Error al guardar: " + error.message);
+    if (dbError) {
+      showError("Error al guardar los detalles: " + dbError.message);
     } else {
       showSuccess("¡Guardado con éxito!");
       setInitialDescription(description);
       setIsEditing(false);
+      setTimeout(() => window.location.reload(), 1000);
     }
   };
 
@@ -72,7 +115,8 @@ export const EditableProductDetails = ({ softwareId, productName }: EditableProd
   }
 
   const renderEditControls = () => {
-    if (!isEditing) {
+    if (!isEditing && !isAdmin) return null;
+    if (!isEditing && isAdmin) {
       return (
         <Button variant="outline" onClick={() => setIsEditing(true)}>
           <Pencil className="mr-2 h-4 w-4" />
@@ -86,6 +130,8 @@ export const EditableProductDetails = ({ softwareId, productName }: EditableProd
         <Button variant="outline" onClick={() => {
           setDescription(initialDescription);
           setIsEditing(false);
+          setImageFile(null);
+          setImagePreview(currentImageUrl);
         }}>
           Cancelar
         </Button>
@@ -139,22 +185,51 @@ export const EditableProductDetails = ({ softwareId, productName }: EditableProd
   };
 
   return (
-    <div className="p-6 w-full h-[70vh] flex flex-col">
+    <div className="p-6 w-full h-[80vh] flex flex-col">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">{productName} - Características</h2>
         {renderEditControls()}
       </div>
       {isEditing ? (
-        <Textarea
-          className="flex-grow text-base"
-          placeholder={
-            productName === "iDiag for Android"
-              ? "Escribe un título, deja una línea en blanco y luego el contenido. Repite para cada sección para crear el menú plegable."
-              : "Agrega aquí las características, compatibilidad y otros detalles del producto..."
-          }
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
+        <>
+          {isAdmin && (
+            <div className="mb-4 p-4 border rounded-md bg-muted/50">
+              <h3 className="font-semibold mb-2">Modo Administrador: Cambiar Imagen</h3>
+              {imagePreview && (
+                <div className="mb-2 flex justify-center">
+                  <img src={imagePreview} alt="Vista previa" className="max-h-40 rounded-md object-contain" />
+                </div>
+              )}
+              <div className="flex items-center gap-2">
+                <label htmlFor="image-upload" className="flex-grow">
+                  <Button asChild variant="outline" className="w-full cursor-pointer">
+                    <span>
+                      <Upload className="mr-2 h-4 w-4" />
+                      Seleccionar Imagen
+                    </span>
+                  </Button>
+                </label>
+                <Input
+                  id="image-upload"
+                  type="file"
+                  className="hidden"
+                  accept="image/png, image/jpeg, image/webp"
+                  onChange={handleImageChange}
+                />
+              </div>
+            </div>
+          )}
+          <Textarea
+            className="flex-grow text-base"
+            placeholder={
+              productName === "iDiag for Android"
+                ? "Escribe un título, deja una línea en blanco y luego el contenido. Repite para cada sección para crear el menú plegable."
+                : "Agrega aquí las características, compatibilidad y otros detalles del producto..."
+            }
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </>
       ) : (
         renderDescription()
       )}
