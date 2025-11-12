@@ -17,10 +17,10 @@ const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode, titl
 export const FeaturesSection = () => {
   const { t } = useTranslation();
   const features = [
-    { icon: <Settings className="h-6 w-6" />, title: "42+ Funciones Especiales", description: "Calibración ADAS, IMMO, TPMS PROG y más." },
-    { icon: <Shield className="h-6 w-6" />, title: "Diagnóstico Profesional", description: "Lectura y borrado de códigos en todos los sistemas." },
-    { icon: <Smartphone className="h-6 w-6" />, title: "Conectividad Bluetooth", description: "Conexión inalámbrica con tu dispositivo móvil." },
-    { icon: <Gauge className="h-6 w-6" />, title: "Datos en Tiempo Real", description: "Monitoreo de parámetros del motor en vivo." },
+    { icon: <Settings className="h-6 w-6" />, title: t('features.feature1_title'), description: t('features.feature1_desc') },
+    { icon: <Shield className="h-6 w-6" />, title: t('features.feature2_title'), description: t('features.feature2_desc') },
+    { icon: <Smartphone className="h-6 w-6" />, title: t('features.feature3_title'), description: t('features.feature3_desc') },
+    { icon: <Gauge className="h-6 w-6" />, title: t('features.feature4_title'), description: t('features.feature4_desc') },
   ];
 
   return (

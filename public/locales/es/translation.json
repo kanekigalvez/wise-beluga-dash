@@ -15,9 +15,54 @@
   },
   "features": {
     "title": "Funcionalidades Profesionales",
-    "subtitle": "Herramientas avanzadas para diagnóstico y reparación automotriz."
+    "subtitle": "Herramientas avanzadas para diagnóstico y reparación automotriz.",
+    "feature1_title": "42+ Funciones Especiales",
+    "feature1_desc": "Calibración ADAS, IMMO, TPMS PROG y más.",
+    "feature2_title": "Diagnóstico Profesional",
+    "feature2_desc": "Lectura y borrado de códigos en todos los sistemas.",
+    "feature3_title": "Conectividad Bluetooth",
+    "feature3_desc": "Conexión inalámbrica con tu dispositivo móvil.",
+    "feature4_title": "Datos en Tiempo Real",
+    "feature4_desc": "Monitoreo de parámetros del motor en vivo."
   },
   "compatibility": {
-    "title": "ALTA COMPATIBILIDAD"
+    "title": "ALTA COMPATIBILIDAD",
+    "main_text": "En DiagZone.io contamos con una gran gama de escáneres y módulos bluetooth del mercado, tanto para conectores de vehículos de <1>12 Voltios</1>, módulos conversores de autobuses y camiones de <1>24 Voltios (HD)</1> y para conectores de coches <1>Eléctricos (EV)</1>.",
+    "stat1_label": "Marcas de vehículos de 12V",
+    "stat2_label": "Marcas de autobuses, camiones y maquinaria 24V",
+    "stat3_label": "Marcas de coches Eléctricos (EV)",
+    "secondary_text": "Además de soportar más de <1>42 funciones especiales</1> de taller, calibración de sistemas <1>ADAS</1>, Sistemas <1>IMMO</1> y <1>TPMS PROG.</1>"
+  },
+  "downloads_page": {
+    "title": "Descargas de Aplicaciones",
+    "subtitle": "Descargue las últimas versiones de nuestro software.",
+    "diagzone_section": "DiagZone",
+    "xpro_section": "X-PRO",
+    "xdiag_section": "X-DIAG",
+    "stable_version": "VERSIÓN ESTABLE",
+    "latest_version": "ÚLTIMA VERSIÓN",
+    "download_button": "Descargar"
+  },
+  "products_section": {
+    "title": "Conectores Y Escáner Compatibles",
+    "view_all_button": "Ver todos los conectores"
+  },
+  "connectors_page": {
+    "title": "Todos los Conectores",
+    "subtitle": "Explore nuestra gama completa de escáneres compatibles.",
+    "back_button": "Volver al Inicio"
+  },
+  "product_card": {
+    "view_details_button": "Ver Detalles",
+    "view_edit_details_button": "Ver / Editar Detalles"
+  },
+  "footer": {
+    "description": "Plataforma profesional de diagnóstico automotriz con soporte para más de 240 marcas de vehículos.",
+    "contact": "Contacto",
+    "chat_button": "Chatea con nosotros",
+    "location": "Servicio Internacional",
+    "copyright": "© 2024 DiagZone Pro. Todos los derechos reservados.",
+    "terms": "Términos de servicio",
+    "privacy": "Política de privacidad"
   }
 }

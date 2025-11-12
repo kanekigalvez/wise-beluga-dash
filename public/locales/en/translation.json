@@ -15,9 +15,54 @@
   },
   "features": {
     "title": "Professional Features",
-    "subtitle": "Advanced tools for automotive diagnostics and repair."
+    "subtitle": "Advanced tools for automotive diagnostics and repair.",
+    "feature1_title": "42+ Special Functions",
+    "feature1_desc": "ADAS calibration, IMMO, TPMS PROG, and more.",
+    "feature2_title": "Professional Diagnostics",
+    "feature2_desc": "Read and clear codes on all systems.",
+    "feature3_title": "Bluetooth Connectivity",
+    "feature3_desc": "Wireless connection with your mobile device.",
+    "feature4_title": "Real-time Data",
+    "feature4_desc": "Live monitoring of engine parameters."
   },
   "compatibility": {
-    "title": "HIGH COMPATIBILITY"
+    "title": "HIGH COMPATIBILITY",
+    "main_text": "At DiagZone.io we have a wide range of scanners and bluetooth modules on the market, for <1>12 Volt</1> vehicle connectors, converter modules for <1>24 Volt (HD)</1> buses and trucks, and for <1>Electric (EV)</1> car connectors.",
+    "stat1_label": "12V vehicle brands",
+    "stat2_label": "24V bus, truck, and machinery brands",
+    "stat3_label": "Electric (EV) car brands",
+    "secondary_text": "In addition to supporting more than <1>42 special workshop functions</1>, <1>ADAS</1> systems calibration, <1>IMMO</1> Systems, and <1>TPMS PROG.</1>"
+  },
+  "downloads_page": {
+    "title": "Application Downloads",
+    "subtitle": "Download the latest versions of our software.",
+    "diagzone_section": "DiagZone",
+    "xpro_section": "X-PRO",
+    "xdiag_section": "X-DIAG",
+    "stable_version": "STABLE VERSION",
+    "latest_version": "LATEST VERSION",
+    "download_button": "Download"
+  },
+  "products_section": {
+    "title": "Compatible Connectors & Scanners",
+    "view_all_button": "View all connectors"
+  },
+  "connectors_page": {
+    "title": "All Connectors",
+    "subtitle": "Explore our full range of compatible scanners.",
+    "back_button": "Back to Home"
+  },
+  "product_card": {
+    "view_details_button": "View Details",
+    "view_edit_details_button": "View / Edit Details"
+  },
+  "footer": {
+    "description": "Professional automotive diagnostic platform with support for over 240 vehicle brands.",
+    "contact": "Contact",
+    "chat_button": "Chat with us",
+    "location": "International Service",
+    "copyright": "© 2024 DiagZone Pro. All rights reserved.",
+    "terms": "Terms of service",
+    "privacy": "Privacy policy"
   }
 }

@@ -6,9 +6,11 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useProducts } from "@/hooks/useProducts";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslation } from "react-i18next";
 
 const ConnectorsPage = () => {
   const { products, loading } = useProducts();
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen">
@@ -16,8 +18,8 @@ const ConnectorsPage = () => {
       <main className="py-12 md:py-20">
         <div className="container">
           <div className="mb-12 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary">Todos los Conectores</h1>
-            <p className="text-lg text-muted-foreground">Explore nuestra gama completa de escáneres compatibles.</p>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary">{t('connectors_page.title')}</h1>
+            <p className="text-lg text-muted-foreground">{t('connectors_page.subtitle')}</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {loading ? (
@@ -38,7 +40,7 @@ const ConnectorsPage = () => {
             <Button asChild variant="outline">
               <Link to="/" className="inline-flex items-center">
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Volver al Inicio
+                {t('connectors_page.back_button')}
               </Link>
             </Button>
           </div>

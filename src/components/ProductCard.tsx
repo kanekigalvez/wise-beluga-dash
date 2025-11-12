@@ -9,6 +9,7 @@ import {
 import { EditableProductDetails } from "./EditableProductDetails";
 import { slugify } from "@/lib/utils";
 import { useAdmin } from "@/contexts/AdminContext";
+import { useTranslation } from "react-i18next";
 
 interface ProductCardProps {
   image: string;
@@ -20,6 +21,7 @@ interface ProductCardProps {
 export const ProductCard = ({ image, name, description, db_description }: ProductCardProps) => {
   const softwareId = slugify(name);
   const { isAdmin } = useAdmin();
+  const { t } = useTranslation();
   const hasDetails = db_description && db_description.trim() !== "";
 
   const renderButton = () => {
@@ -28,7 +30,7 @@ export const ProductCard = ({ image, name, description, db_description }: Produc
         <DialogTrigger asChild>
           <Button variant="outline" className="w-full border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground">
             <Info className="mr-2 h-4 w-4" />
-            Ver / Editar Detalles
+            {t('product_card.view_edit_details_button')}
           </Button>
         </DialogTrigger>
       );
@@ -39,7 +41,7 @@ export const ProductCard = ({ image, name, description, db_description }: Produc
         <DialogTrigger asChild>
           <Button variant="outline" className="w-full border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground">
             <Info className="mr-2 h-4 w-4" />
-            Ver Detalles
+            {t('product_card.view_details_button')}
           </Button>
         </DialogTrigger>
       );
