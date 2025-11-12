@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { MessageSquare, Loader2 } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 
 // Supabase Project ID: uvghvyrvrsmyydpnobkl
 const SUPABASE_PROJECT_ID = "uvghvyrvrsmyydpnobkl";
@@ -14,11 +14,7 @@ interface Message {
   content: string;
 }
 
-interface AIChatWidgetProps {
-  isModal?: boolean;
-}
-
-export const AIChatWidget = ({ isModal = false }: AIChatWidgetProps) => {
+export const AIChatWidget = () => {
   const { t } = useTranslation();
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -136,10 +132,7 @@ export const AIChatWidget = ({ isModal = false }: AIChatWidgetProps) => {
   };
 
   return (
-    <div className={cn(
-      "w-full max-w-4xl mx-auto flex flex-col bg-card border border-border rounded-xl shadow-2xl overflow-hidden",
-      isModal ? "h-full" : "h-[70vh]" // Use full height if in modal, otherwise fixed height
-    )}>
+    <div className="w-full max-w-4xl mx-auto h-[70vh] flex flex-col bg-card border border-border rounded-xl shadow-2xl overflow-hidden">
       {/* Header Chat */}
       <header className="p-4 border-b border-border flex justify-between items-center bg-card/90 backdrop-blur-sm">
         <div className="flex items-center gap-3">
@@ -162,18 +155,6 @@ export const AIChatWidget = ({ isModal = false }: AIChatWidgetProps) => {
       {/* Chat Container */}
       <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-background/50">
         {messages.map(renderMessage)}
-        {isLoading && (
-          <div className="flex gap-3 items-start">
-            <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold flex-shrink-0 bg-blue-600 text-white"
-              style={{ background: "radial-gradient(circle at 30% 20%, #38bdf8, #4f46e5)" }}
-            >
-              IA
-            </div>
-            <div className="max-w-[82%] p-3 rounded-xl text-sm leading-relaxed border bg-card border-border rounded-tl-none">
-              <Loader2 className="h-4 w-4 animate-spin text-primary" />
-            </div>
-          </div>
-        )}
         <div ref={messagesEndRef} />
       </div>
 
@@ -205,11 +186,7 @@ export const AIChatWidget = ({ isModal = false }: AIChatWidgetProps) => {
               disabled={isLoading || input.trim() === ""}
               className="h-10 px-6 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-lg shadow-primary/30"
             >
-              {isLoading ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                "Enviar"
-              )}
+              {isLoading ? "Pensando..." : "Enviar"}
             </Button>
           </div>
         </form>
