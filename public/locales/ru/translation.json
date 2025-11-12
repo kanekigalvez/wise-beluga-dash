@@ -64,5 +64,22 @@
     "copyright": "© 2024 DiagZone Pro. Все права защищены.",
     "terms": "Условия обслуживания",
     "privacy": "Политика конфиденциальности"
+  },
+  "products": {
+    "golo-ed": { "name": "Golo ED+", "description": "Высокоточный сканер OBD2 bluetooth" },
+    "idiag-for-android": { "name": "iDiag for Android", "description": "Диагностический модуль для устройств Android" },
+    "td1": { "name": "TD1", "description": "Продвинутый диагностический коннектор" },
+    "ed-30": { "name": "ED 3.0", "description": "Диагностический интерфейс третьего поколения" },
+    "bt200": { "name": "BT200", "description": "Компактный диагностический инструмент Bluetooth" },
+    "ed-v20": { "name": "ED V2.0", "description": "Диагностический интерфейс второго поколения" },
+    "v": { "name": "V", "description": "Стандартный диагностический коннектор" },
+    "v-plus": { "name": "V Plus", "description": "Диагностический коннектор с расширенными функциями" },
+    "topdon": { "name": "TOPDON", "description": "Мультибрендовый диагностический сканер" },
+    "maxgo": { "name": "MaxGo", "description": "Портативный диагностический инструмент" },
+    "hd-iv": { "name": "HD IV", "description": "Диагностический интерфейс для тяжелой техники" },
+    "hd-iii": { "name": "HD III", "description": "Диагностический интерфейс третьего поколения для грузовиков" },
+    "m-diag": { "name": "M-Diag", "description": "Мобильный диагностический инструмент" },
+    "pro4-d3": { "name": "PRO4 D3", "description": "Сканер профессионального уровня" },
+    "pad2-d3": { "name": "PAD2 D3", "description": "Продвинутый диагностический планшет" }
   }
 }

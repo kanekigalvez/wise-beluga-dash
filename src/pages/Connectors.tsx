@@ -32,7 +32,7 @@ const ConnectorsPage = () => {
               ))
             ) : (
               products.map((product) => (
-                <ProductCard key={product.name} {...product} />
+                <ProductCard key={product.slug} {...product} />
               ))
             )}
           </div>

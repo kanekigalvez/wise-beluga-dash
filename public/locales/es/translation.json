@@ -64,5 +64,22 @@
     "copyright": "© 2024 DiagZone Pro. Todos los derechos reservados.",
     "terms": "Términos de servicio",
     "privacy": "Política de privacidad"
+  },
+  "products": {
+    "golo-ed": { "name": "Golo ED+", "description": "Escáner OBD2 bluetooth de alta precisión" },
+    "idiag-for-android": { "name": "iDiag for Android", "description": "Módulo de diagnóstico para dispositivos Android" },
+    "td1": { "name": "TD1", "description": "Conector de diagnóstico avanzado" },
+    "ed-30": { "name": "ED 3.0", "description": "Interfaz de diagnóstico de tercera generación" },
+    "bt200": { "name": "BT200", "description": "Herramienta de diagnóstico Bluetooth compacta" },
+    "ed-v20": { "name": "ED V2.0", "description": "Interfaz de diagnóstico de segunda generación" },
+    "v": { "name": "V", "description": "Conector de diagnóstico estándar" },
+    "v-plus": { "name": "V Plus", "description": "Conector de diagnóstico con funciones mejoradas" },
+    "topdon": { "name": "TOPDON", "description": "Escáner de diagnóstico multimarca" },
+    "maxgo": { "name": "MaxGo", "description": "Herramienta de diagnóstico portátil" },
+    "hd-iv": { "name": "HD IV", "description": "Interfaz de diagnóstico para vehículos pesados" },
+    "hd-iii": { "name": "HD III", "description": "Interfaz de diagnóstico de tercera gen para camiones" },
+    "m-diag": { "name": "M-Diag", "description": "Herramienta de diagnóstico móvil" },
+    "pro4-d3": { "name": "PRO4 D3", "description": "Escáner de nivel profesional" },
+    "pad2-d3": { "name": "PAD2 D3", "description": "Tableta de diagnóstico avanzada" }
   }
 }

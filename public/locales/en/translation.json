@@ -64,5 +64,22 @@
     "copyright": "© 2024 DiagZone Pro. All rights reserved.",
     "terms": "Terms of service",
     "privacy": "Privacy policy"
+  },
+  "products": {
+    "golo-ed": { "name": "Golo ED+", "description": "High-precision OBD2 bluetooth scanner" },
+    "idiag-for-android": { "name": "iDiag for Android", "description": "Diagnostic module for Android devices" },
+    "td1": { "name": "TD1", "description": "Advanced diagnostic connector" },
+    "ed-30": { "name": "ED 3.0", "description": "Third-generation diagnostic interface" },
+    "bt200": { "name": "BT200", "description": "Compact Bluetooth diagnostic tool" },
+    "ed-v20": { "name": "ED V2.0", "description": "Second-generation diagnostic interface" },
+    "v": { "name": "V", "description": "Standard diagnostic connector" },
+    "v-plus": { "name": "V Plus", "description": "Diagnostic connector with enhanced features" },
+    "topdon": { "name": "TOPDON", "description": "Multi-brand diagnostic scanner" },
+    "maxgo": { "name": "MaxGo", "description": "Portable diagnostic tool" },
+    "hd-iv": { "name": "HD IV", "description": "Diagnostic interface for heavy-duty vehicles" },
+    "hd-iii": { "name": "HD III", "description": "Third-gen diagnostic interface for trucks" },
+    "m-diag": { "name": "M-Diag", "description": "Mobile diagnostic tool" },
+    "pro4-d3": { "name": "PRO4 D3", "description": "Professional-level scanner" },
+    "pad2-d3": { "name": "PAD2 D3", "description": "Advanced diagnostic tablet" }
   }
 }

@@ -28,7 +28,7 @@ export const ProductsSection = () => {
               </div>
             ))
           ) : (
-            featuredProducts.map(p => <ProductCard key={p.name} {...p} />)
+            featuredProducts.map(p => <ProductCard key={p.slug} {...p} />)
           )}
         </div>
         <div className="text-center">

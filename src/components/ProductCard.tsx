@@ -7,19 +7,18 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { EditableProductDetails } from "./EditableProductDetails";
-import { slugify } from "@/lib/utils";
 import { useAdmin } from "@/contexts/AdminContext";
 import { useTranslation } from "react-i18next";
 
 interface ProductCardProps {
+  slug: string;
   image: string;
   name: string;
   description: string;
   db_description?: string | null;
 }
 
-export const ProductCard = ({ image, name, description, db_description }: ProductCardProps) => {
-  const softwareId = slugify(name);
+export const ProductCard = ({ slug, image, name, description, db_description }: ProductCardProps) => {
   const { isAdmin } = useAdmin();
   const { t } = useTranslation();
   const hasDetails = db_description && db_description.trim() !== "";
@@ -53,7 +52,7 @@ export const ProductCard = ({ image, name, description, db_description }: Produc
 
   return (
     <Dialog>
-      <Card id={softwareId} className="group overflow-hidden bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-primary scroll-mt-20">
+      <Card id={slug} className="group overflow-hidden bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-primary scroll-mt-20">
         <CardContent className="p-0">
           <div className="aspect-video overflow-hidden bg-black">
             <img src={image} alt={name} className="w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-110" />
@@ -66,7 +65,7 @@ export const ProductCard = ({ image, name, description, db_description }: Produc
         </CardContent>
       </Card>
       <DialogContent className="max-w-4xl w-full bg-background/80 backdrop-blur-md border-primary/50">
-        <EditableProductDetails softwareId={softwareId} productName={name} currentImageUrl={image} />
+        <EditableProductDetails softwareId={slug} productName={name} currentImageUrl={image} />
       </DialogContent>
     </Dialog>
   );

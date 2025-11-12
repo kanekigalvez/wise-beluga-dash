@@ -1,35 +1,24 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { slugify } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 interface Product {
+  slug: string;
   name: string;
   description: string;
   db_description?: string | null;
   image: string;
 }
 
-const defaultProducts: Omit<Product, 'image' | 'db_description'>[] = [
-    { name: "Golo ED+", description: "Escáner OBD2 bluetooth de alta precisión" },
-    { name: "iDiag for Android", description: "Módulo de diagnóstico para dispositivos Android" },
-    { name: "TD1", description: "Conector de diagnóstico avanzado" },
-    { name: "ED 3.0", description: "Interfaz de diagnóstico de tercera generación" },
-    { name: "BT200", description: "Herramienta de diagnóstico Bluetooth compacta" },
-    { name: "ED V2.0", description: "Interfaz de diagnóstico de segunda generación" },
-    { name: "V", description: "Conector de diagnóstico estándar" },
-    { name: "V Plus", description: "Conector de diagnóstico con funciones mejoradas" },
-    { name: "TOPDON", description: "Escáner de diagnóstico multimarca" },
-    { name: "MaxGo", description: "Herramienta de diagnóstico portátil" },
-    { name: "HD IV", description: "Interfaz de diagnóstico para vehículos pesados" },
-    { name: "HD III", description: "Interfaz de diagnóstico de tercera gen para camiones" },
-    { name: "M-Diag", description: "Herramienta de diagnóstico móvil" },
-    { name: "PRO4 D3", description: "Escáner de nivel profesional" },
-    { name: "PAD2 D3", description: "Tableta de diagnóstico avanzada" },
+const productSlugs = [
+  "golo-ed", "idiag-for-android", "td1", "ed-30", "bt200", "ed-v20", "v",
+  "v-plus", "topdon", "maxgo", "hd-iv", "hd-iii", "m-diag", "pro4-d3", "pad2-d3"
 ];
 
 const generateDefaultImage = (name: string) => `https://placehold.co/400x225/1a1a1a/d4af37?text=${encodeURIComponent(name)}`;
 
 export const useProducts = () => {
+  const { t, i18n } = useTranslation();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -46,22 +35,24 @@ export const useProducts = () => {
 
       const detailsMap = new Map(details?.map(d => [d.slug, { imageUrl: d.image_url, description: d.description }]));
 
-      const mergedProducts = defaultProducts.map(p => {
-        const slug = slugify(p.name);
+      const translatedProducts = productSlugs.map(slug => {
+        const name = t(`products.${slug}.name`);
         const detailData = detailsMap.get(slug);
         return {
-          ...p,
-          image: detailData?.imageUrl || generateDefaultImage(p.name),
+          slug: slug,
+          name: name,
+          description: t(`products.${slug}.description`),
+          image: detailData?.imageUrl || generateDefaultImage(name),
           db_description: detailData?.description,
         };
       });
 
-      setProducts(mergedProducts);
+      setProducts(translatedProducts);
       setLoading(false);
     };
 
     fetchProducts();
-  }, []);
+  }, [t, i18n.language]);
 
   return { products, loading };
 };
