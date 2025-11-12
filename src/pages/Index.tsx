@@ -8,7 +8,7 @@ import { Footer } from "@/components/Footer";
 import { VideoHeader } from "@/components/VideoHeader";
 import { WhatsAppWidget } from "@/components/WhatsAppWidget";
 import { CompatibilityModal } from "@/components/CompatibilityModal";
-import { AIChatFixedWidget } from "@/components/AIChatFixedWidget"; // Import the new fixed widget
+import { AIChatWidget } from "@/components/AIChatWidget"; // Import the new widget
 
 const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,6 +18,11 @@ const Index = () => {
     <div className="min-h-screen">
       <Header />
       <VideoHeader />
+      <section className="py-12 md:py-20 bg-muted/20">
+        <div className="container">
+          <AIChatWidget />
+        </div>
+      </section>
       <main>
         <HeroSection 
           setIsModalOpen={setIsModalOpen}
@@ -34,7 +39,6 @@ const Index = () => {
         onClose={() => setIsModalOpen(false)}
         productName={compatibleProduct}
       />
-      <AIChatFixedWidget />
     </div>
   );
 };
