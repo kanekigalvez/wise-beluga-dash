@@ -18,9 +18,10 @@ interface EditableProductDetailsProps {
   softwareId: string;
   productName: string;
   currentImageUrl: string;
+  onSuccess?: () => void;
 }
 
-export const EditableProductDetails = ({ softwareId, productName, currentImageUrl }: EditableProductDetailsProps) => {
+export const EditableProductDetails = ({ softwareId, productName, currentImageUrl, onSuccess }: EditableProductDetailsProps) => {
   const { isAdmin } = useAdmin();
   const [description, setDescription] = useState("");
   const [initialDescription, setInitialDescription] = useState("");
@@ -101,7 +102,7 @@ export const EditableProductDetails = ({ softwareId, productName, currentImageUr
       showSuccess("¡Guardado con éxito!");
       setInitialDescription(description);
       setIsEditing(false);
-      setTimeout(() => window.location.reload(), 1000);
+      onSuccess?.();
     }
   };
 

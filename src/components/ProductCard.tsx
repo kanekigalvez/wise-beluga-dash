@@ -9,6 +9,7 @@ import {
 import { EditableProductDetails } from "./EditableProductDetails";
 import { useAdmin } from "@/contexts/AdminContext";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 interface ProductCardProps {
   slug: string;
@@ -16,12 +17,19 @@ interface ProductCardProps {
   name: string;
   description: string;
   db_description?: string | null;
+  onSuccess?: () => void;
 }
 
-export const ProductCard = ({ slug, image, name, description, db_description }: ProductCardProps) => {
+export const ProductCard = ({ slug, image, name, description, db_description, onSuccess }: ProductCardProps) => {
   const { isAdmin } = useAdmin();
   const { t } = useTranslation();
+  const [isOpen, setIsOpen] = useState(false);
   const hasDetails = db_description && db_description.trim() !== "";
+
+  const handleSuccess = () => {
+    onSuccess?.();
+    setIsOpen(false);
+  };
 
   const renderButton = () => {
     if (isAdmin) {
@@ -51,7 +59,7 @@ export const ProductCard = ({ slug, image, name, description, db_description }: 
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <Card id={slug} className="group overflow-hidden bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-primary scroll-mt-20">
         <CardContent className="p-0">
           <div className="aspect-video overflow-hidden bg-black">
@@ -65,7 +73,12 @@ export const ProductCard = ({ slug, image, name, description, db_description }: 
         </CardContent>
       </Card>
       <DialogContent className="max-w-4xl w-full bg-background/80 backdrop-blur-md border-primary/50">
-        <EditableProductDetails softwareId={slug} productName={name} currentImageUrl={image} />
+        <EditableProductDetails 
+          softwareId={slug} 
+          productName={name} 
+          currentImageUrl={image} 
+          onSuccess={handleSuccess} 
+        />
       </DialogContent>
     </Dialog>
   );

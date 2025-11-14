@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "react-i18next";
 
 export const ProductsSection = () => {
-  const { products, loading } = useProducts();
+  const { products, loading, refetchProducts } = useProducts();
   const featuredProducts = products.slice(0, 3);
   const { t } = useTranslation();
 
@@ -28,7 +28,7 @@ export const ProductsSection = () => {
               </div>
             ))
           ) : (
-            featuredProducts.map(p => <ProductCard key={p.slug} {...p} />)
+            featuredProducts.map(p => <ProductCard key={p.slug} {...p} onSuccess={refetchProducts} />)
           )}
         </div>
         <div className="text-center">

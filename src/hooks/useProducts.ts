@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
 
@@ -22,37 +22,37 @@ export const useProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      const { data: details, error } = await supabase
-        .from("product_details")
-        .select("slug, image_url, description");
+  const fetchProducts = useCallback(async () => {
+    setLoading(true);
+    const { data: details, error } = await supabase
+      .from("product_details")
+      .select("slug, image_url, description");
 
-      if (error) {
-        console.error("Error fetching product details:", error);
-      }
+    if (error) {
+      console.error("Error fetching product details:", error);
+    }
 
-      const detailsMap = new Map(details?.map(d => [d.slug, { imageUrl: d.image_url, description: d.description }]));
+    const detailsMap = new Map(details?.map(d => [d.slug, { imageUrl: d.image_url, description: d.description }]));
 
-      const translatedProducts = productSlugs.map(slug => {
-        const name = t(`products.${slug}.name`);
-        const detailData = detailsMap.get(slug);
-        return {
-          slug: slug,
-          name: name,
-          description: t(`products.${slug}.description`),
-          image: detailData?.imageUrl || generateDefaultImage(name),
-          db_description: detailData?.description,
-        };
-      });
+    const translatedProducts = productSlugs.map(slug => {
+      const name = t(`products.${slug}.name`);
+      const detailData = detailsMap.get(slug);
+      return {
+        slug: slug,
+        name: name,
+        description: t(`products.${slug}.description`),
+        image: detailData?.imageUrl || generateDefaultImage(name),
+        db_description: detailData?.description,
+      };
+    });
 
-      setProducts(translatedProducts);
-      setLoading(false);
-    };
-
-    fetchProducts();
+    setProducts(translatedProducts);
+    setLoading(false);
   }, [t, i18n.language]);
 
-  return { products, loading };
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
+  return { products, loading, refetchProducts: fetchProducts };
 };

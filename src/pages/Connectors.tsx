@@ -9,7 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "react-i18next";
 
 const ConnectorsPage = () => {
-  const { products, loading } = useProducts();
+  const { products, loading, refetchProducts } = useProducts();
   const { t } = useTranslation();
 
   return (
@@ -32,7 +32,11 @@ const ConnectorsPage = () => {
               ))
             ) : (
               products.map((product) => (
-                <ProductCard key={product.slug} {...product} />
+                <ProductCard 
+                  key={product.slug} 
+                  {...product} 
+                  onSuccess={refetchProducts} 
+                />
               ))
             )}
           </div>
