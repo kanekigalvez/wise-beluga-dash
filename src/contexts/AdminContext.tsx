@@ -1,38 +1,51 @@
 import { createContext, useState, useEffect, ReactNode, useContext } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { Session } from "@supabase/supabase-js";
 
 interface AdminContextType {
   isAdmin: boolean;
-  setIsAdmin: (isAdmin: boolean) => void;
+  session: Session | null;
+  signOut: () => Promise<void>;
 }
 
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
 export const AdminProvider = ({ children }: { children: ReactNode }) => {
-  const [isAdmin, setIsAdminState] = useState<boolean>(() => {
-    try {
-      const item = window.localStorage.getItem("isAdmin");
-      return item ? JSON.parse(item) : false;
-    } catch (error) {
-      console.error(error);
-      return false;
-    }
-  });
+  const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    try {
-      window.localStorage.setItem("isAdmin", JSON.stringify(isAdmin));
-    } catch (error) {
-      console.error(error);
-    }
-  }, [isAdmin]);
+    const fetchSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setSession(session);
+      setLoading(false);
+    };
 
-  const setIsAdmin = (value: boolean) => {
-    setIsAdminState(value);
+    fetchSession();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    setSession(null);
+  };
+
+  const value = {
+    isAdmin: !!session,
+    session,
+    signOut,
   };
 
   return (
-    <AdminContext.Provider value={{ isAdmin, setIsAdmin }}>
-      {children}
+    <AdminContext.Provider value={value}>
+      {!loading && children}
     </AdminContext.Provider>
   );
 };
