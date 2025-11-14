@@ -8,8 +8,8 @@
     "blogs": "Blog"
   },
   "hero": {
-    "title": "DiagZone Pro: Software Solutions for Vehicle Diagnostics",
-    "subtitle": "We offer software licenses for diagnostic scanners. Discover our compatible devices and check your serial number.",
+    "title": "Diagzone.IO – First AI Assistant Specialized in Diagzone",
+    "subtitle": "The only Gemini chatbot capable of explaining DTC, OEM codes, compatibility, and Launch connector errors.",
     "serial_placeholder": "Enter your serial number...",
     "check_button": "Check",
     "products_button": "View Products"

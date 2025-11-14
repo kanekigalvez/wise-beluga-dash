@@ -8,8 +8,8 @@
     "blogs": "Blog"
   },
   "hero": {
-    "title": "DiagZone Pro: Soluciones de Software para Diagnóstico Vehicular",
-    "subtitle": "Ofrecemos licencias de software para escáneres de diagnóstico. Descubra nuestros dispositivos compatibles y compruebe su número de serie.",
+    "title": "Diagzone.IO – Primer Asistente IA Especializado en Diagzone",
+    "subtitle": "El único chatbot Gemini capaz de explicar códigos DTC, OEM, compatibilidad y errores de conectores Launch.",
     "serial_placeholder": "Ingrese su número de serie...",
     "check_button": "Verificar",
     "products_button": "Ver Productos"
