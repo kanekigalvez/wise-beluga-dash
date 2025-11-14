@@ -6,9 +6,9 @@ interface ImageHeaderProps {
 
 export const ImageHeader = ({ className }: ImageHeaderProps) => {
   return (
-    <section className={cn("w-full py-2", className)}>
+    <section className={cn("w-full py-4", className)}>
       <div className="container">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <div className="overflow-hidden rounded-lg shadow-xl border border-border/50">
             <img
               src="/diagzone-promo.jpeg"
