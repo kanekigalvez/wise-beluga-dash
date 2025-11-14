@@ -8,11 +8,11 @@ import { DownloadForm, type Download as DownloadType } from "./DownloadForm";
 interface DownloadCardProps {
   download: DownloadType;
   isAdmin: boolean;
-  onEditSuccess: () => void;
+  onEdit: (values: Omit<DownloadType, 'id'>) => void;
   onDelete: (id: string) => void;
 }
 
-export const DownloadCard = ({ download, isAdmin, onEditSuccess, onDelete }: DownloadCardProps) => {
+export const DownloadCard = ({ download, isAdmin, onEdit, onDelete }: DownloadCardProps) => {
   const { t } = useTranslation();
   const { id, title, version, file_url, file_name } = download;
 
@@ -27,9 +27,9 @@ export const DownloadCard = ({ download, isAdmin, onEditSuccess, onDelete }: Dow
             {t('downloads_page.download_button')}
           </a>
         </Button>
-        {isAdmin && id && (
+        {isAdmin && (
           <div className="flex gap-2 mt-4">
-            <DownloadForm download={download} onSuccess={onEditSuccess}>
+            <DownloadForm download={download} onSave={onEdit}>
               <Button variant="outline" size="sm" className="flex-1">
                 <Pencil className="h-4 w-4 mr-2" />
                 Editar

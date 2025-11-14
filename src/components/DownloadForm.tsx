@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -28,7 +27,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { showError, showSuccess, showLoading, dismissToast } from "@/utils/toast";
 import { useState } from "react";
 
 const formSchema = z.object({
@@ -42,7 +40,7 @@ const formSchema = z.object({
 });
 
 export type Download = {
-  id?: string;
+  id: string; // ID is now mandatory for local management
   title: string;
   version: string;
   file_url: string;
@@ -52,11 +50,11 @@ export type Download = {
 
 interface DownloadFormProps {
   download?: Download;
-  onSuccess: () => void;
+  onSave: (values: z.infer<typeof formSchema>) => void;
   children: React.ReactNode;
 }
 
-export const DownloadForm = ({ download, onSuccess, children }: DownloadFormProps) => {
+export const DownloadForm = ({ download, onSave, children }: DownloadFormProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const isEditing = !!download;
 
@@ -71,23 +69,10 @@ export const DownloadForm = ({ download, onSuccess, children }: DownloadFormProp
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const toastId = showLoading(isEditing ? "Actualizando..." : "Guardando...");
-    
-    const { error } = isEditing
-      ? await supabase.from("downloads").update(values).eq("id", download.id)
-      : await supabase.from("downloads").insert(values);
-
-    dismissToast(toastId);
-
-    if (error) {
-      showError(`Error: ${error.message}`);
-    } else {
-      showSuccess(isEditing ? "¡Actualizado con éxito!" : "¡Guardado con éxito!");
-      onSuccess();
-      setIsOpen(false);
-      form.reset();
-    }
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    onSave(values);
+    setIsOpen(false);
+    if (!isEditing) form.reset();
   };
 
   return (

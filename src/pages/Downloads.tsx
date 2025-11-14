@@ -2,14 +2,13 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { DownloadCard } from "@/components/DownloadCard";
 import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useState } from "react";
 import { useAdmin } from "@/contexts/AdminContext";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import { DownloadForm, type Download } from "@/components/DownloadForm";
-import { showError, showSuccess, showLoading, dismissToast } from "@/utils/toast";
+import { showError, showSuccess } from "@/utils/toast";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,53 +26,57 @@ type DownloadsByCategory = {
   xdiag: Download[];
 };
 
+// Initial data for local state management
+const initialDownloads: Download[] = [
+  { id: "1", title: "VERSIÓN ESTABLE", version: "DIAGZONE_PRO_V2_200027", file_url: "https://download1510.mediafire.com/0021abypkgrgfGYNnDKNeXnb4mtbtlhnvI4f2JBzQTnaVd6ZAy45fxHY-Z9y_oUw8731FPU07zEDO9xHnHwj2FkoJmqoVvGt5I3hK223ZXZYQff4rG74Piy1ZHwuXc1FfUgxGqyFI3zIym5Wd09ip1mqu4S9wlV-iHSK-uAt1Vk/qoy4blfb41b13hg/DIAGZONE_PRO_V2_200027+%282%29.apk", file_name: "DIAGZONE_PRO_V2_200027.apk", category: 'diagzone' },
+  { id: "2", title: "ÚLTIMA VERSIÓN", version: "DIAGZONE_PRO_V2_200030", file_url: "https://download2302.mediafire.com/jnlyrpvs6dmgEJX8Be2Wb0SKjtlJxdUHViDZo4m6-pl4pRJ6Dwr97CjtUZuQvOiEJc17tbSqs5JtdQ8MiIMmV7vL5VdE2p9Fadwy4iWqORvasQ0NGhbVvTSNyGCuvx8hy-F9Lw2kqHmMAmO6lhK13ykQzbTC3IpjAo1RhvYfFQs/ku5m4i4qwug0s3i/DIAGZONE_PRO_V2_200030.apk", file_name: "DIAGZONE_PRO_V2_200030.apk", category: 'diagzone' },
+  { id: "3", title: "X-PRO5", version: "X-pro5_213_auth", file_url: "https://download851.mediafire.com/7lmqvcppz0mgAKeIa_9JCtxQBvD_4qzcgaXYB4myTdwC6jqW1HCNV3aictmz3kZJhzZCnOZCBJo7l047FQqk-jZum3Pgn8rTeL2QqzysnJ_sZQZxLtvuQVZtqzsHmeIMJ6zKYwH1IiOlCghaaPhTQkAzJ1NE1aopWA26NwT4mcQ/4b48lx0ra6z3gop/X-pro5_213_auth.apk", file_name: "X-pro5_213_auth.apk", category: 'xpro' },
+  { id: "4", title: "PRODIAG", version: "X431PRO3SPLUS_APP_V8_00_236_EN", file_url: "https://download937.mediafire.com/10wnl43ccywgwAPCuSWsG4xRPgMEaDowY98Stdnb-0QvgivknCLQ6fbeP41H3t8wskZl_nOtkx0RGQO4cmVBolkM_ui-4ZOzYAugiLvXokH4z_TF8AaDJMY-NThLiyALj2KdrnBZb6UXajUgXr8ePJgEuJJ_HA9ibp0vyzEVaxo/tu4wlhb6uvj23ma/X431PRO3SPLUS_APP_V8_00_236_EN.apk", file_name: "X431PRO3SPLUS_APP_V8_00_236_EN.apk", category: 'xpro' },
+  { id: "5", title: "X-DIAG", version: "X-DIAG_V7.00.012-release", file_url: "https://download1527.mediafire.com/h4r73k7ieksgJwOvN2dTWhi0E4AYIu22E7ZLfVgO2snrLmegixsuQJstrHGiMhK_VaUGNh0Emjpui1i8uG_ML8K2zH1zSz3-lfg-wEDmYDVx1VU9zlAs25ZbuJ0x8534BjkFCsW80jMewirPtT4dGBNVsQV28POMHPQ21xXvG1k/rz96qycgkbvvsrb/X-DIAG_V7.00.012-release.apk", file_name: "X-DIAG_V7.00.012-release.apk", category: 'xdiag' },
+];
+
+let nextId = initialDownloads.length + 1;
+
 const DownloadsPage = () => {
   const { t } = useTranslation();
   const { isAdmin } = useAdmin();
-  const [downloads, setDownloads] = useState<DownloadsByCategory>({ diagzone: [], xpro: [], xdiag: [] });
-  const [loading, setLoading] = useState(true);
+  const [allDownloads, setAllDownloads] = useState<Download[]>(initialDownloads);
+  const [loading, setLoading] = useState(false); // No loading state needed for local data
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const fetchDownloads = async () => {
-    setLoading(true);
-    const { data, error } = await supabase.from("downloads").select("*").order("created_at", { ascending: true });
-
-    if (error) {
-      console.error("Error fetching downloads:", error);
-      showError("No se pudieron cargar las descargas.");
-    } else {
-      const grouped = data.reduce((acc, item) => {
-        const category = item.category as keyof DownloadsByCategory;
-        if (!acc[category]) {
-          acc[category] = [];
-        }
-        acc[category].push(item);
-        return acc;
-      }, {} as DownloadsByCategory);
-      setDownloads({
-        diagzone: grouped.diagzone || [],
-        xpro: grouped.xpro || [],
-        xdiag: grouped.xdiag || [],
-      });
-    }
-    setLoading(false);
+  const groupDownloads = (downloads: Download[]): DownloadsByCategory => {
+    return downloads.reduce((acc, item) => {
+      const category = item.category as keyof DownloadsByCategory;
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(item);
+      return acc;
+    }, { diagzone: [], xpro: [], xdiag: [] } as DownloadsByCategory);
   };
 
-  useEffect(() => {
-    fetchDownloads();
-  }, []);
+  const downloads = groupDownloads(allDownloads);
 
-  const handleDelete = async () => {
-    if (!deleteId) return;
-    const toastId = showLoading("Eliminando...");
-    const { error } = await supabase.from("downloads").delete().eq("id", deleteId);
-    dismissToast(toastId);
-    if (error) {
-      showError(`Error al eliminar: ${error.message}`);
+  const handleSave = (values: Omit<Download, 'id'>, existingId?: string) => {
+    if (existingId) {
+      // Edit existing download
+      setAllDownloads(prev => prev.map(d => d.id === existingId ? { ...d, ...values } : d));
+      showSuccess("¡Actualizado con éxito!");
     } else {
-      showSuccess("¡Eliminado con éxito!");
-      fetchDownloads();
+      // Add new download
+      const newDownload: Download = {
+        ...values,
+        id: String(nextId++),
+      };
+      setAllDownloads(prev => [...prev, newDownload]);
+      showSuccess("¡Guardado con éxito!");
     }
+  };
+
+  const handleDelete = () => {
+    if (!deleteId) return;
+    setAllDownloads(prev => prev.filter(d => d.id !== deleteId));
+    showSuccess("¡Eliminado con éxito!");
     setDeleteId(null);
   };
 
@@ -97,8 +100,8 @@ const DownloadsPage = () => {
                 key={download.id}
                 download={download}
                 isAdmin={isAdmin}
-                onEditSuccess={fetchDownloads}
-                onDelete={() => setDeleteId(download.id!)}
+                onEdit={(values) => handleSave(values, download.id)}
+                onDelete={() => setDeleteId(download.id)}
               />
             ))
           )}
@@ -117,7 +120,7 @@ const DownloadsPage = () => {
             <p className="text-lg text-muted-foreground">{t('downloads_page.subtitle')}</p>
             {isAdmin && (
               <div className="mt-6">
-                <DownloadForm onSuccess={fetchDownloads}>
+                <DownloadForm onSave={handleSave}>
                   <Button>
                     <PlusCircle className="mr-2 h-4 w-4" />
                     Agregar Nueva Descarga
