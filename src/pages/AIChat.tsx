@@ -11,25 +11,23 @@ const AIChatPage = () => {
         
         {/* SEO Content Block */}
         <div className="w-full max-w-4xl mx-auto mt-10 p-6 bg-card border border-border rounded-xl shadow-2xl text-foreground">
-          <h2 className="text-2xl font-bold mb-4 text-primary">Asesor IA especializado en Diagzone</h2>
+          <h2 className="text-2xl font-bold mb-4 text-primary">Asesor IA Gratuito y Especializado en Diagzone</h2>
           <p className="mb-4 text-muted-foreground">
-            Nuestro asesor de inteligencia artificial es el único entrenado para interpretar 
-            códigos DTC, OEM, errores de conectores, compatibilidad con dispositivos Launch, 
-            Diagzone PRO V2, TD1, ED 3.0, M-Diag, MaxGo, TOPDON, ED V2.0, HD III, HD IV y más.
+            Cualquier técnico que use Diagzone quedará encantado de probar nuestro asesor IA. Es una herramienta gratuita, disponible 24/7, entrenada para interpretar códigos DTC, OEM, errores de conectores y compatibilidad con dispositivos Launch (Diagzone PRO V2, TD1, ED 3.0, etc.).
           </p>
 
-          <h3 className="text-xl font-semibold mb-3 text-secondary">¿Qué puede hacer?</h3>
+          <h3 className="text-xl font-semibold mb-3 text-secondary">¿Qué puede hacer por ti?</h3>
           <ul className="list-disc list-inside space-y-1 mb-4 ml-4 text-muted-foreground">
-            <li>Explicar cualquier código DTC u OEM</li>
-            <li>Comprobar compatibilidad mediante número de serie de 12 dígitos</li>
-            <li>Indicar errores de firmware y actualizaciones</li>
-            <li>Recomendar software apropiado para cada conector</li>
-            <li>Detectar riesgos de bloqueo y errores comunes</li>
+            <li>Explicar cualquier código DTC u OEM al instante.</li>
+            <li>Comprobar compatibilidad de tu escáner.</li>
+            <li>Guiarte en errores de firmware y actualizaciones.</li>
+            <li>Recomendar el software correcto para tu conector.</li>
+            <li>Ayudarte a evitar riesgos de bloqueo y errores comunes.</li>
           </ul>
 
+          <h3 className="text-xl font-semibold mb-3 text-secondary">También Vendemos Licencias Diagzone</h3>
           <p className="text-muted-foreground">
-            Diagzone.IO es el primer agente IA especializado en diagnóstico automotriz 
-            en toda la red, ofreciendo análisis preciso, respuestas instantáneas y soporte técnico avanzado.
+            Además de este potente asesor gratuito, somos tu proveedor de confianza para comprar o renovar licencias Diagzone. Obtén el software que necesitas con el mejor soporte del mercado.
           </p>
         </div>
       </main>
