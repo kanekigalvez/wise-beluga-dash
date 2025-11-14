@@ -5,10 +5,10 @@ import { CompatibilitySection } from "@/components/CompatibilitySection";
 import { ProductsSection } from "@/components/ProductsSection";
 import { FeaturesSection } from "@/components/FeaturesSection";
 import { Footer } from "@/components/Footer";
+import { VideoHeader } from "@/components/VideoHeader";
 import { WhatsAppWidget } from "@/components/WhatsAppWidget";
 import { CompatibilityModal } from "@/components/CompatibilityModal";
-import { AIChatWidget } from "@/components/AIChatWidget";
-import { ImageHeader } from "@/components/ImageHeader"; // Import the new component
+import { AIChatWidget } from "@/components/AIChatWidget"; // Import the new widget
 
 const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,7 +17,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Header />
-      <ImageHeader />
+      <VideoHeader />
       <section className="py-12 md:py-20 bg-muted/20">
         <div className="container">
           <AIChatWidget />
