@@ -8,8 +8,8 @@
     "blogs": "Blog"
   },
   "hero": {
-    "title": "Diagzone.IO – First AI Assistant Specialized in Diagzone",
-    "subtitle": "The only Gemini chatbot capable of explaining DTC, OEM codes, compatibility, and Launch connector errors.",
+    "title": "Diagzone.IO – First Specialized AI Advisor for Diagzone",
+    "subtitle": "The only real-time AI advisor capable of explaining DTC, OEM codes, compatibility, and Launch connector errors.",
     "serial_placeholder": "Enter your serial number...",
     "check_button": "Check",
     "products_button": "View Products"
