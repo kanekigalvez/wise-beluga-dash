@@ -27,7 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState } from "react";
+import { useState, useEffect } from "react"; // Import useEffect
 
 const formSchema = z.object({
   title: z.string().min(1, "El título es requerido."),
@@ -68,6 +68,13 @@ export const DownloadForm = ({ download, onSave, children }: DownloadFormProps) 
       category: download?.category || "diagzone",
     },
   });
+
+  // Effect to set default value for file_url when the dialog opens
+  useEffect(() => {
+    if (isOpen && !isEditing && !form.getValues("file_url")) {
+      form.setValue("file_url", "https://", { shouldValidate: false });
+    }
+  }, [isOpen, isEditing, form]);
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     onSave(values);
@@ -117,7 +124,7 @@ export const DownloadForm = ({ download, onSave, children }: DownloadFormProps) 
                 <FormItem>
                   <FormLabel>URL del Archivo</FormLabel>
                   <FormControl>
-                    <Input placeholder="https://..." {...field} />
+                    <Input placeholder="https://mediafire.com/archivo.apk" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
