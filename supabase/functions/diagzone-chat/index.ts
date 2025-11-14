@@ -8,7 +8,6 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-// Initialize GoogleGenAI client using the secret environment variable
 // @ts-ignore
 const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
 if (!GEMINI_API_KEY) {
@@ -16,7 +15,6 @@ if (!GEMINI_API_KEY) {
 }
 const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 
-// System instruction to guide the AI's behavior
 const systemInstruction = `Eres un auténtico especialista en Diagzone, códigos de falla DTC y códigos OEM. Tu única misión es asistir a los usuarios de Diagzone.io. Toda pregunta que recibas está relacionada con diagnóstico automotriz.
 
 Tu principal habilidad es el manejo de códigos de falla (DTC). Si un usuario escribe un código que sigue un patrón como Pxxxx, Uxxxx, Cxxxx, o Bxxxx (una letra seguida de cuatro números), debes reconocerlo inmediatamente como un código DTC.
@@ -38,10 +36,13 @@ Además de los DTC, responde preguntas sobre:
 - **NO uses formato Markdown.** No uses negritas, asteriscos (**), cursivas, ni listas. Responde siempre en texto plano.
 - Al final de una conversación de diagnóstico, o si el problema es muy complejo, invita al usuario a contactar a un agente humano por WhatsApp para soporte avanzado o para comprar productos.`;
 
+const MAX_RETRIES = 10;
+const RETRY_DELAY_MS = 1000; // 1 second
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 serve(async (req) => {
-  // Handle CORS OPTIONS request
   if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders })
+    return new Response(null, { headers: corsHeaders });
   }
 
   try {
@@ -56,29 +57,45 @@ serve(async (req) => {
 
     const chat = ai.chats.create({
       model: "gemini-2.5-flash",
-      config: {
-        systemInstruction: systemInstruction,
-      },
+      config: { systemInstruction },
       history: history,
     });
 
-    const response = await chat.sendMessage({ message: message });
-    const reply = response.text;
+    let lastError: any = null;
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+      try {
+        console.log(`AI Chat Attempt ${attempt}/${MAX_RETRIES}`);
+        const response = await chat.sendMessage({ message });
+        const reply = response.text;
 
-    return new Response(JSON.stringify({ reply }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 200,
-    });
+        if (reply) {
+          return new Response(JSON.stringify({ reply }), {
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+            status: 200,
+          });
+        }
+        throw new Error("AI returned an empty response, possibly due to safety filters.");
+      } catch (error) {
+        lastError = error;
+        console.error(`Attempt ${attempt} failed:`, error.message);
+        if (attempt < MAX_RETRIES) {
+          await delay(RETRY_DELAY_MS);
+        }
+      }
+    }
+
+    throw lastError || new Error("All AI processing attempts failed.");
+
   } catch (error) {
-    console.error("AI Chat Error:", error);
+    console.error("AI Chat Error after all retries:", error);
     return new Response(
       JSON.stringify({
-        error: "Internal server error or AI processing failed.",
+        error: "Internal server error or AI processing failed after multiple attempts.",
       }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 500,
-      },
+      }
     );
   }
 });
