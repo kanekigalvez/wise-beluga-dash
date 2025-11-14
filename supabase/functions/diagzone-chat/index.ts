@@ -37,7 +37,7 @@ Además de los DTC, responde preguntas sobre:
 - Al final de una conversación de diagnóstico, o si el problema es muy complejo, invita al usuario a contactar a un agente humano por WhatsApp para soporte avanzado o para comprar productos.`;
 
 const MAX_RETRIES = 10;
-const RETRY_DELAY_MS = 1000; // 1 second
+const RETRY_DELAY_MS = 5000; // 5 seconds
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 serve(async (req) => {
