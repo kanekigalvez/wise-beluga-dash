@@ -165,7 +165,7 @@ export const AIChatWidget = () => {
             id="user-input"
             rows={2}
             className="flex-1 resize-none rounded-lg border border-input bg-muted/50 p-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary transition-colors outline-none"
-            placeholder="Ej: ¿Qué significa el código DTC P0420? o ¿Mi Mucar BT200 es compatible?"
+            placeholder="Ejemplo: ¿Mi Mucar BT200 funciona con Diagzone para una Toyota Hilux 2018?"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={isLoading}
