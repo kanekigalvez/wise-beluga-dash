@@ -8,7 +8,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import { DownloadForm, type Download } from "@/components/DownloadForm";
-import { showError, showSuccess } from "@/utils/toast";
+import { showError, showSuccess, showLoading, dismissToast } from "@/utils/toast";
+import { supabase } from "@/integrations/supabase/client";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -26,53 +27,35 @@ type DownloadsByCategory = {
   xdiag: Download[];
 };
 
-const DOWNLOADS_STORAGE_KEY = "diagzone_downloads";
-
-// Initial data for local state management
-const initialDownloads: Download[] = [
-  { id: "1", title: "VERSIÓN ESTABLE", version: "DIAGZONE_PRO_V2_200027", file_url: "https://download1510.mediafire.com/0021abypkgrgfGYNnDKNeXnb4mtbtlhnvI4f2JBzQTnaVd6ZAy45fxHY-Z9y_oUw8731FPU07zEDO9xHnHwj2FkoJmqoVvGt5I3hK223ZXZYQff4rG74Piy1ZHwuXc1FfUgxGqyFI3zIym5Wd09ip1mqu4S9wlV-iHSK-uAt1Vk/qoy4blfb41b13hg/DIAGZONE_PRO_V2_200027+%282%29.apk", file_name: "DIAGZONE_PRO_V2_200027.apk", category: 'diagzone' },
-  { id: "2", title: "ÚLTIMA VERSIÓN", version: "DIAGZONE_PRO_V2_200030", file_url: "https://download2302.mediafire.com/jnlyrpvs6dmgEJX8Be2Wb0SKjtlJxdUHViDZo4m6-pl4pRJ6Dwr97CjtUZuQvOiEJc17tbSqs5JtdQ8MiIMmV7vL5VdE2p9Fadwy4iWqORvasQ0NGhbVvTSNyGCuvx8hy-F9Lw2kqHmMAmO6lhK13ykQzbTC3IpjAo1RhvYfFQs/ku5m4i4qwug0s3i/DIAGZONE_PRO_V2_200030.apk", file_name: "DIAGZONE_PRO_V2_200030.apk", category: 'diagzone' },
-  { id: "3", title: "X-PRO5", version: "X-pro5_213_auth", file_url: "https://download851.mediafire.com/7lmqvcppz0mgAKeIa_9JCtxQBvD_4qzcgaXYB4myTdwC6jqW1HCNV3aictmz3kZJhzZCnOZCBJo7l047FQqk-jZum3Pgn8rTeL2QqzysnJ_sZQZxLtvuQVZtqzsHmeIMJ6zKYwH1IiOlCghaaPhTQkAzJ1NE1aopWA26NwT4mcQ/4b48lx0ra6z3gop/X-pro5_213_auth.apk", file_name: "X-pro5_213_auth.apk", category: 'xpro' },
-  { id: "4", title: "PRODIAG", version: "X431PRO3SPLUS_APP_V8_00_236_EN", file_url: "https://download937.mediafire.com/10wnl43ccywgwAPCuSWsG4xRPgMEaDowY98Stdnb-0QvgivknCLQ6fbeP41H3t8wskZl_nOtkx0RGQO4cmVBolkM_ui-4ZOzYAugiLvXokH4z_TF8AaDJMY-NThLiyALj2KdrnBZb6UXajUgXr8ePJgEuJJ_HA9ibp0vyzEVaxo/tu4wlhb6uvj23ma/X431PRO3SPLUS_APP_V8_00_236_EN.apk", file_name: "X431PRO3SPLUS_APP_V8_00_236_EN.apk", category: 'xpro' },
-  { id: "5", title: "X-DIAG", version: "X-DIAG_V7.00.012-release", file_url: "https://download1527.mediafire.com/h4r73k7ieksgJwOvN2dTWhi0E4AYIu22E7ZLfVgO2snrLmegixsuQJstrHGiMhK_VaUGNh0Emjpui1i8uG_ML8K2zH1zSz3-lfg-wEDmYDVx1VU9zlAs25ZbuJ0x8534BjkFCsW80jMewirPtT4dGBNVsQV28POMHPQ21xXvG1k/rz96qycgkbvvsrb/X-DIAG_V7.00.012-release.apk", file_name: "X-DIAG_V7.00.012-release.apk", category: 'xdiag' },
-];
-
-// Function to initialize state from localStorage or default data
-const initializeDownloads = (): Download[] => {
-  try {
-    const storedDownloads = localStorage.getItem(DOWNLOADS_STORAGE_KEY);
-    if (storedDownloads) {
-      return JSON.parse(storedDownloads);
-    }
-  } catch (error) {
-    console.error("Error reading downloads from localStorage:", error);
-  }
-  // If no data or error, use initial data and save it
-  try {
-    localStorage.setItem(DOWNLOADS_STORAGE_KEY, JSON.stringify(initialDownloads));
-  } catch (error) {
-    console.error("Error writing initial downloads to localStorage:", error);
-  }
-  return initialDownloads;
-};
-
 const DownloadsPage = () => {
   const { t } = useTranslation();
   const { isAdmin } = useAdmin();
-  const [allDownloads, setAllDownloads] = useState<Download[]>(initializeDownloads);
-  const [loading, setLoading] = useState(false); // Keep loading state for consistency, though not strictly needed for local data
+  const [allDownloads, setAllDownloads] = useState<Download[]>([]);
+  const [loading, setLoading] = useState(true);
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  // Helper to update state and localStorage
-  const updateDownloads = (newDownloads: Download[]) => {
-    setAllDownloads(newDownloads);
-    try {
-      localStorage.setItem(DOWNLOADS_STORAGE_KEY, JSON.stringify(newDownloads));
-    } catch (error) {
-      showError("Error al guardar los cambios en el navegador.");
-      console.error("Error saving downloads to localStorage:", error);
+  const fetchDownloads = async () => {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from("downloads")
+      .select("*")
+      .order("category")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      showError("No se pudieron cargar los enlaces de descarga.");
+      console.error(error);
+      setAllDownloads([]);
+    } else {
+      // Ensure data conforms to Download type, especially the ID
+      setAllDownloads(data as Download[]);
     }
+    setLoading(false);
   };
+
+  useEffect(() => {
+    fetchDownloads();
+  }, []);
 
   const groupDownloads = (downloads: Download[]): DownloadsByCategory => {
     return downloads.reduce((acc, item) => {
@@ -87,29 +70,34 @@ const DownloadsPage = () => {
 
   const downloads = groupDownloads(allDownloads);
 
-  const handleSave = (values: Omit<Download, 'id'>, existingId?: string) => {
-    if (existingId) {
-      // Edit existing download
-      const newDownloads = allDownloads.map(d => d.id === existingId ? { ...d, ...values } : d);
-      updateDownloads(newDownloads);
-      showSuccess("¡Actualizado con éxito!");
+  const handleSave = async (values: Omit<Download, 'id'>, existingId?: string) => {
+    const toastId = showLoading(existingId ? "Actualizando descarga..." : "Agregando descarga...");
+    
+    const { error } = existingId
+      ? await supabase.from("downloads").update(values).eq("id", existingId)
+      : await supabase.from("downloads").insert(values);
+
+    dismissToast(toastId);
+
+    if (error) {
+      showError(`Error: ${error.message}`);
     } else {
-      // Add new download
-      const newDownload: Download = {
-        ...values,
-        // Generate a unique ID based on current timestamp for new items
-        id: Date.now().toString(), 
-      };
-      updateDownloads([...allDownloads, newDownload]);
-      showSuccess("¡Guardado con éxito!");
+      showSuccess(existingId ? "¡Actualizado con éxito!" : "¡Guardado con éxito!");
+      fetchDownloads(); // Refetch data to update UI globally
     }
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!deleteId) return;
-    const newDownloads = allDownloads.filter(d => d.id !== deleteId);
-    updateDownloads(newDownloads);
-    showSuccess("¡Eliminado con éxito!");
+    const toastId = showLoading("Eliminando descarga...");
+    const { error } = await supabase.from("downloads").delete().eq("id", deleteId);
+    dismissToast(toastId);
+    if (error) {
+      showError(`Error al eliminar: ${error.message}`);
+    } else {
+      showSuccess("¡Eliminado con éxito!");
+      fetchDownloads(); // Refetch data to update UI globally
+    }
     setDeleteId(null);
   };
 
