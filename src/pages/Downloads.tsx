@@ -2,48 +2,110 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { DownloadCard } from "@/components/DownloadCard";
 import { useTranslation } from "react-i18next";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useAdmin } from "@/contexts/AdminContext";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import { PlusCircle } from "lucide-react";
+import { DownloadForm, type Download } from "@/components/DownloadForm";
+import { showError, showSuccess, showLoading, dismissToast } from "@/utils/toast";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+
+type DownloadsByCategory = {
+  diagzone: Download[];
+  xpro: Download[];
+  xdiag: Download[];
+};
 
 const DownloadsPage = () => {
   const { t } = useTranslation();
+  const { isAdmin } = useAdmin();
+  const [downloads, setDownloads] = useState<DownloadsByCategory>({ diagzone: [], xpro: [], xdiag: [] });
+  const [loading, setLoading] = useState(true);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const diagzoneDownloads = [
-    {
-      title: t('downloads_page.stable_version'),
-      version: "DIAGZONE_PRO_V2_200027",
-      fileUrl: "https://download1510.mediafire.com/0021abypkgrgfGYNnDKNeXnb4mtbtlhnvI4f2JBzQTnaVd6ZAy45fxHY-Z9y_oUw8731FPU07zEDO9xHnHwj2FkoJmqoVvGt5I3hK223ZXZYQff4rG74Piy1ZHwuXc1FfUgxGqyFI3zIym5Wd09ip1mqu4S9wlV-iHSK-uAt1Vk/qoy4blfb41b13hg/DIAGZONE_PRO_V2_200027+%282%29.apk",
-      fileName: "DIAGZONE_PRO_V2_200027.apk",
-    },
-    {
-      title: t('downloads_page.latest_version'),
-      version: "DIAGZONE_PRO_V2_200030",
-      fileUrl: "https://download2302.mediafire.com/jnlyrpvs6dmgEJX8Be2Wb0SKjtlJxdUHViDZo4m6-pl4pRJ6Dwr97CjtUZuQvOiEJc17tbSqs5JtdQ8MiIMmV7vL5VdE2p9Fadwy4iWqORvasQ0NGhbVvTSNyGCuvx8hy-F9Lw2kqHmMAmO6lhK13ykQzbTC3IpjAo1RhvYfFQs/ku5m4i4qwug0s3i/DIAGZONE_PRO_V2_200030.apk",
-      fileName: "DIAGZONE_PRO_V2_200030.apk",
-    },
-  ];
+  const fetchDownloads = async () => {
+    setLoading(true);
+    const { data, error } = await supabase.from("downloads").select("*").order("created_at", { ascending: true });
 
-  const xproDownloads = [
-    {
-      title: "X-PRO5",
-      version: "X-pro5_213_auth",
-      fileUrl: "https://download851.mediafire.com/7lmqvcppz0mgAKeIa_9JCtxQBvD_4qzcgaXYB4myTdwC6jqW1HCNV3aictmz3kZJhzZCnOZCBJo7l047FQqk-jZum3Pgn8rTeL2QqzysnJ_sZQZxLtvuQVZtqzsHmeIMJ6zKYwH1IiOlCghaaPhTQkAzJ1NE1aopWA26NwT4mcQ/4b48lx0ra6z3gop/X-pro5_213_auth.apk",
-      fileName: "X-pro5_213_auth.apk",
-    },
-    {
-      title: "PRODIAG",
-      version: "X431PRO3SPLUS_APP_V8_00_236_EN",
-      fileUrl: "https://download937.mediafire.com/10wnl43ccywgwAPCuSWsG4xRPgMEaDowY98Stdnb-0QvgivknCLQ6fbeP41H3t8wskZl_nOtkx0RGQO4cmVBolkM_ui-4ZOzYAugiLvXokH4z_TF8AaDJMY-NThLiyALj2KdrnBZb6UXajUgXr8ePJgEuJJ_HA9ibp0vyzEVaxo/tu4wlhb6uvj23ma/X431PRO3SPLUS_APP_V8_00_236_EN.apk",
-      fileName: "X431PRO3SPLUS_APP_V8_00_236_EN.apk",
-    },
-  ];
+    if (error) {
+      console.error("Error fetching downloads:", error);
+      showError("No se pudieron cargar las descargas.");
+    } else {
+      const grouped = data.reduce((acc, item) => {
+        const category = item.category as keyof DownloadsByCategory;
+        if (!acc[category]) {
+          acc[category] = [];
+        }
+        acc[category].push(item);
+        return acc;
+      }, {} as DownloadsByCategory);
+      setDownloads({
+        diagzone: grouped.diagzone || [],
+        xpro: grouped.xpro || [],
+        xdiag: grouped.xdiag || [],
+      });
+    }
+    setLoading(false);
+  };
 
-  const xdiagDownloads = [
-    {
-      title: "X-DIAG",
-      version: "X-DIAG_V7.00.012-release",
-      fileUrl: "https://download1527.mediafire.com/h4r73k7ieksgJwOvN2dTWhi0E4AYIu22E7ZLfVgO2snrLmegixsuQJstrHGiMhK_VaUGNh0Emjpui1i8uG_ML8K2zH1zSz3-lfg-wEDmYDVx1VU9zlAs25ZbuJ0x8534BjkFCsW80jMewirPtT4dGBNVsQV28POMHPQ21xXvG1k/rz96qycgkbvvsrb/X-DIAG_V7.00.012-release.apk",
-      fileName: "X-DIAG_V7.00.012-release.apk",
-    },
-  ];
+  useEffect(() => {
+    fetchDownloads();
+  }, []);
+
+  const handleDelete = async () => {
+    if (!deleteId) return;
+    const toastId = showLoading("Eliminando...");
+    const { error } = await supabase.from("downloads").delete().eq("id", deleteId);
+    dismissToast(toastId);
+    if (error) {
+      showError(`Error al eliminar: ${error.message}`);
+    } else {
+      showSuccess("¡Eliminado con éxito!");
+      fetchDownloads();
+    }
+    setDeleteId(null);
+  };
+
+  const renderSection = (titleKey: string, downloadsList: Download[]) => {
+    const title = t(titleKey);
+    return (
+      <section>
+        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-secondary">{title}</h2>
+        <div className="flex flex-wrap justify-center gap-8 max-w-4xl mx-auto">
+          {loading ? (
+            Array.from({ length: 2 }).map((_, i) => (
+              <div key={i} className="w-full sm:w-80 p-8 space-y-4 bg-card border rounded-lg">
+                <Skeleton className="h-6 w-3/4 mx-auto" />
+                <Skeleton className="h-4 w-1/2 mx-auto" />
+                <Skeleton className="h-10 w-full" />
+              </div>
+            ))
+          ) : (
+            downloadsList.map((download) => (
+              <DownloadCard
+                key={download.id}
+                download={download}
+                isAdmin={isAdmin}
+                onEditSuccess={fetchDownloads}
+                onDelete={() => setDeleteId(download.id!)}
+              />
+            ))
+          )}
+        </div>
+      </section>
+    );
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -53,39 +115,40 @@ const DownloadsPage = () => {
           <div className="mb-12 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary">{t('downloads_page.title')}</h1>
             <p className="text-lg text-muted-foreground">{t('downloads_page.subtitle')}</p>
+            {isAdmin && (
+              <div className="mt-6">
+                <DownloadForm onSuccess={fetchDownloads}>
+                  <Button>
+                    <PlusCircle className="mr-2 h-4 w-4" />
+                    Agregar Nueva Descarga
+                  </Button>
+                </DownloadForm>
+              </div>
+            )}
           </div>
           
           <div className="space-y-16">
-            <section>
-              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-secondary">{t('downloads_page.diagzone_section')}</h2>
-              <div className="flex flex-wrap justify-center gap-8 max-w-4xl mx-auto">
-                {diagzoneDownloads.map((download) => (
-                  <DownloadCard key={download.title} {...download} />
-                ))}
-              </div>
-            </section>
-
-            <section>
-              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-secondary">{t('downloads_page.xpro_section')}</h2>
-              <div className="flex flex-wrap justify-center gap-8 max-w-4xl mx-auto">
-                {xproDownloads.map((download) => (
-                  <DownloadCard key={download.title} {...download} />
-                ))}
-              </div>
-            </section>
-
-            <section>
-              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-secondary">{t('downloads_page.xdiag_section')}</h2>
-              <div className="flex flex-wrap justify-center gap-8 max-w-4xl mx-auto">
-                {xdiagDownloads.map((download) => (
-                  <DownloadCard key={download.title} {...download} />
-                ))}
-              </div>
-            </section>
+            {renderSection('downloads_page.diagzone_section', downloads.diagzone)}
+            {renderSection('downloads_page.xpro_section', downloads.xpro)}
+            {renderSection('downloads_page.xdiag_section', downloads.xdiag)}
           </div>
         </div>
       </main>
       <Footer />
+      <AlertDialog open={!!deleteId} onOpenChange={(open) => !open && setDeleteId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Esta acción no se puede deshacer. Esto eliminará permanentemente el archivo de descarga.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setDeleteId(null)}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete}>Eliminar</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
