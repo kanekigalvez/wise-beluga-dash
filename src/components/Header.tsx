@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, Search, Car, Download, Home, Wrench, Package, X, Newspaper, MessageSquareText, LogIn, LogOut } from "lucide-react";
+import { Menu, Search, Car, Download, Home, Wrench, Package, X, Newspaper, MessageSquareText } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Sheet,
@@ -19,7 +19,6 @@ import {
 import { slugify } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { useAdmin } from "@/contexts/AdminContext";
 
 const allProducts = [
     { name: "Golo ED+" }, { name: "iDiag for Android" }, { name: "TD1" },
@@ -33,12 +32,6 @@ export const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { isAdmin, signOut } = useAdmin();
-
-  const handleLogout = async () => {
-    await signOut();
-    navigate('/');
-  };
 
   const navLinks = [
     { href: "/#inicio", text: t('header.home'), icon: <Home className="mr-2 h-4 w-4" /> },
@@ -46,7 +39,7 @@ export const Header = () => {
     { href: "/#compatibilidad", text: t('header.compatibility'), icon: <Wrench className="mr-2 h-4 w-4" /> },
     { href: "/downloads", text: t('header.downloads'), isLink: true, icon: <Download className="mr-2 h-4 w-4" /> },
     { href: "/blogs", text: t('header.blogs'), isLink: true, icon: <Newspaper className="mr-2 h-4 w-4" /> },
-    { href: "/ai-chat", text: "Asistente Diagzone", isLink: true, icon: <MessageSquareText className="mr-2 h-4 w-4" /> },
+    { href: "/ai-chat", text: "Asistente Diagzone", isLink: true, icon: <MessageSquareText className="mr-2 h-4 w-4" /> }, // Updated Link Text
   ];
 
   useEffect(() => {
@@ -110,17 +103,6 @@ export const Header = () => {
               </kbd>
             </Button>
             <LanguageSwitcher />
-            {isAdmin ? (
-              <Button variant="outline" size="icon" onClick={handleLogout} title="Cerrar sesión">
-                <LogOut className="h-[1.2rem] w-[1.2rem]" />
-              </Button>
-            ) : (
-              <Button asChild variant="outline" size="icon" title="Iniciar sesión">
-                <Link to="/login">
-                  <LogIn className="h-[1.2rem] w-[1.2rem]" />
-                </Link>
-              </Button>
-            )}
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="md:hidden text-muted-foreground hover:text-primary">

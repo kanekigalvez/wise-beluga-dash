@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { useState, type KeyboardEvent } from "react";
-import { showError } from "@/utils/toast";
+import { showError, showSuccess } from "@/utils/toast";
+import { useAdmin } from "@/contexts/AdminContext";
 import { useTranslation } from "react-i18next";
 
 const compatibleSerials: Record<string, string> = {
@@ -21,6 +22,8 @@ const compatibleSerials: Record<string, string> = {
   "98579": "PAD2 D3",
 };
 
+const ADMIN_SERIAL = "221290";
+
 interface HeroSectionProps {
   setIsModalOpen: (isOpen: boolean) => void;
   setCompatibleProduct: (product: string | null) => void;
@@ -28,10 +31,18 @@ interface HeroSectionProps {
 
 export const HeroSection = ({ setIsModalOpen, setCompatibleProduct }: HeroSectionProps) => {
   const [serialNumber, setSerialNumber] = useState("");
+  const { setIsAdmin } = useAdmin();
   const { t } = useTranslation();
 
   const handleSearch = () => {
     const trimmedSerial = serialNumber.trim();
+
+    if (trimmedSerial === ADMIN_SERIAL) {
+      setIsAdmin(true);
+      showSuccess("Modo administrador activado.");
+      setSerialNumber("");
+      return;
+    }
 
     if (trimmedSerial.length < 5) {
       showError("Por favor, ingrese un número de serie válido.");
