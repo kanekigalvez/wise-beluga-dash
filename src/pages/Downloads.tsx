@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { DownloadCard } from "@/components/DownloadCard";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAdmin } from "@/contexts/AdminContext";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
@@ -26,6 +26,8 @@ type DownloadsByCategory = {
   xdiag: Download[];
 };
 
+const DOWNLOADS_STORAGE_KEY = "diagzone_downloads";
+
 // Initial data for local state management
 const initialDownloads: Download[] = [
   { id: "1", title: "VERSIÓN ESTABLE", version: "DIAGZONE_PRO_V2_200027", file_url: "https://download1510.mediafire.com/0021abypkgrgfGYNnDKNeXnb4mtbtlhnvI4f2JBzQTnaVd6ZAy45fxHY-Z9y_oUw8731FPU07zEDO9xHnHwj2FkoJmqoVvGt5I3hK223ZXZYQff4rG74Piy1ZHwuXc1FfUgxGqyFI3zIym5Wd09ip1mqu4S9wlV-iHSK-uAt1Vk/qoy4blfb41b13hg/DIAGZONE_PRO_V2_200027+%282%29.apk", file_name: "DIAGZONE_PRO_V2_200027.apk", category: 'diagzone' },
@@ -35,14 +37,42 @@ const initialDownloads: Download[] = [
   { id: "5", title: "X-DIAG", version: "X-DIAG_V7.00.012-release", file_url: "https://download1527.mediafire.com/h4r73k7ieksgJwOvN2dTWhi0E4AYIu22E7ZLfVgO2snrLmegixsuQJstrHGiMhK_VaUGNh0Emjpui1i8uG_ML8K2zH1zSz3-lfg-wEDmYDVx1VU9zlAs25ZbuJ0x8534BjkFCsW80jMewirPtT4dGBNVsQV28POMHPQ21xXvG1k/rz96qycgkbvvsrb/X-DIAG_V7.00.012-release.apk", file_name: "X-DIAG_V7.00.012-release.apk", category: 'xdiag' },
 ];
 
-let nextId = initialDownloads.length + 1;
+// Function to initialize state from localStorage or default data
+const initializeDownloads = (): Download[] => {
+  try {
+    const storedDownloads = localStorage.getItem(DOWNLOADS_STORAGE_KEY);
+    if (storedDownloads) {
+      return JSON.parse(storedDownloads);
+    }
+  } catch (error) {
+    console.error("Error reading downloads from localStorage:", error);
+  }
+  // If no data or error, use initial data and save it
+  try {
+    localStorage.setItem(DOWNLOADS_STORAGE_KEY, JSON.stringify(initialDownloads));
+  } catch (error) {
+    console.error("Error writing initial downloads to localStorage:", error);
+  }
+  return initialDownloads;
+};
 
 const DownloadsPage = () => {
   const { t } = useTranslation();
   const { isAdmin } = useAdmin();
-  const [allDownloads, setAllDownloads] = useState<Download[]>(initialDownloads);
-  const [loading, setLoading] = useState(false); // No loading state needed for local data
+  const [allDownloads, setAllDownloads] = useState<Download[]>(initializeDownloads);
+  const [loading, setLoading] = useState(false); // Keep loading state for consistency, though not strictly needed for local data
   const [deleteId, setDeleteId] = useState<string | null>(null);
+
+  // Helper to update state and localStorage
+  const updateDownloads = (newDownloads: Download[]) => {
+    setAllDownloads(newDownloads);
+    try {
+      localStorage.setItem(DOWNLOADS_STORAGE_KEY, JSON.stringify(newDownloads));
+    } catch (error) {
+      showError("Error al guardar los cambios en el navegador.");
+      console.error("Error saving downloads to localStorage:", error);
+    }
+  };
 
   const groupDownloads = (downloads: Download[]): DownloadsByCategory => {
     return downloads.reduce((acc, item) => {
@@ -60,22 +90,25 @@ const DownloadsPage = () => {
   const handleSave = (values: Omit<Download, 'id'>, existingId?: string) => {
     if (existingId) {
       // Edit existing download
-      setAllDownloads(prev => prev.map(d => d.id === existingId ? { ...d, ...values } : d));
+      const newDownloads = allDownloads.map(d => d.id === existingId ? { ...d, ...values } : d);
+      updateDownloads(newDownloads);
       showSuccess("¡Actualizado con éxito!");
     } else {
       // Add new download
       const newDownload: Download = {
         ...values,
-        id: String(nextId++),
+        // Generate a unique ID based on current timestamp for new items
+        id: Date.now().toString(), 
       };
-      setAllDownloads(prev => [...prev, newDownload]);
+      updateDownloads([...allDownloads, newDownload]);
       showSuccess("¡Guardado con éxito!");
     }
   };
 
   const handleDelete = () => {
     if (!deleteId) return;
-    setAllDownloads(prev => prev.filter(d => d.id !== deleteId));
+    const newDownloads = allDownloads.filter(d => d.id !== deleteId);
+    updateDownloads(newDownloads);
     showSuccess("¡Eliminado con éxito!");
     setDeleteId(null);
   };
