@@ -4,11 +4,12 @@ import { HeroSection } from "@/components/HeroSection";
 import { CompatibilitySection } from "@/components/CompatibilitySection";
 import { ProductsSection } from "@/components/ProductsSection";
 import { FeaturesSection } from "@/components/FeaturesSection";
+import { SoftwareDevelopmentSection } from "@/components/SoftwareDevelopmentSection";
 import { Footer } from "@/components/Footer";
 import { VideoHeader } from "@/components/VideoHeader";
 import { WhatsAppWidget } from "@/components/WhatsAppWidget";
 import { CompatibilityModal } from "@/components/CompatibilityModal";
-import { AIChatWidget } from "@/components/AIChatWidget"; // Import the new widget
+import { AIChatWidget } from "@/components/AIChatWidget";
 
 const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,6 +31,7 @@ const Index = () => {
         />
         <CompatibilitySection />
         <ProductsSection />
+        <SoftwareDevelopmentSection />
         <FeaturesSection />
       </main>
       <Footer />

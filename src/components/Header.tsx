@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, Search, Car, Download, Home, Wrench, Package, X, Newspaper, MessageSquareText } from "lucide-react";
+import { Menu, Search, Car, Download, Home, Wrench, Package, X, Newspaper, MessageSquareText, Code2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Sheet,
@@ -37,9 +37,10 @@ export const Header = () => {
     { href: "/#inicio", text: t('header.home'), icon: <Home className="mr-2 h-4 w-4" /> },
     { href: "/#productos", text: t('header.connectors'), icon: <Package className="mr-2 h-4 w-4" /> },
     { href: "/#compatibilidad", text: t('header.compatibility'), icon: <Wrench className="mr-2 h-4 w-4" /> },
+    { href: "/#software-dev", text: t('header.software_dev'), icon: <Code2 className="mr-2 h-4 w-4" /> },
     { href: "/downloads", text: t('header.downloads'), isLink: true, icon: <Download className="mr-2 h-4 w-4" /> },
     { href: "/blogs", text: t('header.blogs'), isLink: true, icon: <Newspaper className="mr-2 h-4 w-4" /> },
-    { href: "/ai-chat", text: "Asistente Diagzone", isLink: true, icon: <MessageSquareText className="mr-2 h-4 w-4" /> }, // Updated Link Text
+    { href: "/ai-chat", text: "Asistente Diagzone", isLink: true, icon: <MessageSquareText className="mr-2 h-4 w-4" /> },
   ];
 
   useEffect(() => {

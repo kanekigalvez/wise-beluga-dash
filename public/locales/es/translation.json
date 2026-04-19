@@ -5,7 +5,8 @@
     "compatibility": "Compatibilidad",
     "downloads": "Descargas",
     "search": "Buscar...",
-    "blogs": "Blog"
+    "blogs": "Blog",
+    "software_dev": "Desarrollo de Software"
   },
   "hero": {
     "title": "Diagzone.IO – Primer Asesor IA Especializado en Diagzone",
@@ -82,5 +83,12 @@
     "m-diag": { "name": "M-Diag", "description": "Herramienta de diagnosis pensada para la movilidad." },
     "pro4-d3": { "name": "PRO4 D3", "description": "Escáner diseñado para el uso profesional intensivo." },
     "pad2-d3": { "name": "PAD2 D3", "description": "Tablet de diagnosis con hardware de última generación." }
+  },
+  "software_section": {
+    "title": "Desarrollo de Software Personalizado",
+    "subtitle": "Creamos soluciones tecnológicas a medida para tu negocio.",
+    "custom_button": "¿Interesado en desarrollo de software personalizado?",
+    "web_button": "Venta de desarrollo web",
+    "free_software": "Desarrollo de Software Libre"
   }
 }
