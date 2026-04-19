@@ -64,8 +64,10 @@ export const SoftwareDevelopmentSection = () => {
             <p className="text-muted-foreground mb-6">
               Apoyamos y creamos soluciones basadas en tecnologías abiertas y colaborativas para democratizar el acceso al software de calidad.
             </p>
-            <Button variant="secondary" className="px-8">
-              Explorar Proyectos Libres
+            <Button asChild variant="secondary" className="px-8">
+              <a href="https://novatechvirtualwebs.vercel.app/" target="_blank" rel="noopener noreferrer">
+                Explorar Proyectos Libres
+              </a>
             </Button>
           </div>
         </div>
