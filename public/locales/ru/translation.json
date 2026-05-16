@@ -1,86 +1,120 @@
 {
   "header": {
-    "home": "Главная",
-    "connectors": "Сканеры",
-    "compatibility": "Совместимость",
-    "downloads": "Загрузки",
-    "search": "Поиск...",
+    "home": "Главная"
+    "connectors": "Сканеры"
+    "compatibility": "Совместимость"
+    "downloads": "Загрузки"
+    "search": "Поиск..."
     "blogs": "Блог"
-  },
+  }
   "hero": {
-    "title": "Diagzone.IO – Первый Специализированный ИИ-советник Diagzone",
-    "subtitle": "Единственный ИИ-советник, способный в реальном времени объяснить коды DTC, OEM, совместимость и ошибки коннекторов Launch.",
-    "serial_placeholder": "Введите ваш серийный номер...",
-    "check_button": "Проверить",
+    "title": "Diagzone.IO – Первый Специализированный ИИ-советник Diagzone"
+    "subtitle": "Единственный ИИ-советник, способный в реальном времени объяснить коды DTC, OEM, совместимость и ошибки коннекторов Launch."
+    "serial_placeholder": "Введите ваш серийный номер..."
+    "check_button": "Проверить"
     "products_button": "Посмотреть продукты"
-  },
+  }
   "features": {
-    "title": "Возможности профессионального уровня",
-    "subtitle": "Получите доступ к набору передовых инструментов для диагностики и обслуживания автомобилей.",
-    "feature1_title": "Более 42 сервисных функций",
-    "feature1_desc": "Включает калибровку систем ADAS, программирование IMMO, TPMS и многое другое.",
-    "feature2_title": "Комплексная диагностика систем",
-    "feature2_desc": "Возможность чтения и удаления кодов неисправностей из всех модулей автомобиля.",
-    "feature3_title": "Беспроводная работа по Bluetooth",
-    "feature3_desc": "Полная свобода передвижения благодаря беспроводному соединению с вашим планшетом или телефоном.",
-    "feature4_title": "Поток данных в реальном времени",
+    "title": "Возможности профессионального уровня"
+    "subtitle": "Получите доступ к набору передовых инструментов для диагностики и обслуживания автомобилей."
+    "feature1_title": "Более 42 сервисных функций"
+    "feature1_desc": "Включает калибровку систем ADAS, программирование IMMO, TPMS и многое другое."
+    "feature2_title": "Комплексная диагностика систем"
+    "feature2_desc": "Возможность чтения и удаления кодов неисправностей из всех модулей автомобиля."
+    "feature3_title": "Беспроводная работа по Bluetooth"
+    "feature3_desc": "Полная свобода передвижения благодаря беспроводному соединению с вашим планшетом или телефоном."
+    "feature4_title": "Поток данных в реальном времени"
     "feature4_desc": "Отслеживайте датчики и параметры автомобиля в реальном времени для точного анализа."
-  },
+  }
   "compatibility": {
-    "title": "ШИРОКИЙ ОХВАТ АВТОМОБИЛЕЙ",
-    "main_text": "Наша платформа поддерживает огромный выбор сканеров и VCI на рынке. Мы работаем с <1>12-вольтовыми</1> автомобилями, <1>24-вольтовыми (HD)</1> грузовиками и спецтехникой, и даже с новейшими <1>электромобилями (EV)</1>.",
-    "stat1_label": "Марки 12-вольтовых автомобилей",
-    "stat2_label": "Марки 24-вольтовых автобусов, грузовиков и техники",
-    "stat3_label": "Марки электромобилей (EV)",
+    "title": "ШИРОКИЙ ОХВАТ АВТОМОБИЛЕЙ"
+    "main_text": "Наша платформа поддерживает огромный выбор сканеров и VCI на рынке. Мы работаем с <1>12-вольтовыми</1> автомобилями, <1>24-вольтовыми (HD)</1> грузовиками и спецтехникой, и даже с новейшими <1>электромобилями (EV)</1>."
+    "stat1_label": "Марки 12-вольтовых автомобилей"
+    "stat2_label": "Марки 24-вольтовых автобусов, грузовиков и техники"
+    "stat3_label": "Марки электромобилей (EV)"
     "secondary_text": "Кроме того, программное обеспечение активирует более <1>42 функций обслуживания</1>, калибровки систем <1>ADAS</1>, программирование ключей <1>IMMO</1> y сервис <1>TPMS PROG.</1>"
-  },
+  }
   "downloads_page": {
-    "title": "Центр загрузок",
-    "subtitle": "Получите доступ к ссылкам для загрузки самых последних версий наших приложений.",
-    "diagzone_section": "DiagZone",
-    "xpro_section": "X-PRO",
-    "xdiag_section": "X-DIAG",
-    "stable_version": "СТАБИЛЬНАЯ ВЕРСИЯ",
-    "latest_version": "ПОСЛЕДНЯЯ ВЕРСИЯ",
+    "title": "Центр загрузок"
+    "subtitle": "Получите доступ к ссылкам для загрузки самых последних версий наших приложений."
+    "diagzone_section": "DiagZone"
+    "xpro_section": "X-PRO"
+    "xdiag_section": "X-DIAG"
+    "stable_version": "СТАБИЛЬНАЯ ВЕРСИЯ"
+    "latest_version": "ПОСЛЕДНЯЯ ВЕРСИЯ"
     "download_button": "Скачать"
-  },
+  }
   "products_section": {
-    "title": "Наши совместимые сканеры",
+    "title": "Наши совместимые сканеры"
     "view_all_button": "Посмотреть все сканеры"
-  },
+  }
   "connectors_page": {
-    "title": "Полный каталог сканеров",
-    "subtitle": "Просмотрите весь наш ассортимент совместимых диагностических устройств.",
+    "title": "Полный каталог сканеров"
+    "subtitle": "Просмотрите весь наш ассортимент совместимых диагностических устройств."
     "back_button": "Вернуться на главную"
-  },
+  }
   "product_card": {
-    "view_details_button": "Посмотреть детали",
+    "view_details_button": "Посмотреть детали"
     "view_edit_details_button": "Посмотреть / Редактировать детали"
-  },
+  }
   "footer": {
-    "description": "Комплексное решение для диагностики автомобилей, предлагающее поддержку более 240 марок по всему миру.",
-    "contact": "Контакт",
-    "chat_button": "Связаться с нами",
-    "location": "Международный сервис",
-    "copyright": "© 2024 DiagZone Pro. Все права защищены.",
-    "terms": "Условия обслуживания",
+    "description": "Комплексное решение для диагностики автомобилей, предлагающее поддержку более 240 марок по всему миру."
+    "contact": "Контакт"
+    "chat_button": "Связаться с нами"
+    "location": "Международный сервис"
+    "copyright": "© 2024 DiagZone Pro. Все права защищены."
+    "terms": "Условия обслуживания"
     "privacy": "Политика конфиденциальности"
-  },
-  "products": {
-    "golo-ed": { "name": "Golo ED+", "description": "Высоконадежный Bluetooth VCI для OBD2." },
-    "idiag-for-android": { "name": "iDiag for Android", "description": "Диагностический адаптер, разработанный для систем Android." },
-    "td1": { "name": "TD1", "description": "Диагностическое устройство с передовыми технологиями." },
-    "ed-30": { "name": "ED 3.0", "description": "Диагностический VCI, третье поколение аппаратного обеспечения." },
-    "bt200": { "name": "BT200", "description": "Компактный диагностический инструмент Bluetooth." },
-    "ed-v20": { "name": "ED V2.0", "description": "Диагностический VCI, вторая версия аппаратного обеспечения." },
-    "v": { "name": "V", "description": "Диагностическое устройство общего назначения." },
-    "v-plus": { "name": "V Plus", "description": "Диагностическое устройство с расширенными возможностями." },
-    "topdon": { "name": "TOPDON", "description": "Диагностический сканер, совместимый с несколькими брендами." },
-    "maxgo": { "name": "MaxGo", "description": "Портативное диагностическое решение." },
-    "hd-iv": { "name": "HD IV", "description": "VCI для диагностики грузовиков и тяжелой техники." },
-    "hd-iii": { "name": "HD III", "description": "VCI третьего поколения для тяжелой техники." },
-    "m-diag": { "name": "M-Diag", "description": "Диагностический инструмент, разработанный для мобильности." },
-    "pro4-d3": { "name": "PRO4 D3", "description": "Сканер, созданный для интенсивного профессионального использования." },
+  }
+  
+    "golo-ed": { "name": "Golo ED+", "description": "Высоконадежный Bluetooth VCI для OBD2." }
+    "idiag-for-android": { "name": "iDiag for Android", "description": "Диагностический адаптер, разработанный для систем Android." }
+    "td1": { "name": "TD1", "description": "Диагностическое устройство с передовыми технологиями." }
+    "ed-30": { "name": "ED 3.0", "description": "Диагностический VCI, третье поколение аппаратного обеспечения." }
+    "bt200": { "name": "BT200", "description": "Компактный диагностический инструмент Bluetooth." }
+    "ed-v20": { "name": "ED V2.0", "description": "Диагностический VCI, вторая версия аппаратного обеспечения." }
+    "v": { "name": "V", "description": "Диагностическое устройство общего назначения." }
+    "v-plus": { "name": "V Plus", "description": "Диагностическое устройство с расширенными возможностями." }
+    "topdon": { "name": "TOPDON", "description": "Диагностический сканер, совместимый с несколькими брендами." }
+    "maxgo": { "name": "MaxGo", "description": "Портативное диагностическое решение." }
+    "hd-iv": { "name": "HD IV", "description": "VCI для диагностики грузовиков и тяжелой техники." }
+    "hd-iii": { "name": "HD III", "description": "VCI третьего поколения для тяжелой техники." }
+    "m-diag": { "name": "M-Diag", "description": "Диагностический инструмент, разработанный для мобильности." }
+    "pro4-d3": { "name": "PRO4 D3", "description": "Сканер, созданный для интенсивного профессионального использования." }
     "pad2-d3": { "name": "PAD2 D3", "description": "Диагностический планшет с аппаратным обеспечением последнего поколения." }
   }
+},
+  "products": {
+    "dbscar": { "name": "DBScar", "description": "Escáner de diagnóstico OBD2 compacto y fiable." },
+    "dbscar-ds201": { "name": "DBScar 2 (DS 201)", "description": "Segunda generación del escáner DBScar con mayor cobertura." },
+    "dbscar-ds301": { "name": "DBScar 3 (DS 301)", "description": "Tercera generación del escáner DBScar con funciones avanzadas." },
+    "easydiag": { "name": "EasyDiag", "description": "Adaptador de diagnóstico Bluetooth para smartphones." },
+    "easydiag-20": { "name": "EasyDiag 2.0", "description": "Segunda versión del EasyDiag con mejoras de conectividad." },
+    "easydiag-30": { "name": "EasyDiag 3.0", "description": "Tercera versión del EasyDiag con soporte ampliado." },
+    "icarscan": { "name": "iCarScan", "description": "Escáner inalámbrico compatible con iOS y Android." },
+    "idiag": { "name": "iDiag", "description": "Adaptador de diagnóstico compacto para dispositivos móviles." },
+    "golo-easydiag": { "name": "Golo EasyDiag", "description": "VCI Bluetooth de alta fiabilidad para diagnóstico OBD2." },
+    "golo-30": { "name": "Golo 3.0", "description": "Interfaz de diagnóstico Golo de tercera generación." },
+    "golo-carcare": { "name": "Golo CarCare 1", "description": "Herramienta de diagnóstico y mantenimiento vehicular." },
+    "diagun-iv": { "name": "DIAGUN 4 (IV)", "description": "Escáner portátil profesional de cuarta generación." },
+    "x431-pad-vii": { "name": "X431 PAD VII", "description": "Tablet de diagnóstico profesional de séptima generación." },
+    "x431-pro": { "name": "X431 PRO", "description": "Escáner profesional con cobertura completa de sistemas." },
+    "x431-pro-3": { "name": "X431 PRO 3", "description": "Tercera versión del X431 PRO con funciones mejoradas." },
+    "x431-pro-5": { "name": "X431 PRO 5", "description": "X431 PRO de quinta generación con hardware de última tecnología." },
+    "x431-pro-gt": { "name": "X431 PRO GT", "description": "Versión GT del X431 PRO para diagnóstico de alto rendimiento." },
+    "x431-immo-pro": { "name": "X431 IMMO PRO", "description": "Especializado en programación de llaves e inmovilizadores." },
+    "x431-immo-pro-v2": { "name": "X431 IMMO PRO v2", "description": "Segunda versión del programador IMMO con mayor compatibilidad." },
+    "x431-pro-lite": { "name": "X431 PRO Lite", "description": "Versión compacta del X431 PRO para uso profesional." },
+    "x431-pro-lite-20": { "name": "X431 PRO Lite 2.0", "description": "Segunda generación del X431 PRO Lite con mejoras de software." },
+    "x431-pro-lite-30": { "name": "X431 PRO Lite 3.0", "description": "Tercera generación del X431 PRO Lite con soporte ampliado." },
+    "x431-pro-v5-prog3": { "name": "X431 PRO V5.0 PROG3", "description": "X431 PRO V5 con programador PROG3 integrado." },
+    "x431-hd-box": { "name": "X431 HD BOX", "description": "Caja de diagnóstico para vehículos pesados de 24V." },
+    "x431-hd-box-v2": { "name": "X431 HD BOX v2", "description": "Segunda versión de la caja HD para camiones y maquinaria." },
+    "x431-hd-box-ii": { "name": "X431 HD BOX II", "description": "Segunda generación del módulo HD con mayor cobertura." },
+    "x431-hd-box-iii": { "name": "X431 HD BOX III", "description": "Tercera generación del módulo HD para vehículos pesados." },
+    "crp-329": { "name": "CRP 329", "description": "Escáner de diagnóstico multimarca con funciones de servicio." },
+    "crp-339": { "name": "CRP 339", "description": "CRP 339 con soporte ampliado y funciones avanzadas." },
+    "crp-919": { "name": "CRP 919", "description": "Escáner de gama alta con pantalla táctil y wifi integrado." }
+  }
+}
 }
