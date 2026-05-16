@@ -1,129 +1,110 @@
 {
   "header": {
-    "home": "Inicio"
-    "connectors": "Escáneres"
-    "compatibility": "Compatibilidad"
-    "downloads": "Descargas"
-    "search": "Buscar..."
-    "blogs": "Blog"
-    "software_custom": "Software Personalizado"
+    "home": "Inicio",
+    "connectors": "Escáneres",
+    "compatibility": "Compatibilidad",
+    "downloads": "Descargas",
+    "search": "Buscar escáner, marca o modelo...",
+    "blogs": "Blog",
+    "software_custom": "Software Personalizado",
     "software_free": "Software Libre"
-  }
+  },
   "hero": {
-    "title": "Diagzone.IO – Primer Asesor IA Especializado en Diagzone"
-    "subtitle": "El único asesor IA capaz de explicar códigos DTC, OEM y errores de conectores Launch en tiempo real. ¡Pruébalo gratis! También vendemos licencias Diagzone."
-    "serial_placeholder": "Ingrese su número de serie..."
-    "check_button": "Verificar"
-    "products_button": "Ver Productos"
-  }
+    "title": "Diagzone.io – El Escáner de Diagnóstico Que Tu Taller Necesita",
+    "subtitle": "Venta de escáneres Launch, EasyDiag, Golo y más. IA especializada para diagnosticar cualquier vehículo en segundos. Más de 240 marcas compatibles. ¡Compra hoy y diagnostica hoy!",
+    "serial_placeholder": "Ingresa tu número de serie para verificar compatibilidad...",
+    "check_button": "Verificar Ahora",
+    "products_button": "Ver Escáneres Disponibles"
+  },
   "features": {
-    "title": "Capacidades de Nivel Profesional"
-    "subtitle": "Accede a un conjunto de herramientas de vanguardia para la diagnosis y el mantenimiento de vehículos."
-    "feature1_title": "Más de 42 Funciones de Servicio"
-    "feature1_desc": "Incluye calibración de sistemas ADAS, programación IMMO, TPMS y mucho más."
-    "feature2_title": "Diagnóstico Integral de Sistemas"
-    "feature2_desc": "Capacidad para leer y eliminar códigos de error en todos los módulos del vehículo."
-    "feature3_title": "Operación Inalámbrica Bluetooth"
-    "feature3_desc": "Total libertad de movimiento gracias a la conexión sin cables con tu tablet o móvil."
-    "feature4_title": "Visualización de Datos en Vivo"
-    "feature4_desc": "Supervisa los sensores y parámetros del vehículo en tiempo real para un análisis preciso."
-  }
+    "title": "Por Qué Los Mejores Talleres Eligen Diagzone",
+    "subtitle": "Tecnología profesional de diagnóstico vehicular al alcance de tu taller. Sin complicaciones, sin límites.",
+    "feature1_title": "Más de 42 Funciones de Servicio",
+    "feature1_desc": "Calibración ADAS, programación IMMO, TPMS, restablecimiento de aceite y mucho más. Todo en un solo escáner.",
+    "feature2_title": "Diagnóstico Total del Vehículo",
+    "feature2_desc": "Lee y borra códigos DTC en TODOS los módulos: motor, ABS, airbag, transmisión, y más. Nada se te escapa.",
+    "feature3_title": "100% Inalámbrico Bluetooth",
+    "feature3_desc": "Trabaja con total libertad. Conéctate desde tu tablet o móvil sin cables. Diagnóstico profesional desde cualquier posición.",
+    "feature4_title": "Datos en Tiempo Real",
+    "feature4_desc": "Visualiza sensores y parámetros del vehículo en vivo. Detecta fallas antes de que se conviertan en averías costosas."
+  },
   "compatibility": {
-    "title": "AMPLIA COBERTURA DE VEHÍCULOS"
-    "main_text": "Nuestra plataforma es compatible con una extensa selección de escáneres y VCI del mercado. Damos soporte a vehículos de <1>12 Voltios</1>, camiones y maquinaria pesada de <1>24 Voltios (HD)</1>, e incluso los más modernos coches <1>Eléctricos (EV)</1>."
-    "stat1_label": "Marcas de vehículos de 12V"
-    "stat2_label": "Marcas de autobuses, camiones y maquinaria 24V"
-    "stat3_label": "Marcas de coches Eléctricos (EV)"
-    "secondary_text": "Adicionalmente, el software activa más de <1>42 funciones de mantenimiento</1>, calibraciones de sistemas <1>ADAS</1>, programación de llaves <1>IMMO</1> y servicio <1>TPMS PROG.</1>"
-  }
+    "title": "COBERTURA TOTAL: 12V, 24V Y ELÉCTRICOS",
+    "main_text": "Nuestros escáneres son compatibles con la mayor selección de vehículos del mercado. Diagnostica autos de <1>12 Voltios</1>, camiones y maquinaria pesada de <1>24 Voltios (HD)</1>, y los últimos modelos de coches <1>Eléctricos (EV)</1>.",
+    "stat1_label": "Marcas de vehículos 12V cubiertas",
+    "stat2_label": "Marcas de camiones y maquinaria 24V",
+    "stat3_label": "Marcas de vehículos eléctricos (EV)",
+    "secondary_text": "Además incluye más de <1>42 funciones especiales de taller</1>, calibración de sistemas <1>ADAS</1>, programación de llaves <1>IMMO</1> y servicio <1>TPMS PROG.</1>"
+  },
   "downloads_page": {
-    "title": "Centro de Descargas"
-    "subtitle": "Acceda a los enlaces para descargar las versiones más recientes de nuestras aplicaciones."
-    "diagzone_section": "DiagZone"
-    "xpro_section": "X-PRO"
-    "xdiag_section": "X-DIAG"
-    "stable_version": "VERSIÓN ESTABLE"
-    "latest_version": "ÚLTIMA VERSIÓN"
-    "download_button": "Descargar"
-  }
+    "title": "Centro de Descargas Diagzone",
+    "subtitle": "Descarga la última versión de la app Diagzone y mantén tu escáner siempre actualizado.",
+    "diagzone_section": "DiagZone",
+    "xpro_section": "X-PRO",
+    "xdiag_section": "X-DIAG",
+    "stable_version": "VERSIÓN ESTABLE",
+    "latest_version": "ÚLTIMA VERSIÓN",
+    "download_button": "Descargar Gratis"
+  },
   "products_section": {
-    "title": "Nuestros Escáneres Compatibles"
-    "view_all_button": "Ver todos los escáneres"
-  }
+    "title": "Escáneres Disponibles – Envío Inmediato",
+    "view_all_button": "Ver Catálogo Completo de Escáneres"
+  },
   "connectors_page": {
-    "title": "Catálogo Completo de Escáneres"
-    "subtitle": "Navegue por toda nuestra selección de dispositivos de diagnóstico compatibles."
+    "title": "Catálogo Completo de Escáneres Diagzone",
+    "subtitle": "Encuentra el escáner ideal para tu taller. Todos compatibles con Diagzone. Asesoría gratuita por WhatsApp.",
     "back_button": "Volver al Inicio"
-  }
+  },
   "product_card": {
-    "view_details_button": "Ver Detalles"
+    "view_details_button": "Ver Detalles y Precio",
     "view_edit_details_button": "Ver / Editar Detalles"
-  }
+  },
   "footer": {
-    "description": "Solución integral para el diagnóstico de vehículos, ofreciendo cobertura para más de 240 marcas a nivel mundial."
-    "contact": "Contacto"
-    "chat_button": "Chatea con nosotros"
-    "location": "Servicio Internacional"
-    "copyright": "© 2024 DiagZone Pro. Todos los derechos reservados."
-    "terms": "Términos de servicio"
+    "description": "Diagzone.io – Líder en venta de escáneres de diagnóstico vehicular profesional. Compatible con más de 240 marcas. Soporte técnico incluido.",
+    "contact": "Contacto y Ventas",
+    "chat_button": "Hablar con un Asesor",
+    "location": "Servicio Internacional",
+    "copyright": "© 2024 DiagZone Pro. Todos los derechos reservados.",
+    "terms": "Términos de servicio",
     "privacy": "Política de privacidad"
-  }
-  
-    "golo-ed": { "name": "Golo ED+", "description": "Interfaz VCI Bluetooth de alta fiabilidad para OBD2." }
-    "idiag-for-android": { "name": "iDiag for Android", "description": "Adaptador de diagnóstico diseñado para sistemas Android." }
-    "td1": { "name": "TD1", "description": "Dispositivo de diagnóstico con tecnología avanzada." }
-    "ed-30": { "name": "ED 3.0", "description": "VCI de diagnóstico, tercera evolución del hardware." }
-    "bt200": { "name": "BT200", "description": "Herramienta de diagnosis Bluetooth de tamaño reducido." }
-    "ed-v20": { "name": "ED V2.0", "description": "VCI de diagnóstico, segunda versión de hardware." }
-    "v": { "name": "V", "description": "Dispositivo de diagnóstico de uso general." }
-    "v-plus": { "name": "V Plus", "description": "Dispositivo de diagnóstico con capacidades extendidas." }
-    "topdon": { "name": "TOPDON", "description": "Escáner de diagnosis compatible con múltiples marcas." }
-    "maxgo": { "name": "MaxGo", "description": "Solución de diagnóstico para llevar a cualquier parte." }
-    "hd-iv": { "name": "HD IV", "description": "VCI para diagnóstico de camiones y maquinaria pesada." }
-    "hd-iii": { "name": "HD III", "description": "Tercera generación de VCI para vehículos pesados." }
-    "m-diag": { "name": "M-Diag", "description": "Herramienta de diagnosis pensada para la movilidad." }
-    "pro4-d3": { "name": "PRO4 D3", "description": "Escáner diseñado para el uso profesional intensivo." }
-    "pad2-d3": { "name": "PAD2 D3", "description": "Tablet de diagnosis con hardware de última generación." }
-  }
+  },
   "software_section": {
-    "title": "Desarrollo de Software Personalizado"
-    "subtitle": "Creamos soluciones tecnológicas a medida para tu negocio."
-    "custom_button": "¿Interesado en desarrollo de software personalizado?"
-    "web_button": "Venta de desarrollo web"
-    "free_software": "Desarrollo de Software Libre"
-  }
-},
+    "title": "Desarrollo de Software a Medida para Tu Negocio",
+    "subtitle": "Sistemas de gestión, plataformas web y soluciones tecnológicas diseñadas para hacer crecer tu taller o empresa.",
+    "custom_button": "Quiero un Software Personalizado",
+    "web_button": "Desarrollo Web Profesional",
+    "free_software": "También Apoyamos el Software Libre"
+  },
   "products": {
-    "dbscar": { "name": "DBScar", "description": "Escáner de diagnóstico OBD2 compacto y fiable." },
-    "dbscar-ds201": { "name": "DBScar 2 (DS 201)", "description": "Segunda generación del escáner DBScar con mayor cobertura." },
-    "dbscar-ds301": { "name": "DBScar 3 (DS 301)", "description": "Tercera generación del escáner DBScar con funciones avanzadas." },
-    "easydiag": { "name": "EasyDiag", "description": "Adaptador de diagnóstico Bluetooth para smartphones." },
-    "easydiag-20": { "name": "EasyDiag 2.0", "description": "Segunda versión del EasyDiag con mejoras de conectividad." },
-    "easydiag-30": { "name": "EasyDiag 3.0", "description": "Tercera versión del EasyDiag con soporte ampliado." },
-    "icarscan": { "name": "iCarScan", "description": "Escáner inalámbrico compatible con iOS y Android." },
-    "idiag": { "name": "iDiag", "description": "Adaptador de diagnóstico compacto para dispositivos móviles." },
-    "golo-easydiag": { "name": "Golo EasyDiag", "description": "VCI Bluetooth de alta fiabilidad para diagnóstico OBD2." },
-    "golo-30": { "name": "Golo 3.0", "description": "Interfaz de diagnóstico Golo de tercera generación." },
-    "golo-carcare": { "name": "Golo CarCare 1", "description": "Herramienta de diagnóstico y mantenimiento vehicular." },
-    "diagun-iv": { "name": "DIAGUN 4 (IV)", "description": "Escáner portátil profesional de cuarta generación." },
-    "x431-pad-vii": { "name": "X431 PAD VII", "description": "Tablet de diagnóstico profesional de séptima generación." },
-    "x431-pro": { "name": "X431 PRO", "description": "Escáner profesional con cobertura completa de sistemas." },
-    "x431-pro-3": { "name": "X431 PRO 3", "description": "Tercera versión del X431 PRO con funciones mejoradas." },
-    "x431-pro-5": { "name": "X431 PRO 5", "description": "X431 PRO de quinta generación con hardware de última tecnología." },
-    "x431-pro-gt": { "name": "X431 PRO GT", "description": "Versión GT del X431 PRO para diagnóstico de alto rendimiento." },
-    "x431-immo-pro": { "name": "X431 IMMO PRO", "description": "Especializado en programación de llaves e inmovilizadores." },
-    "x431-immo-pro-v2": { "name": "X431 IMMO PRO v2", "description": "Segunda versión del programador IMMO con mayor compatibilidad." },
-    "x431-pro-lite": { "name": "X431 PRO Lite", "description": "Versión compacta del X431 PRO para uso profesional." },
-    "x431-pro-lite-20": { "name": "X431 PRO Lite 2.0", "description": "Segunda generación del X431 PRO Lite con mejoras de software." },
-    "x431-pro-lite-30": { "name": "X431 PRO Lite 3.0", "description": "Tercera generación del X431 PRO Lite con soporte ampliado." },
-    "x431-pro-v5-prog3": { "name": "X431 PRO V5.0 PROG3", "description": "X431 PRO V5 con programador PROG3 integrado." },
-    "x431-hd-box": { "name": "X431 HD BOX", "description": "Caja de diagnóstico para vehículos pesados de 24V." },
-    "x431-hd-box-v2": { "name": "X431 HD BOX v2", "description": "Segunda versión de la caja HD para camiones y maquinaria." },
-    "x431-hd-box-ii": { "name": "X431 HD BOX II", "description": "Segunda generación del módulo HD con mayor cobertura." },
-    "x431-hd-box-iii": { "name": "X431 HD BOX III", "description": "Tercera generación del módulo HD para vehículos pesados." },
-    "crp-329": { "name": "CRP 329", "description": "Escáner de diagnóstico multimarca con funciones de servicio." },
-    "crp-339": { "name": "CRP 339", "description": "CRP 339 con soporte ampliado y funciones avanzadas." },
-    "crp-919": { "name": "CRP 919", "description": "Escáner de gama alta con pantalla táctil y wifi integrado." }
+    "dbscar": { "name": "DBScar", "description": "Escáner OBD2 compacto y profesional. Ideal para diagnóstico rápido de vehículos de 12V." },
+    "dbscar-ds201": { "name": "DBScar 2 (DS 201)", "description": "Segunda generación del DBScar con mayor cobertura de marcas y funciones de servicio." },
+    "dbscar-ds301": { "name": "DBScar 3 (DS 301)", "description": "DBScar de tercera generación. Diagnóstico avanzado con soporte ampliado." },
+    "easydiag": { "name": "EasyDiag", "description": "El escáner Bluetooth más vendido. Conéctalo a tu móvil y diagnostica al instante." },
+    "easydiag-20": { "name": "EasyDiag 2.0", "description": "EasyDiag de segunda generación con mejor conectividad y más marcas soportadas." },
+    "easydiag-30": { "name": "EasyDiag 3.0", "description": "La versión más avanzada del EasyDiag. Máxima cobertura y velocidad de diagnóstico." },
+    "icarscan": { "name": "iCarScan", "description": "Compatible con iOS y Android. Diagnóstico profesional desde tu smartphone sin complicaciones." },
+    "idiag": { "name": "iDiag", "description": "Adaptador compacto de diagnóstico. Pequeño en tamaño, grande en capacidad." },
+    "golo-easydiag": { "name": "Golo EasyDiag", "description": "VCI Bluetooth Golo de alta fiabilidad. El preferido de los talleres profesionales." },
+    "golo-30": { "name": "Golo 3.0", "description": "Tercera generación Golo con soporte mejorado y conexión más estable." },
+    "golo-carcare": { "name": "Golo CarCare 1", "description": "Solución completa de diagnóstico y mantenimiento vehicular en un solo dispositivo." },
+    "diagun-iv": { "name": "DIAGUN 4 (IV)", "description": "Escáner portátil profesional de cuarta generación. Robusto, rápido y completo." },
+    "x431-pad-vii": { "name": "X431 PAD VII", "description": "La tablet de diagnóstico más avanzada de Launch. Séptima generación con pantalla premium." },
+    "x431-pro": { "name": "X431 PRO", "description": "El escáner profesional por excelencia. Cobertura completa de todos los sistemas del vehículo." },
+    "x431-pro-3": { "name": "X431 PRO 3", "description": "X431 PRO de tercera generación. Más rápido, más funciones, misma confiabilidad." },
+    "x431-pro-5": { "name": "X431 PRO 5", "description": "Quinta generación del X431 PRO con hardware de última tecnología y WiFi integrado." },
+    "x431-pro-gt": { "name": "X431 PRO GT", "description": "Versión de alto rendimiento del X431 PRO. El favorito de los técnicos exigentes." },
+    "x431-immo-pro": { "name": "X431 IMMO PRO", "description": "Especialista en programación de llaves e inmovilizadores. Ahorra miles en cada servicio IMMO." },
+    "x431-immo-pro-v2": { "name": "X431 IMMO PRO v2", "description": "Segunda versión del programador IMMO con compatibilidad ampliada y más fabricantes." },
+    "x431-pro-lite": { "name": "X431 PRO Lite", "description": "La potencia del X431 PRO en un formato compacto. Perfecto para talleres en crecimiento." },
+    "x431-pro-lite-20": { "name": "X431 PRO Lite 2.0", "description": "X431 PRO Lite de segunda generación con software mejorado y actualizaciones gratuitas." },
+    "x431-pro-lite-30": { "name": "X431 PRO Lite 3.0", "description": "La evolución del X431 PRO Lite. Mayor cobertura y funciones especiales incluidas." },
+    "x431-pro-v5-prog3": { "name": "X431 PRO V5.0 PROG3", "description": "X431 PRO V5 con programador PROG3 integrado. Todo en uno para el taller profesional." },
+    "x431-hd-box": { "name": "X431 HD BOX", "description": "Módulo HD para diagnóstico de camiones y maquinaria pesada de 24V. Indispensable." },
+    "x431-hd-box-v2": { "name": "X431 HD BOX v2", "description": "Segunda versión del módulo HD con mayor cobertura de marcas de vehículos pesados." },
+    "x431-hd-box-ii": { "name": "X431 HD BOX II", "description": "HD BOX de segunda generación. Diagnóstico profesional para flota y transporte pesado." },
+    "x431-hd-box-iii": { "name": "X431 HD BOX III", "description": "La versión más completa del módulo HD. Cobertura total para vehículos de 24V." },
+    "crp-329": { "name": "CRP 329", "description": "Escáner multimarca con funciones de servicio integradas. Relación calidad-precio insuperable." },
+    "crp-339": { "name": "CRP 339", "description": "CRP 339 con soporte ampliado. Diagnóstico completo de motor, ABS, airbag y transmisión." },
+    "crp-919": { "name": "CRP 919", "description": "Escáner de gama alta con pantalla táctil, WiFi y actualizaciones automáticas incluidas." }
   }
-}
 }
