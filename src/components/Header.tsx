@@ -18,13 +18,20 @@ import {
 } from "@/components/ui/command";
 import { slugify } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
-import { LanguageSwitcher } from "./LanguageSwitcher";
 
 const allProducts = [
-    { name: "Golo ED+" }, { name: "iDiag for Android" }, { name: "TD1" },
-    { name: "ED 3.0" }, { name: "BT200" }, { name: "ED V2.0" }, { name: "V" },
-    { name: "V Plus" }, { name: "TOPDON" }, { name: "MaxGo" }, { name: "HD IV" },
-    { name: "HD III" }, { name: "M-Diag" }, { name: "PRO4 D3" }, { name: "PAD2 D3" },
+  { name: "DBScar" }, { name: "DBScar 2 (DS 201)" }, { name: "DBScar 3 (DS 301)" },
+  { name: "EasyDiag" }, { name: "EasyDiag 2.0" }, { name: "EasyDiag 3.0" },
+  { name: "iCarScan" }, { name: "iDiag" },
+  { name: "Golo EasyDiag" }, { name: "Golo 3.0" }, { name: "Golo CarCare 1" },
+  { name: "DIAGUN 4 (IV)" },
+  { name: "X431 PAD VII" }, { name: "X431 PRO" }, { name: "X431 PRO 3" },
+  { name: "X431 PRO 5" }, { name: "X431 PRO GT" },
+  { name: "X431 IMMO PRO" }, { name: "X431 IMMO PRO v2" },
+  { name: "X431 PRO Lite" }, { name: "X431 PRO Lite 2.0" }, { name: "X431 PRO Lite 3.0" },
+  { name: "X431 PRO V5.0 PROG3" },
+  { name: "X431 HD BOX" }, { name: "X431 HD BOX v2" }, { name: "X431 HD BOX II" }, { name: "X431 HD BOX III" },
+  { name: "CRP 329" }, { name: "CRP 339" }, { name: "CRP 919" },
 ];
 
 export const Header = () => {
@@ -104,7 +111,6 @@ export const Header = () => {
                 <span className="text-xs">⌘</span>K
               </kbd>
             </Button>
-            <LanguageSwitcher />
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="md:hidden text-muted-foreground hover:text-primary">
@@ -135,7 +141,7 @@ export const Header = () => {
         </div>
       </header>
       <CommandDialog open={isSearchOpen} onOpenChange={setIsSearchOpen}>
-        <CommandInput placeholder="Escribe un comando o busca..." />
+        <CommandInput placeholder="Busca tu escáner Launch, EasyDiag, Golo..." />
         <CommandList>
           <CommandEmpty>No se encontraron resultados.</CommandEmpty>
           <CommandGroup heading="Navegación">
@@ -146,7 +152,7 @@ export const Header = () => {
               </CommandItem>
             ))}
           </CommandGroup>
-          <CommandGroup heading="Conectores">
+          <CommandGroup heading="Escáneres">
             {allProducts.map(product => (
               <CommandItem key={product.name} onSelect={() => handleNavigation(`/connectors#${slugify(product.name)}`)}>
                 <Car className="mr-2 h-4 w-4" />
